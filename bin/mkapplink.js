@@ -4,11 +4,11 @@
 // symlink in your project's main node_modules folder that points to
 // the root of your project's directory.
 
-const chalk = require('chalk')
-const fs = require('fs')
-const {resolve} = require('path')
+const chalk = require('chalk');
+const fs = require('fs');
+const {resolve} = require('path');
 
-const appLink = resolve(__dirname, '..', 'node_modules', 'APP')
+const appLink = resolve(__dirname, '..', 'node_modules', 'APP');
 
 const symlinkError = error =>
 `*******************************************************************
@@ -27,35 +27,35 @@ You might try this:
 Then run me again.
 
   ~ xoxo, bones
-********************************************************************`
+********************************************************************`;
 
 function makeAppSymlink() {
-  console.log(`Linking '${appLink}' to '..'`)
+  console.log(`Linking '${appLink}' to '..'`);
   try {
     // fs.unlinkSync docs: https://nodejs.org/api/fs.html#fs_fs_unlinksync_path
-    try { fs.unlinkSync(appLink) } catch (swallowed) { } // eslint-disable-line no-empty
+    try { fs.unlinkSync(appLink); } catch (swallowed) { } // eslint-disable-line no-empty
     // fs.symlinkSync docs: https://nodejs.org/api/fs.html#fs_fs_symlinksync_target_path_type
-    fs.symlinkSync('..', appLink, 'dir')
+    fs.symlinkSync('..', appLink, 'dir');
   } catch (error) {
-    console.error(chalk.red(symlinkError(error)))
+    console.error(chalk.red(symlinkError(error)));
     // process.exit docs: https://nodejs.org/api/process.html#process_process_exit_code
-    process.exit(1)
+    process.exit(1);
   }
-  console.log(`Ok, created ${appLink}`)
+  console.log(`Ok, created ${appLink}`);
 }
 
 function ensureAppSymlink() {
   try {
     // readlinkSync docs: https://nodejs.org/api/fs.html#fs_fs_readlinksync_path_options
-    const currently = fs.readlinkSync(appLink)
+    const currently = fs.readlinkSync(appLink);
     if (currently !== '..') {
-      throw new Error(`${appLink} is pointing to '${currently}' rather than '..'`)
+      throw new Error(`${appLink} is pointing to '${currently}' rather than '..'`);
     }
   } catch (error) {
-    makeAppSymlink()
+    makeAppSymlink();
   }
 }
 
 if (module === require.main) {
-  ensureAppSymlink()
+  ensureAppSymlink();
 }

@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 export default class BonesJokes extends Component {
   componentDidMount() {
-    this.nextJoke()
+    this.nextJoke();
   }
 
   nextJoke = () =>
@@ -15,22 +15,22 @@ export default class BonesJokes extends Component {
     this.setState({answered: true})
 
   render() {
-    if (!this.state) { return null }
+    if (!this.state) { return null; }
 
-    const {joke, answered} = this.state
+    const {joke, answered} = this.state;
     return (
       <div onClick={answered ? this.nextJoke : this.answer}>
         <h1>{joke.question}</h1>
         {answered && <h2>{joke.answer}</h2>}
         <cite>~xoxo, bones</cite>
       </div>
-    )
+    );
   }
 }
 
 function randomJoke() {
   // eslint-disable-next-line no-use-before-define
-  return jokes[Math.floor(Math.random() * jokes.length)]
+  return jokes[Math.floor(Math.random() * jokes.length)];
 }
 
 const jokes = `Q: Who won the skeleton beauty contest?
@@ -153,4 +153,4 @@ A: Tickle his funny bone!`
       ? [...all, {question: row}]
       : [...all.slice(0, all.length - 1), Object.assign({answer: row}, all[all.length - 1])]
     ), []
-  )
+  );
