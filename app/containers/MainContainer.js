@@ -1,16 +1,19 @@
-// This is our main wrapper that every page within the website will be contained within
-
 import React from 'react';
+import WrapperContainer from './WrapperContainer';
 
-export default class WrapperContainer extends React.Component{
+export default class MainContainer extends React.Component{
+	constructor(props){
+		super(props);
+	}
+
+//RENDER FUNCTION
 	render(){
 		return (
-			<div id="Wrapper">
-				<div id="Header">
-					<h1 style={{display: 'inline'}}>Welome {/* NAME GOES HERE!!!!!!!!!!!!!*/}!</h1>
-					<button type="button" id="cart" style={{display: 'inline'}} >CART!!!</button>
-				</div>
+			<div>
+				<WrapperContainer />
+				{ this.props.children }
 		  </div>
 		 );
 	}
 }
+
