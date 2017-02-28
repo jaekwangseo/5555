@@ -15,6 +15,25 @@ const User = db.define('users', {
 			notEmpty: true,
 		}
   },
+  rating: {
+    type: Sequelize.ENUM,
+    values: [1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0]
+  },
+  admin: {
+    type: Sequelize.BOOLEAN
+  },
+  active: {
+    type: Sequelize.BOOLEAN
+  },
+  url: {
+    type: Sequelize.STRING,
+    validate: {
+      isUrl: true
+    }
+  },
+  description: {
+    type: Sequelize.TEXT
+  },
 
   // We support oauth, so users may or may not have passwords.
   password_digest: Sequelize.STRING, // This column stores the hashed password in the DB, via the beforeCreate/beforeUpdate hooks
