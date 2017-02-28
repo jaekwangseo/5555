@@ -13,9 +13,9 @@ const OrderItem = require('./order-item');
 OAuth.belongsTo(User);
 User.hasOne(OAuth);
 
-Item.belongsTo(User, {as: 'seller_id'});
+Item.belongsTo(User, {as: 'seller'});
 
-Order.belongsTo(User, {as: 'buyer_id'});
+Order.belongsTo(User, {as: 'buyer'});
 Item.belongsToMany(Order, { through: OrderItem});
 Order.belongsToMany(Item, { through: OrderItem});
 
