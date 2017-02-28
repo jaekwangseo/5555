@@ -8,25 +8,13 @@ import store from './store';
 import Jokes from './components/Jokes';
 import Login from './components/Login';
 import WhoAmI from './components/WhoAmI';
-
-const ExampleApp = connect(
-  ({ auth }) => ({ user: auth })
-)(
-  ({ user, children }) =>
-    <div>
-      <nav>
-        {user ? <WhoAmI /> : <Login />}
-      </nav>
-      {children}
-    </div>
-);
+import MainContainer from './containers/MainContainer';
 
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={ExampleApp}>
-        <IndexRedirect to="/jokes" />
-        <Route path="/jokes" component={Jokes} />
+      <Route path="/" component={MainContainer}>
+        <Route path="jokes" component={Jokes} />
       </Route>
     </Router>
   </Provider>,
