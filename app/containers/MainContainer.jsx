@@ -2,6 +2,7 @@
 
 import React from 'react';
 import WrapperContainer from './WrapperContainer';
+import ItemsContainer from './ItemsContainer';
 
 export default class MainContainer extends React.Component{
 	constructor(props){

@@ -9,11 +9,14 @@ import Jokes from './components/Jokes';
 import Login from './components/Login';
 import WhoAmI from './components/WhoAmI';
 import MainContainer from './containers/MainContainer';
+import ItemsContainer from './containers/ItemsContainer';
 
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={MainContainer}>
+        <IndexRedirect to="home" />
+        <Route path="home" component={ItemsContainer} />
         <Route path="jokes" component={Jokes} />
       </Route>
     </Router>
