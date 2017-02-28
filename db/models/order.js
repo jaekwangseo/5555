@@ -10,8 +10,8 @@ const Order = db.define('orders', {
     type: Sequelize.DATE
   },
   status: {
-    type: Sequelize.ENUM,
-    values: ['cancelled', 'completed', 'processing']
+    type: Sequelize.STRING,
+    defaultValue: 'processing'
   }
 
 
