@@ -1,12 +1,14 @@
+// This is the Container that holds all other containers and components (a.k.a. root container)
+
 import React from 'react';
 import WrapperContainer from './WrapperContainer';
+import ItemsContainer from './ItemsContainer';
 
 export default class MainContainer extends React.Component{
 	constructor(props){
 		super(props);
 	}
 
-//RENDER FUNCTION
 	render(){
 		return (
 			<div>
@@ -16,4 +18,3 @@ export default class MainContainer extends React.Component{
 		 );
 	}
 }
-
