@@ -5,16 +5,29 @@ const Item = db.model('items');
 
 const {mustBeLoggedIn, forbidden} = require('./auth.filters');
 
-module.exports = require('express').Router() // eslint-disable-line new-cap
-  .get('/', forbidden('only admins can list orders'), (req, res, next) =>
+const router = require('express').Router();// eslint-disable-line new-cap
+
+
+
+  router.get('/', (req, res, next) => {
+    console.log('Session',req.session);
     Item.findAll()
     .then(items => res.json(items))
-    .catch(next))
-  .post('/', (req, res, next) =>
+    .catch(next);
+  });
+
+  router.post('/', (req, res, next) =>
     Item.create(req.body)
     .then(item => res.status(201).json(item))
-    .catch(next))
-  .get('/:id', mustBeLoggedIn, (req, res, next) =>
+    .catch(next));
+
+  router.get('/:id', (req, res, next) => {
+
     Item.findById(req.params.id)
     .then(item => res.json(item))
-    .catch(next));
+    .catch(next);
+
+  });
+
+
+module.exports = router;
