@@ -87,9 +87,9 @@ const deleteItem = (payload) => ({
 });
 const deleteServerItem = () => {
   return dispatch => {
-    axios.delete()
-  }
-}
+    axios.delete();
+  };
+};
 
 
 //CREATES A DELETECARTITEM AND DISPATCHES
@@ -104,7 +104,6 @@ const addCartItemAction = (payload) => ({
     type: ADD_CART_ITEM,
     itemToAdd: payload
   });
-
 
 
 
