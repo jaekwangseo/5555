@@ -10,6 +10,7 @@ import Login from './components/Login';
 import WhoAmI from './components/WhoAmI';
 import MainContainer from './containers/MainContainer';
 import ItemsContainer from './containers/ItemsContainer';
+import UserContainer from './containers/UserContainer';
 
 render(
   <Provider store={store}>
@@ -18,6 +19,7 @@ render(
         <IndexRedirect to="home" />
         <Route path="home" component={ItemsContainer} />
         <Route path="jokes" component={Jokes} />
+        <Route path="user/:id" component={UserContainer} />  {/*This is for selling profile page*/}
       </Route>
     </Router>
   </Provider>,
