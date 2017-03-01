@@ -6,20 +6,26 @@ const db = require('APP/db');
 const data = require('./dummy_data');
 
 
-const seedUsers = () => db.Promise.map(data.users, user => db.model('users').create(user));
 
-const seedItems = () => db.Promise.map(data.items, item => db.model('items').create(item));
 
-const seedOrders = () => db.Promise.map(data.orders, order => db.model('orders').create(order));
+const Users = () => db.Promise.map(data.user, user => db.model('users').create(user));
 
-const seedorder_item = () => db.Promise.map(data.order_item, order_item => db.model('order_item').create(order_item));
+const Items = () => db.Promise.map(data.item, item => db.model('items').create(item));
+
+const Orders = () => db.Promise.map(data.order, order => db.model('orders').create(order));
+
+const orderItem = () => db.Promise.map(data.orderItem, itemOrder => db.model('order_item').create(itemOrder));
+
+const Category = () => db.Promise.map(data.category, category => db.model('category').create(category));
+
 
 db.didSync
   .then(() => db.sync({force: true}))
-  .then(seedUsers)
-  .then(seedItems)
-  .then(seedOrders)
-  .then(seedorder_item)
-  .then(users => console.log(`Seeded ${users.length} users OK`))
+  .then(Users)
+  .then(Items)
+  .then(Orders)
+  .then(orderItem)
+  .then(Category)
+  .then(users => console.log(`ed ${users.length} users OK`))
   .catch(error => console.error(error))
   .finally(() => db.close());
