@@ -8,17 +8,19 @@ import React from 'react';
 
 export default (props) => {
 
-  const dummyData = [
-    {user: 'Jacquin', price: 5000, title: 'Jacquin says hi'},
-    {user: 'Eric', price: 123123123, title: 'Eric dances'},
-    {user: 'Joey', price: 1, title: 'Joey sings'},
-    {user: 'Jae', price: 40292, title: 'Jae pets bambam'}
-  ];
+  // const dummyData = [
+  //   {user: 'Jacquin', price: 5000, title: 'Jacquin says hi'},
+  //   {user: 'Eric', price: 123123123, title: 'Eric dances'},
+  //   {user: 'Joey', price: 1, title: 'Joey sings'},
+  //   {user: 'Jae', price: 40292, title: 'Jae pets bambam'}
+  // ];
+
+console.log(props.itemList);
 
   return (
-    <ul>
+    <ul className="list-group">
       {
-        dummyData && dummyData.map( (item, index) => (<li key={index}>{item.title}</li>) )
+        props.itemList && props.itemList.map( (item) => (<li key={item.id} className="list-group-item">{item.description}</li>))
       }
     </ul>
   );
