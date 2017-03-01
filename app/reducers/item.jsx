@@ -5,14 +5,15 @@ import axios from 'axios';
 //-----------------------------------------------------------------------------
 const POST_ITEM = 'POST_ITEM';
 const DELETE_ITEM = 'DELETE_ITEM';
+const RECEIVE_ALL_ITEMS = 'RECEIVE_ALL_ITEMS';
 
 
 //-----------------------------------------------------------------------------
 //INITIAL STATE
 const initialState = {
-  itemsList: []
-};
+  itemList: []
 
+};
 
 //-----------------------------------------------------------------------------
 // THE REDUCER
@@ -27,6 +28,10 @@ export default (state = initialState, action) => {
       break;
 
     case DELETE_ITEM:
+      break;
+
+    case RECEIVE_ALL_ITEMS:
+      newState.itemList = action.items;
       break;
 
     default:
@@ -56,6 +61,17 @@ const addItemToServer = (item) => {
  };
 };
 
+export const getAllItems = allItems => ({
+  type: RECEIVE_ALL_ITEMS,
+  items: allItems
+});
+
+export const receiveAllItems = () => {
+  return dispatch => {
+    axios.get('/api/items')
+    .then(results => dispatch(getAllItems(results.data)));
+ };
+};
 
 const deleteItem = (payload) => ({
   type: DELETE_ITEM,
