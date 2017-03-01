@@ -1,5 +1,6 @@
 import React from 'react';
-//import Orders from './Orders';
+import { Link } from 'react-router';
+import Items from './Items';
 
 export default (props) => {
 
@@ -10,7 +11,7 @@ export default (props) => {
       <h1>Name: {props.user.name}</h1>
       <p>Email: {props.user.email}</p>
       <p>Rating: {props.user.rating}</p>
-
+      <Link to={Items} >Items</Link>
     </div>
   );
 };
