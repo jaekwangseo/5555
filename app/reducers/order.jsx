@@ -5,6 +5,7 @@ import axios from 'axios';
 //-----------------------------------------------------------------------------
 const DELETE_CART_ITEM = 'DELETE_CART_ITEM';
 const ADD_CART_ITEM = 'ADD_CART_ITEM';
+const UPDATE_QUANTITY = 'UPDATE_QUANTITY';
 
 
 //-----------------------------------------------------------------------------
@@ -23,19 +24,17 @@ export default (state = initialState, action) => {
   switch (action.type) {
 
     case DELETE_CART_ITEM:
-      let newCart = [...state.cart];  //Makes duplicate cart array from initState
-      const index = newCart.indexOf(action.itemToDelete); //Finds the index of the element we want to delete
-      if (index){
-        delete newCart[index];       //Deletes element but leaves an undefined val in its place
-        newCart.filter(n => true); //ERIC DID THIS. IF IT DOESNT WORK...BLAME HIM
+      newState.cart = [...state.cart];  //Makes duplicate cart array from initState
+      const index = newState.cart.indexOf(action.itemToDelete); //Finds the index of the element we want to delete
+      if (index > -1) {
+        delete newState.cart[index];       //Deletes element but leaves an undefined val in its place
+        newState.cart.filter(n => true); //ERIC DID THIS. IF IT DOESNT WORK...BLAME HIM
       }
-      newState.cart = newCart;
+
       break;
 
     case ADD_CART_ITEM:
-      let newCart = state.cart;
-      newCart.push(action.itemToAdd);
-      newState.cart = newCart;
+      newState.cart = [...state.cart, action.itemToAdd];
       break;
 
     default:

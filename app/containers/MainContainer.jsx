@@ -1,7 +1,7 @@
 // This is the Container that holds all other containers and components (a.k.a. root container)
 
 import React from 'react';
-import WrapperContainer from './WrapperContainer';
+import NavBar from './NavBar';
 import ItemsContainer from './ItemsContainer';
 
 export default class MainContainer extends React.Component{
@@ -12,7 +12,7 @@ export default class MainContainer extends React.Component{
 	render(){
 		return (
 			<div>
-				<WrapperContainer />
+				<NavBar />
 				{ this.props.children }
 		  </div>
 		 );

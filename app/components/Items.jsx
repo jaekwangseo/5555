@@ -3,7 +3,8 @@
 import React from 'react';
 
 //This funciton is currently static, and has dummy data.
-// need to replace dummyData with props.items
+// need to replace dummyData with something like:
+// { props.itemList && props.itemList.map( (item, index) => (<li key={index}>{item.title}</li>)) }
 
 export default (props) => {
 
