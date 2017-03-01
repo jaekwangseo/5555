@@ -35,14 +35,14 @@ OAuth.V2 = (accessToken, refreshToken, profile, done) =>
     }
   })
   .spread(oauth => {
-    console.log(profile)
+    console.log(profile);
     debug('provider:%s will log in user:{name=%s uid=%s}',
       profile.provider,
       profile.displayName,
       profile.id
-    )
-    oauth.profileJson = profile
-    oauth.accessToken = accessToken
+    );
+    oauth.profileJson = profile;
+    oauth.accessToken = accessToken;
 
     // db.Promise.props is a Bluebird.js method; basically like "all" but for an object whose properties might contain promises.
     // Docs: http://bluebirdjs.com/docs/api/promise.props.html
@@ -50,7 +50,7 @@ OAuth.V2 = (accessToken, refreshToken, profile, done) =>
       oauth,
       user: oauth.getUser(),
       _saveProfile: oauth.save(),
-    })
+    });
   })
   .then(({ oauth, user }) => user ||
     User.create({
@@ -63,7 +63,7 @@ OAuth.V2 = (accessToken, refreshToken, profile, done) =>
     .then(({user}) => user) // eslint-disable-line no-shadow
   )
   .then(user => done(null, user))
-  .catch(done)
+  .catch(done);
 
 // setupStrategy is a wrapper around passport.use, and is called in authentication routes in server/auth.js
 OAuth.setupStrategy =
@@ -79,10 +79,10 @@ OAuth.setupStrategy =
         .filter(value => typeof value === 'undefined');
   if (undefinedKeys.length) {
     for (let key in config) {
-      if (!config[key]) debug('provider:%s: needs environment var %s', provider, key)
+      if (!config[key]) debug('provider:%s: needs environment var %s', provider, key);
     }
-    debug('provider:%s will not initialize', provider)
-    return
+    debug('provider:%s will not initialize', provider);
+    return;
   }
 
   debug('initializing provider:%s', provider);
