@@ -13,21 +13,12 @@ import MainContainer from './containers/MainContainer';
 import ItemsContainer from './containers/ItemsContainer';
 import UserContainer from './containers/UserContainer';
 
-import { getUsers } from './reducers/user.jsx';
+import { receiveAllUsers } from './reducers/user.jsx';
+import { receiveAllItems } from './reducers/item.jsx';
 
 const onAppEnter = () => {
-
-  const pUsers = axios.get('/api/users'); //Might not want to load all users on app onEnter
-  const pItems = axios.get('/api/items');
-
-  return Promise
-    .all([pUsers])
-    .then(responses => responses.map(res => res.data))
-    .then(([users]) => {
-      store.dispatch(getUsers(users));
-      store.dispatch(/*items*/);
-
-    });
+  store.dispatch(receiveAllItems());
+  store.dispatch(receiveAllUsers());
 };
 
 render(

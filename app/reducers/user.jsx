@@ -106,3 +106,11 @@ export const getUser = (userId) => ({
   type: GET_USER,
   userId
 });
+
+export const receiveAllUsers = () => {
+  return dispatch => {
+    axios.get('/api/users')
+    .then(res => res.data)
+    .then(data => dispatch(getUsers(data)));
+ };
+};
