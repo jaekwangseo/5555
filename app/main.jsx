@@ -12,10 +12,16 @@ import MainContainer from './containers/MainContainer';
 import ItemsContainer from './containers/ItemsContainer';
 import UserContainer from './containers/UserContainer';
 
+import { getAllItems, receiveAllItems } from './reducers/item.jsx';
+
+const onHomeEnter = () => {
+  store.dispatch(receiveAllItems());
+};
+
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={MainContainer}>
+      <Route path="/" component={MainContainer} onEnter={onHomeEnter}>
         <IndexRedirect to="home" />
         <Route path="home" component={ItemsContainer} />
         <Route path="jokes" component={Jokes} />
