@@ -12,6 +12,7 @@ import WhoAmI from './components/WhoAmI';
 import MainContainer from './containers/MainContainer';
 import ItemsContainer from './containers/ItemsContainer';
 import UserContainer from './containers/UserContainer';
+import CreateUserContainer from './containers/CreateUserContainer';
 
 import { receiveAllUsers } from './reducers/user.jsx';
 import { receiveAllItems } from './reducers/item.jsx';
@@ -28,6 +29,7 @@ render(
         <IndexRedirect to="home" />
         <Route path="home" component={ItemsContainer} />
         <Route path="jokes" component={Jokes} />
+        <Route path="createUser" component={CreateUserContainer} />
         <Route path="user/:id" component={UserContainer} />  {/*This is for selling profile page*/}
       </Route>
     </Router>

@@ -67,7 +67,8 @@ export const addUserOnServer = (user) => {
   return dispatch => {
     axios.post('/api/users', user)
     .then(res => res.data)
-    .then(() => dispatch(addUser(user)));
+    .then((data) => {console.log('data from axios post', data); dispatch(addUser(user));})
+    .catch((err) => console.error(err));
   };
 };
 
@@ -96,6 +97,7 @@ export const updateUserOnServer = (user) => {
     .then(() => dispatch(updateUser(user)));
   };
 };
+
 
 export const getUsers = (users) => ({
     type: GET_USERS,

@@ -1,3 +1,5 @@
+// Items ACTIONS, ACTION-CREATORS, REDUCER
+
 import axios from 'axios';
 
 
@@ -54,10 +56,9 @@ const postItemAction = (payload) => ({
 const addItemToServer = (item) => {
   return dispatch => {
     axios.post('/api/items', item)
-    //  .then(res => )
-     // use the dispatch method the thunkMiddleware gave us
     .then(res => res.data)
-    .then(() => dispatch(postItemAction(albums)));
+    .then(() => dispatch(postItemAction(item)))
+    .catch((err) => console.error(err));
  };
 };
 
@@ -69,7 +70,8 @@ export const getAllItems = allItems => ({
 export const receiveAllItems = () => {
   return dispatch => {
     axios.get('/api/items')
-    .then(results => dispatch(getAllItems(results.data)));
+    .then(results => dispatch(getAllItems(results.data)))
+    .catch((err) => console.error(err));
  };
 };
 
