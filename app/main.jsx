@@ -5,6 +5,7 @@ import {render} from 'react-dom';
 import {connect, Provider} from 'react-redux';
 
 import store from './store';
+import axios from 'axios';
 import Jokes from './components/Jokes';
 import Login from './components/Login';
 import WhoAmI from './components/WhoAmI';
@@ -13,16 +14,18 @@ import ItemsContainer from './containers/ItemsContainer';
 import UserContainer from './containers/UserContainer';
 import CreateUserContainer from './containers/CreateUserContainer';
 
-import { getAllItems, receiveAllItems } from './reducers/item.jsx';
+import { receiveAllUsers } from './reducers/user.jsx';
+import { receiveAllItems } from './reducers/item.jsx';
 
-const onHomeEnter = () => {
+const onAppEnter = () => {
   store.dispatch(receiveAllItems());
+  store.dispatch(receiveAllUsers());
 };
 
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={MainContainer} onEnter={onHomeEnter}>
+      <Route path="/" component={MainContainer} onEnter={onAppEnter}>
         <IndexRedirect to="home" />
         <Route path="home" component={ItemsContainer} />
         <Route path="jokes" component={Jokes} />
