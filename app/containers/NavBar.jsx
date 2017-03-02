@@ -9,7 +9,7 @@ export default class NavBar extends React.Component{
 	}
 	render(){
 		return (
-			<nav className="navbar navbar-default">
+			<nav className="navbar navbar-default navbar-fixed-top">
 			  <div className="container-fluid">
 			    <div className="navbar-header">
 			      <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -45,7 +45,28 @@ export default class NavBar extends React.Component{
 			        <button type="submit" className="btn btn-default">Submit</button>
 			      </form>
 			      <ul className="nav navbar-nav navbar-right">
-			        <li><a href="#">Link</a></li>
+			        <li>
+								<button href="#"  data-target="#login-modal" className='btn btn-default'>
+									Login
+								</button>
+								<div className="modal fade displayNone" id="login-modal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    	  <div className="modal-dialog">
+				<div className="loginmodal-container">
+					<h1>Login to Your Account</h1>
+				  <form>
+					<input type="text" name="user" placeholder="Username"></input>
+					<input type="password" name="pass" placeholder="Password"></input>
+					<input type="submit" name="login" className="login loginmodal-submit" value="Login"></input>
+				  </form>
+
+				  <div className="login-help">
+					<a href="#">Register</a> - <a href="#">Forgot Password</a>
+				  </div>
+				</div>
+			</div>
+		  </div>
+
+							</li>
 			        <li className="dropdown">
 			          <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span className="caret"></span></a>
 			          <ul className="dropdown-menu">
@@ -63,3 +84,6 @@ export default class NavBar extends React.Component{
 		);
 	}
 }
+
+
+//https://www.npmjs.com/package/react-modal-bootstrap
