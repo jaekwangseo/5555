@@ -63,11 +63,15 @@ export const addUser = (user) => ({
     user
 });
 
+//going to make changes to the .then(res => res.data) right below like 69
 export const addUserOnServer = (user) => {
+
   return dispatch => {
     axios.post('/api/users', user)
     .then(res => res.data)
-    .then((data) => {console.log('data from axios post', data); dispatch(addUser(user));})
+    .then((data) => {
+      dispatch(addUser(user));
+    })
     .catch((err) => console.error(err));
   };
 };

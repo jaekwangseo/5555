@@ -26,7 +26,7 @@ export default (props) => {
           <label htmlFor="email">Description:</label>
           <textarea name="description" className="form-control" rows="5" cols="80" id="TITLE" placeholder="(e.g. Javascript expert, Back-end Web Development)"/>
         </div>
-        <button type="submit" className="btn btn-success col-md-2 col-md-offset-5">Submit</button>
+        <button type="submit" className="btn btn-success col-md-2 col-md-offset-5" >Submit</button>
     </form>
   );
 };

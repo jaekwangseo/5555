@@ -4,6 +4,7 @@
 
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 
 
 import CreateUser from '../components/CreateUser.jsx';
@@ -27,6 +28,7 @@ class CreateUserContainer extends Component {
   }
 
   handleSubmit (event) {
+    event.preventDefault();
     const userName = event.target.userName.value;
     const password = event.target.password.value;
     const email = event.target.email.value;
@@ -39,6 +41,7 @@ class CreateUserContainer extends Component {
       description: description,
       url: url
     });
+    browserHistory.push('/home');
   }
 
   render () {
