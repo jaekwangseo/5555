@@ -4,6 +4,7 @@
   "root": true,
   "rules": {
     "semi": 2,
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "camelcase": 0
   }
 }
