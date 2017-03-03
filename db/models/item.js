@@ -2,7 +2,7 @@
 
 const Sequelize = require('sequelize');
 const db = require('APP/db');
-
+const User = require('./user');
 
 const Item = db.define('items', {
 
@@ -21,6 +21,13 @@ const Item = db.define('items', {
   }
 
 }, {
+  scopes: {
+    populated: () => ({ // function form lets us use to-be-defined models
+      include: [
+        { model: db.model('users'), as: 'seller' }
+      ]
+    })
+  }
 
 });
 
