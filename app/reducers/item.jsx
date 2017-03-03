@@ -7,7 +7,7 @@ import axios from 'axios';
 //-----------------------------------------------------------------------------
 const POST_ITEM = 'POST_ITEM';
 const DELETE_ITEM = 'DELETE_ITEM';
-const RECEIVE_ALL_ITEMS = 'RECEIVE_ALL_ITEMS';
+const RECEIVE_ITEMS = 'RECEIVE_ITEMS';
 
 
 //-----------------------------------------------------------------------------
@@ -32,7 +32,7 @@ export default (state = initialState, action) => {
     case DELETE_ITEM:
       break;
 
-    case RECEIVE_ALL_ITEMS:
+    case RECEIVE_ITEMS:
       newState.itemList = action.items;
       break;
 
@@ -62,15 +62,23 @@ const addItemToServer = (item) => {
  };
 };
 
-export const getAllItems = allItems => ({
-  type: RECEIVE_ALL_ITEMS,
-  items: allItems
+export const getItems = items => ({
+  type: RECEIVE_ITEMS,
+  items
 });
 
 export const receiveAllItems = () => {
   return dispatch => {
     axios.get('/api/items')
-    .then(results => dispatch(getAllItems(results.data)))
+    .then(results => dispatch(getItems(results.data)));
+ };
+};
+
+export const receiveSellerItems = (sellerId) => {
+  return dispatch => {
+    axios.get(`/api/users/${sellerId}/items`)
+    .then(res => res.data)
+    .then(items => dispatch(getItems(items)))
     .catch((err) => console.error(err));
  };
 };
