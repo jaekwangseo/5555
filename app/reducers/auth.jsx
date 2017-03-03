@@ -17,22 +17,19 @@ export const authenticated = user => ({
 
 export const whoami = () =>
   dispatch =>
-{    console.log('you are now in the whoami thing AFTER the login thign');
-  return axios.get('/api/auth/whoami')
+    axios.get('/api/auth/whoami')
       .then(response => {
-        console.log('axios post in whoami, repsonse', response);
         const user = response.data;
         dispatch(authenticated(user));
       })
-      .catch(() => dispatch(authenticated(null)));};
+      .catch(() => dispatch(authenticated(null)));
 
 export const login = (username, password) =>
   dispatch =>
-    {   console.log('you are now in the login function');
-      return axios.post('/api/auth/login/local',
+      axios.post('/api/auth/login/local',
       {username, password})
       .then(() => dispatch(whoami()))
-      .catch(() => dispatch(whoami()));};
+      .catch(() => dispatch(whoami()));
 
 export const logout = () =>
   dispatch =>
