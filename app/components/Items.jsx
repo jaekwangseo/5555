@@ -6,7 +6,7 @@ import React from 'react';
 // need to replace dummyData with something like:
 // { props.itemList && props.itemList.map( (item, index) => (<li key={index}>{item.title}</li>)) }
 
-export default (props) => {
+export default function Items(props) {
 
   // const dummyData = [
   //   {user: 'Jacquin', price: 5000, title: 'Jacquin says hi'},
@@ -15,7 +15,7 @@ export default (props) => {
   //   {user: 'Jae', price: 40292, title: 'Jae pets bambam'}
   // ];
 
-console.log(props.itemList);
+  console.log(props.itemList);
 
   return (
     <ul className="list-group">
@@ -24,4 +24,4 @@ console.log(props.itemList);
       }
     </ul>
   );
-};
+}

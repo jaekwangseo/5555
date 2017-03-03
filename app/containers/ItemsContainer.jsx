@@ -16,9 +16,6 @@ const mapStateToProps = (state) => {
 const ItemsContainer = connect(mapStateToProps)(Items);
 export default ItemsContainer;
 
-
-
-
 //keeping this here just incase my copy pasted code above breaks something
 /*import React from 'react';
 import Items from '../components/Items';

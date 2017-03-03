@@ -7,8 +7,6 @@ const {mustBeLoggedIn, forbidden} = require('./auth.filters');
 
 const router = require('express').Router();// eslint-disable-line new-cap
 
-
-
   router.get('/', (req, res, next) => {
     console.log('Session',req.session);
     Item.findAll()
@@ -28,6 +26,5 @@ const router = require('express').Router();// eslint-disable-line new-cap
     .catch(next);
 
   });
-
 
 module.exports = router;
