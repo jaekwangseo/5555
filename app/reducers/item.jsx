@@ -1,6 +1,7 @@
 // Items ACTIONS, ACTION-CREATORS, REDUCER
 
 import axios from 'axios';
+import _ from 'lodash';
 
 
 //ACTION DEFINITIONS
@@ -8,12 +9,13 @@ import axios from 'axios';
 const POST_ITEM = 'POST_ITEM';
 const DELETE_ITEM = 'DELETE_ITEM';
 const RECEIVE_ITEMS = 'RECEIVE_ITEMS';
-
+const RECEIVE_ITEM = 'RECEIVE_ITEM';
 
 //-----------------------------------------------------------------------------
 //INITIAL STATE
 const initialState = {
-  itemList: []
+  itemList: [],
+  selectedItem: {},
 
 };
 
@@ -34,6 +36,10 @@ export default (state = initialState, action) => {
 
     case RECEIVE_ITEMS:
       newState.itemList = action.items;
+      break;
+
+    case RECEIVE_ITEM:
+      newState.selectedItem = action.item;
       break;
 
     default:
@@ -90,5 +96,19 @@ const deleteItem = (payload) => ({
 const deleteServerItem = () => {
   return dispatch => {
     axios.delete();
+  };
+};
+
+export const receiveItem = (item) => ({
+  type: RECEIVE_ITEM,
+  item
+});
+
+export const receiveItemFromServer = (itemId) => {
+  return dispatch => {
+    axios.get(`/api/items/${itemId}`)
+    .then(res => res.data)
+    .then(item => dispatch(receiveItem(item)))
+    .catch((err) => console.error(err));
   };
 };
