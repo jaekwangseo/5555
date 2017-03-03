@@ -10,15 +10,22 @@ const Item = require('./item');
 const Order = require('./order');
 const OrderItem = require('./order-item');
 const Category = require('./category');
+const Review = require('./review');
+
 
 OAuth.belongsTo(User);
 User.hasOne(OAuth);
 
+
+User.hasMany(Item);
 Item.belongsTo(User, {as: 'seller'});
 //User.hasMany(Item, {as: 'seller'});
+
+Review.belongsTo(Item);
+Review.belongsTo(User, {as: 'reviewer'});
 
 Order.belongsTo(User, {as: 'buyer'});
 Item.belongsToMany(Order, { through: OrderItem});
 Order.belongsToMany(Item, { through: OrderItem});
 
-module.exports = {User};
+module.exports = {User, Item, Order, Category, Review, OAuth, OrderItem};
