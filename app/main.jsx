@@ -5,14 +5,13 @@ import {render} from 'react-dom';
 import {connect, Provider} from 'react-redux';
 
 import store from './store';
-import axios from 'axios';
 import Jokes from './components/Jokes';
 import Login from './components/Login';
 import WhoAmI from './components/WhoAmI';
 import MainContainer from './containers/MainContainer';
 import ItemsContainer from './containers/ItemsContainer';
 import UserContainer from './containers/UserContainer';
-import Items from './components/Items';
+import CreateUserContainer from './containers/CreateUserContainer';
 
 import { receiveAllUsers, receiveUser, receiveSeller } from './reducers/user.jsx';
 import { receiveAllItems, receiveSellerItems } from './reducers/item.jsx';
@@ -57,6 +56,7 @@ render(
         <Route path="jokes" component={Jokes} />
         <Route path="user/:id" component={UserContainer} onEnter={onSellerPageEnter} />
         <Route path="user/:id/items" component={ItemsContainer} onEnter={onSellerItemsPageEnter} />
+        <Route path="createUser" component={CreateUserContainer} />
       </Route>
     </Router>
   </Provider>,

@@ -9,6 +9,7 @@ const OAuth = require('./oauth');
 const Item = require('./item');
 const Order = require('./order');
 const OrderItem = require('./order-item');
+const Category = require('./category');
 
 OAuth.belongsTo(User);
 User.hasOne(OAuth);
