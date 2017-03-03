@@ -9,7 +9,6 @@ const Login = ({ login }) => (
         <div className="form-box">
             <form onSubmit={evt => {
               evt.preventDefault();
-              console.log('you JUST clicked the login button', evt.target.password.value);
               login(evt.target.user.value, evt.target.password.value);
               browserHistory.push('/');
             } }>
