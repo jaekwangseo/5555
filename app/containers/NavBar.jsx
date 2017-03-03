@@ -1,6 +1,7 @@
 //this navbar was copy pasted from bootstrap websites.
 
 import React from 'react';
+import Login from '../components/Login.jsx';
 
 //ALL
 export default class NavBar extends React.Component{
@@ -30,16 +31,9 @@ export default class NavBar extends React.Component{
 			        <li>
 								<a href="/cart">Shopping Cart</a>
 							</li>
-			        <li className="dropdown">
-			          <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span className="caret"></span></a>
-			          <ul className="dropdown-menu">
-			            <li><a href="#">Action</a></li>
-			            <li><a href="#">Another action</a></li>
-			            <li><a href="#">Something else here</a></li>
-			            <li role="separator" className="divider"></li>
-			            <li><a href="#">Separated link</a></li>
-			          </ul>
-			        </li>
+							<li>
+								<a href="/login">Login</a>
+							</li>
 			      </ul>
 			    </div>
 			  </div>
