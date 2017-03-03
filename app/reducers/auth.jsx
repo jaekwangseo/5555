@@ -37,4 +37,12 @@ export const logout = () =>
       .then(() => dispatch(whoami()))
       .catch(() => dispatch(whoami()));
 
+export const createUser = (user) =>
+
+    dispatch =>
+    axios.post('/api/users', user)
+    .then(() => dispatch(login(user.email, user.password)))
+    .catch(err => console.error(err));
+
+
 export default reducer;
