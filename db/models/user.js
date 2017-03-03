@@ -5,6 +5,8 @@
 const bcrypt = require('bcryptjs');
 const Sequelize = require('sequelize');
 const db = require('APP/db');
+const Item = require('./item');
+const Order = require('./order');
 
 const User = db.define('users', {
   name: Sequelize.STRING,
@@ -52,7 +54,19 @@ const User = db.define('users', {
           else resolve(result);
         })
       );
+    },
+    getItems () {
+      return Item.findAll({
+        where: { seller_id: this.id }
+      });
     }
+  },
+  scopes: {
+    sellerLookup: () => {
+      return {
+        attributes: { exclude: ['admin', 'active', 'password_digest', 'created_at', 'updated_at'] }
+      };
+    },
   }
 });
 

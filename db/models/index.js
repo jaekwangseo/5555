@@ -14,6 +14,7 @@ OAuth.belongsTo(User);
 User.hasOne(OAuth);
 
 Item.belongsTo(User, {as: 'seller'});
+//User.hasMany(Item, {as: 'seller'});
 
 Order.belongsTo(User, {as: 'buyer'});
 Item.belongsToMany(Order, { through: OrderItem});

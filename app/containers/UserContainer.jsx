@@ -1,27 +1,23 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import User from '../components/User';
-import _ from 'lodash';
 
-/*export class UserContainer extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
+class UserContainer extends React.Component {
 
   render() {
+
     return (
       <div>
+        <User user={this.props.user} />
       </div>
     );
   }
-}*/
+}
 
-const mapStateToProps = (props, ownProps) => {
-  const paramId = Number(ownProps.params.id);
+const mapStateToProps = (state, ownProps) => {
+  //const paramId = Number(ownProps.params.id);
   return {
-    user: _.find(users, user => user.id === paramId)
-
+    user: state.user.selectedSeller
   };
 };
 
@@ -33,17 +29,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(User);
-
-
-//Dummy data
-const users = [
-  {
-    id: 1,
-    name: 'jaekwang',
-    email: 'jaekwang@j.com',
-    rating: 5,
-    orders: [],
-    items: []
-  }
-];
+)(UserContainer);

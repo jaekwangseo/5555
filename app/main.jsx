@@ -12,14 +12,41 @@ import WhoAmI from './components/WhoAmI';
 import MainContainer from './containers/MainContainer';
 import ItemsContainer from './containers/ItemsContainer';
 import UserContainer from './containers/UserContainer';
+import Items from './components/Items';
 
-import { receiveAllUsers } from './reducers/user.jsx';
-import { receiveAllItems } from './reducers/item.jsx';
+import { receiveAllUsers, receiveUser, receiveSeller } from './reducers/user.jsx';
+import { receiveAllItems, receiveSellerItems } from './reducers/item.jsx';
 
 const onAppEnter = () => {
   store.dispatch(receiveAllItems());
-  store.dispatch(receiveAllUsers());
+  //store.dispatch(receiveAllUsers()); //get all users only if admin
 };
+
+// const onUserPageEnter = (nextRouterState) => {
+//   const userId = nextRouterState.params.id;
+//   axios.get(`/api/users/${userId}`)
+//     .then(res => res.data)
+//     .then(data => {
+
+//     });
+
+//   store.dispatch(receiveUser(userId));
+// };
+
+// export const receiveUser = (userId) => {
+//   return dispatch => {
+
+//   };
+// };
+
+const onSellerPageEnter = (nextRouterState) => {
+  store.dispatch(receiveSeller(nextRouterState.params.id));
+};
+
+const onSellerItemsPageEnter = (nextRouterState) => {
+  store.dispatch(receiveSellerItems(nextRouterState.params.id));
+};
+
 
 render(
   <Provider store={store}>
@@ -28,7 +55,8 @@ render(
         <IndexRedirect to="home" />
         <Route path="home" component={ItemsContainer} />
         <Route path="jokes" component={Jokes} />
-        <Route path="user/:id" component={UserContainer} />  {/*This is for selling profile page*/}
+        <Route path="user/:id" component={UserContainer} onEnter={onSellerPageEnter} />
+        <Route path="user/:id/items" component={ItemsContainer} onEnter={onSellerItemsPageEnter} />
       </Route>
     </Router>
   </Provider>,
