@@ -9,6 +9,8 @@ import Item from '../components/Item';
     return (
       <div>
         <Item item={this.props.item} />
+        <Reviews item={this.props.item> //Renders both a review form and all the review sof the item
+
       </div>
     );
   }
