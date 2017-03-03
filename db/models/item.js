@@ -12,9 +12,7 @@ const Item = db.define('items', {
   description: {
     type: Sequelize.TEXT
   },
-  rating: {
-    type: Sequelize.FLOAT
-  },
+
   title: {
     type: Sequelize.STRING,
     defaultValue: 'Untitled'
