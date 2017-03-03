@@ -19,6 +19,7 @@ User.hasOne(OAuth);
 
 User.hasMany(Item);
 Item.belongsTo(User, {as: 'seller'});
+//User.hasMany(Item, {as: 'seller'});
 
 Review.belongsTo(Item);
 Review.belongsTo(User, {as: 'reviewer'});

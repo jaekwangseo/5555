@@ -1,17 +1,21 @@
+// Items ACTIONS, ACTION-CREATORS, REDUCER
+
 import axios from 'axios';
+import _ from 'lodash';
 
 
 //ACTION DEFINITIONS
 //-----------------------------------------------------------------------------
 const POST_ITEM = 'POST_ITEM';
 const DELETE_ITEM = 'DELETE_ITEM';
-const RECEIVE_ALL_ITEMS = 'RECEIVE_ALL_ITEMS';
-
+const RECEIVE_ITEMS = 'RECEIVE_ITEMS';
+const RECEIVE_ITEM = 'RECEIVE_ITEM';
 
 //-----------------------------------------------------------------------------
 //INITIAL STATE
 const initialState = {
-  itemList: []
+  itemList: [],
+  selectedItem: {},
 
 };
 
@@ -30,8 +34,12 @@ export default (state = initialState, action) => {
     case DELETE_ITEM:
       break;
 
-    case RECEIVE_ALL_ITEMS:
+    case RECEIVE_ITEMS:
       newState.itemList = action.items;
+      break;
+
+    case RECEIVE_ITEM:
+      newState.selectedItem = action.item;
       break;
 
     default:
@@ -54,22 +62,30 @@ const postItemAction = (payload) => ({
 const addItemToServer = (item) => {
   return dispatch => {
     axios.post('/api/items', item)
-    //  .then(res => )
-     // use the dispatch method the thunkMiddleware gave us
     .then(res => res.data)
-    .then(() => dispatch(postItemAction(albums)));
+    .then(() => dispatch(postItemAction(item)))
+    .catch((err) => console.error(err));
  };
 };
 
-export const getAllItems = allItems => ({
-  type: RECEIVE_ALL_ITEMS,
-  items: allItems
+export const getItems = items => ({
+  type: RECEIVE_ITEMS,
+  items
 });
 
 export const receiveAllItems = () => {
   return dispatch => {
     axios.get('/api/items')
-    .then(results => dispatch(getAllItems(results.data)));
+    .then(results => dispatch(getItems(results.data)));
+ };
+};
+
+export const receiveSellerItems = (sellerId) => {
+  return dispatch => {
+    axios.get(`/api/users/${sellerId}/items`)
+    .then(res => res.data)
+    .then(items => dispatch(getItems(items)))
+    .catch((err) => console.error(err));
  };
 };
 
@@ -80,5 +96,19 @@ const deleteItem = (payload) => ({
 const deleteServerItem = () => {
   return dispatch => {
     axios.delete();
+  };
+};
+
+export const receiveItem = (item) => ({
+  type: RECEIVE_ITEM,
+  item
+});
+
+export const receiveItemFromServer = (itemId) => {
+  return dispatch => {
+    axios.get(`/api/items/${itemId}`)
+    .then(res => res.data)
+    .then(item => dispatch(receiveItem(item)))
+    .catch((err) => console.error(err));
   };
 };

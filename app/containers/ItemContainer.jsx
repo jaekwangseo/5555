@@ -1,23 +1,23 @@
-import React from 'react';
+// import React from 'react';
 import {connect} from 'react-redux';
-import User from '../components/User';
+import Item from '../components/Item';
 
-class UserContainer extends React.Component {
+/*class ItemContainer extends React.Component {
 
   render() {
 
     return (
       <div>
-        <User user={this.props.user} />
+        <Item item={this.props.item} />
       </div>
     );
   }
-}
+}*/
 
 const mapStateToProps = (state, ownProps) => {
   //const paramId = Number(ownProps.params.id);
   return {
-    user: state.user.selectedSeller
+    item: state.item.selectedItem
   };
 };
 
@@ -29,4 +29,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(UserContainer);
+)(Item);

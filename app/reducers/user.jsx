@@ -8,6 +8,7 @@ const DELETE_USER = 'DELETE_USER';
 const UPDATE_USER = 'UPDATE_USER';
 const GET_USER = 'GET_USER';
 const GET_USERS = 'GET_USERS';
+const GET_SELLER = 'GET_SELLER';
 
 const SET_CURRENT_USER = 'SET_CURRENT_USER';
 const GET_CURRENT_USER = 'GET_CURRENT_USER';
@@ -20,7 +21,8 @@ const LOGOUT = 'LOGOUT';
 //INITIAL STATE
 const initialState = {
   currentUser: {}, //logged user
-  users: [],
+  selectedSeller: {},
+  users: [], //for admin
 };
 
 
@@ -48,6 +50,10 @@ export default (state = initialState, action) => {
       //MISSING IMPLEMENTATION
       break;
 
+    case GET_SELLER:
+      newState.selectedSeller = action.seller;
+      break;
+
     default:
       return state;
   }
@@ -63,13 +69,6 @@ export const addUser = (user) => ({
     user
 });
 
-export const addUserOnServer = (user) => {
-  return dispatch => {
-    axios.post('/api/users', user)
-    .then(res => res.data)
-    .then(() => dispatch(addUser(user)));
-  };
-};
 
 export const deleteUser = (user) => ({
     type: DELETE_USER,
@@ -97,14 +96,10 @@ export const updateUserOnServer = (user) => {
   };
 };
 
+
 export const getUsers = (users) => ({
     type: GET_USERS,
     users
-});
-
-export const getUser = (userId) => ({
-  type: GET_USER,
-  userId
 });
 
 export const receiveAllUsers = () => {
@@ -113,4 +108,17 @@ export const receiveAllUsers = () => {
     .then(res => res.data)
     .then(data => dispatch(getUsers(data)));
  };
+};
+
+export const getSeller = (seller) => ({
+  type: GET_SELLER,
+  seller
+});
+
+export const receiveSeller = (sellerId) => {
+  return dispatch => {
+    axios.get(`/api/users/${sellerId}`)
+    .then(res => res.data)
+    .then(seller => dispatch(getSeller(seller)));
+  };
 };
