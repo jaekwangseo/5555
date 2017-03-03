@@ -11,6 +11,7 @@ const Login = ({ login }) => (
               evt.preventDefault();
               console.log('you JUST clicked the login button', evt.target.password.value);
               login(evt.target.user.value, evt.target.password.value);
+              browserHistory.push('/');
             } }>
                 <input name="user" type="text" placeholder="username" />
                 <input name="password" type="password" placeholder="password" />
