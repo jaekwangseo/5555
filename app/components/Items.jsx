@@ -1,6 +1,7 @@
 // Items component to render the list of items taken from the props, which is linked to the state by the ItemsComponent
 
 import React from 'react';
+import { Link } from 'react-router';
 
 //This funciton is currently static, and has dummy data.
 // need to replace dummyData with something like:
@@ -15,14 +16,14 @@ export default function Items(props) {
   //   {user: 'Jae', price: 40292, title: 'Jae pets bambam'}
   // ];
 
-  console.log(props.itemList);
-
   return (
     <ul className="list-group">
       {
         props.itemList && props.itemList.map( (item) => (
           <li key={item.id} className="list-group-item">
-            <h3 className="list-group-item-">titletitletitletitle</h3>
+            <Link to={`/item/${item.id}`} >
+              <h3 className="list-group-item-">{item.title}</h3>
+            </Link>
             <div className="list-group-item-text">
               {item.description}
             </div>

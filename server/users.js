@@ -10,7 +10,6 @@ const {mustBeLoggedIn, forbidden} = require('./auth.filters');
 const router = require('express').Router(); // eslint-disable-line new-cap
 
 router.param('userId', (req, res, next, id) => {
-  console.log('param');
   next();
   // console.log('in users params');
   // User.scope('userLookup').findById(id)
