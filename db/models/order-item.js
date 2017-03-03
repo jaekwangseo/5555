@@ -10,10 +10,12 @@ const db = require('APP/db');
 const OrderItem = db.define('order_item', {
 
   price: {
-    type: Sequelize.FLOAT
+    type: Sequelize.FLOAT,
+    defaultValue: 0
   },
   quantity: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   }
 
 }, {
