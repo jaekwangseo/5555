@@ -20,9 +20,12 @@ const router = require('express').Router();// eslint-disable-line new-cap
     .catch(next));
 
   router.get('/:id', (req, res, next) => {
-
-    Item.findById(req.params.id)
-    .then(item => res.json(item))
+    console.log('getting an item');
+    Item.scope('populated').findById(req.params.id)
+    .then(item => {
+      console.log('item being returned', item);
+      res.json(item);
+    })
     .catch(next);
 
   });
