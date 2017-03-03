@@ -9,12 +9,13 @@ import { browserHistory } from 'react-router';
 
 import CreateUser from '../components/CreateUser.jsx';
 
-import { addUserOnServer } from '../reducers/user.jsx';
+
+import {createUser} from '../reducers/auth.jsx';
 
 const mapDispatchToProps = (dispatch) => {
   return {
     newUserInfo(user){
-      return dispatch(addUserOnServer(user));
+      return dispatch(createUser(user));
     }
   };
 };
@@ -36,12 +37,14 @@ class CreateUserContainer extends Component {
     const url = event.target.url.value;
     this.props.newUserInfo({
       name: userName,
-      password_digest: password,
+      password: password,
       email: email,
       description: description,
       url: url
     });
-    browserHistory.push('/home');
+    browserHistory.push('/');
+
+
   }
 
   render () {
