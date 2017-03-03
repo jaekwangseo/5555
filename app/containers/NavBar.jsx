@@ -8,7 +8,8 @@ const mapStateToProps = (state) => {
 	console.log('mapstate in navbar'
 );
   return {
-    auth: state.auth
+    auth: state.auth,
+		currentUser: state.auth
   };
 };
 
@@ -42,7 +43,7 @@ const NavBar = (props) =>
 						<Link to='/cart' >Shopping Cart </Link>
 					</li>
 					<li>
-						<Link to='/login' >Login</Link>
+						{props.currentUser ? <Link to='/home' >Logout</Link> : <Link to='/login' >Login</Link>}
 					</li>
 				</ul>
 			</div>
