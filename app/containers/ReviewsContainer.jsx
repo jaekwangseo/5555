@@ -4,14 +4,15 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import Reviews from '../components/Reviews.jsx';
-import {createReview} from '../reducers/reviews.jsx';
+import {createReview, gettingItemReviews} from '../reducers/reviews.jsx';
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     itemList: state.item.itemList,
     selectedItem: state.item.selectedItem,
-    user: state.auth
+    user: state.auth,
+    reviews: state.reviews
   };
 };
 
@@ -19,6 +20,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     createReview(reviewObj) {
       dispatch(createReview(reviewObj));
+    },
+
+    getReviews(item_id){
+      dispatch(gettingItemReviews(item_id));
     }
   };
 };
@@ -29,6 +34,8 @@ class ReviewsContainer extends React.Component{
     super(props);
     this.handleReview = this.handleReview.bind(this);
   }
+    //this.props.getReviews(this.props.selectedItem.id);
+
 
   handleReview(evt) {
     evt.preventDefault();
@@ -47,6 +54,8 @@ class ReviewsContainer extends React.Component{
       reviewer_id
     };
 
+    console.log('What are these props?--------', this.props.reviews.itemReviews);
+
     this.props.createReview(reviewObj);
 
   }
@@ -54,7 +63,7 @@ class ReviewsContainer extends React.Component{
   render() {
     return (
       <div>
-        <Reviews handleReview={this.handleReview} />
+        <Reviews handleReview={this.handleReview} itemReviews={this.props.reviews.itemReviews} />
       </div>
     );
   }

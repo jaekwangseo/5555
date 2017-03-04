@@ -15,6 +15,8 @@ import ItemContainer from './containers/ItemContainer';
 import LoginComponent from './components/Login.jsx';
 import ReviewsContainer from './containers/ReviewsContainer.jsx';
 
+import {gettingItemReviews} from './reducers/reviews.jsx';
+
 import { receiveAllUsers, receiveUser, receiveSeller } from './reducers/user.jsx';
 import { receiveAllItems, receiveSellerItems, receiveItemFromServer } from './reducers/item.jsx';
 
@@ -33,7 +35,9 @@ const onSellerItemsPageEnter = (nextRouterState) => {
 
 const onItemPageEnter = (nextRouterState) => {
   store.dispatch(receiveItemFromServer(nextRouterState.params.itemId));
+  store.dispatch(gettingItemReviews(nextRouterState.params.itemId));
 };
+
 
 render(
   <Provider store={store}>

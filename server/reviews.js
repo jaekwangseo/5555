@@ -16,11 +16,13 @@ const router = require('express').Router();// eslint-disable-line new-cap
     .then(review => res.status(201).json(review))
     .catch(next));
 
-  router.get('/:id', (req, res, next) => {
-    console.log('getting an review');
-    Review.findById(req.params.id)
+  router.get('/:itemId', (req, res, next) => {
+    Review.findAll({
+      where: {
+        item_id: req.params.itemId
+      }
+    })
     .then(review => {
-      console.log('review being returned', review);
       res.json(review);
     })
     .catch(next);
