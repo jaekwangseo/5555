@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 
 export default (props) => {
-  console.log(props);
   return (
     <div className="list-group-item col-md-6 col-md-offset-3">
       <h2>{props.item.title}</h2>

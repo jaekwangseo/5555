@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 const mapStateToProps = (state) => {
-	console.log('mapstate in navbar'
-);
+
   return {
     auth: state.auth,
 		currentUser: state.auth
@@ -15,7 +14,6 @@ const mapStateToProps = (state) => {
 
 const NavBar = (props) =>
 {
-	console.log('ehere are the props', props);
 	return (
 	<nav className="navbar navbar-default navbar-fixed-top">
 		<div className="container-fluid">
