@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import ReviewContainer from '../containers/ReviewsContainer.jsx';
 
 export default (props) => {
   console.log(props);
@@ -10,6 +11,7 @@ export default (props) => {
       <p>Rating: {props.item.rating}/5</p>
       <p>Description: {props.item.description}</p>
       <Link to={`/user/${props.item.seller_id}`} >By: { props.item.seller && props.item.seller.name } </Link>
+      <ReviewContainer />
 
 
     </div>

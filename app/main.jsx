@@ -13,6 +13,7 @@ import UserContainer from './containers/UserContainer';
 import CreateUserContainer from './containers/CreateUserContainer';
 import ItemContainer from './containers/ItemContainer';
 import LoginComponent from './components/Login.jsx';
+import ReviewsContainer from './containers/ReviewsContainer.jsx';
 
 import { receiveAllUsers, receiveUser, receiveSeller } from './reducers/user.jsx';
 import { receiveAllItems, receiveSellerItems, receiveItemFromServer } from './reducers/item.jsx';
@@ -45,6 +46,7 @@ render(
         <Route path="user/:userId/items" component={ItemsContainer} onEnter={onSellerItemsPageEnter} />
         <Route path="createUser" component={CreateUserContainer} />
         <Route path="login" component={LoginComponent} />
+
       </Route>
     </Router>
   </Provider>,
