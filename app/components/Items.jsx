@@ -23,7 +23,9 @@ export default function Items(props) {
                 {item.description}
               </div>
               {props.user && props.user.admin ?
-                <span id={item.id}  onClick={() => props.handleDeleteEvent(item.id)}> X </span>
+                <button onClick={() => props.handleDeleteUser(item.id)} >
+                  Delete Item
+                </button>
                 : null
               }
 
@@ -41,8 +43,8 @@ export default function Items(props) {
             <label htmlFor="category">Filter by Category</label> <br />
             <input type="radio" name="category" value="Javascript" />  1
             <select name="category">
-              {props.itemList.map(item => (
-                <option key={1000 + item.id} value={item.category.name}>{item.category.name}</option>
+              {props.categories.map(category => (
+                <option key={category.id} value={category.name}>{category.name}</option>
 
                 ))}
 

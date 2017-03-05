@@ -20,7 +20,7 @@ export default (props) => {
               <div className="list-group-user-text">
                 {user.email}
 
-                <button onClick={() => props.handleDeleteUser(user.id)} >X</button>
+                <button onClick={() => props.handleDeleteUser(user.id)} >Delete User</button>
 
               </div>
 

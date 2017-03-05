@@ -29,9 +29,6 @@ const initialState = {
 };
 
 
-//Filter functions needed to set admin
-const findByUserId = (userId) => R.filter(R.whereEq({id: userId}));
-
 //-----------------------------------------------------------------------------
 // THE REDUCER
 export default (state = initialState, action) => {

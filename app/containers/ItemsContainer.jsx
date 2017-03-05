@@ -4,7 +4,7 @@ import React from 'react';
 import Items from '../components/Items';
 import { connect } from 'react-redux';
 import {groupingByCategory, deleteServerItem} from '../reducers/item.jsx';
-
+import axios from 'axios';
 
 const mapStateToProps = (state) => {
   return {
@@ -27,9 +27,19 @@ const mapDispatchToProps = (dispatch) => {
 class ItemsContainer extends React.Component{
   constructor(props){
     super(props);
+    this.state = {
+      categories: []
+    };
     this.handleFilterEvent = this.handleFilterEvent.bind(this);
     this.handleDeleteEvent = this.handleDeleteEvent.bind(this);
 
+  }
+
+  componentDidMount() {
+    axios.get('/api/category')
+    .then(res => res.data)
+    .then(categories => this.setState({categories: categories}))
+    .catch(err => console.error(err));
   }
 
   handleDeleteEvent(evt) {
@@ -46,7 +56,7 @@ class ItemsContainer extends React.Component{
   render(){
     return (
       <div>
-        <Items itemList={this.props.itemList} handleFilterEvent={this.handleFilterEvent} handleDeleteEvent={this.handleDeleteEvent} user= {this.props.user} />
+        <Items itemList={this.props.itemList} handleFilterEvent={this.handleFilterEvent} handleDeleteEvent={this.handleDeleteEvent} user= {this.props.user} categories={this.state.categories} />
       </div>
     );
   }
