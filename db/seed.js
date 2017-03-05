@@ -18,14 +18,18 @@ const orderItem = () => db.Promise.map(data.orderItem, itemOrder => db.model('or
 
 const Category = () => db.Promise.map(data.category, category => db.model('category').create(category));
 
+const Reviews = () => db.Promise.map(data.reviews, review => db.model('reviews').create(review));
+
+
 
 db.didSync
   .then(() => db.sync({force: true}))
   .then(Users)
+  .then(Category)
   .then(Items)
   .then(Orders)
   .then(orderItem)
-  .then(Category)
+  .then(Reviews)
   .then(users => console.log(`ed ${users.length} users OK`))
   .catch(error => console.error(error))
   .finally(() => db.close());

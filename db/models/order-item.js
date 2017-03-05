@@ -11,7 +11,7 @@ const OrderItem = db.define('order_item', {
 
   price: {
     type: Sequelize.FLOAT,
-    defaultValue: 0
+    defaultValue: 0.0
   },
   quantity: {
     type: Sequelize.INTEGER,

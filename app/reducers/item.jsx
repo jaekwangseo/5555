@@ -3,6 +3,9 @@
 import axios from 'axios';
 import _ from 'lodash';
 
+//Needed for implementing filter feature
+import R from 'ramda';
+
 
 //ACTION DEFINITIONS
 //-----------------------------------------------------------------------------
@@ -10,6 +13,10 @@ const POST_ITEM = 'POST_ITEM';
 const DELETE_ITEM = 'DELETE_ITEM';
 const RECEIVE_ITEMS = 'RECEIVE_ITEMS';
 const RECEIVE_ITEM = 'RECEIVE_ITEM';
+
+const SORT_BY_PRICE = "SORT_BY_PRICE";
+const GROUP_BY_CATEGORY = "GROUP_BY_CATEGORY";
+
 
 //-----------------------------------------------------------------------------
 //INITIAL STATE
@@ -40,6 +47,14 @@ export default (state = initialState, action) => {
 
     case RECEIVE_ITEM:
       newState.selectedItem = action.item;
+      break;
+
+    case SORT_BY_PRICE:
+      newState.itemList = action.items;
+      break;
+
+    case GROUP_BY_CATEGORY:
+      newState.itemList = action.items;
       break;
 
     default:
@@ -112,3 +127,31 @@ export const receiveItemFromServer = (itemId) => {
     .catch((err) => console.error(err));
   };
 };
+
+//Pass in item array
+export const sortByPrice =  R.sortBy(R.prop('price'));
+
+
+export const groupedItems = (items) => ({
+  type: GROUP_BY_CATEGORY,
+  items
+});
+
+export const groupingByCategory = (category) => {
+  return dispatch => {
+      axios.get('/api/items')
+      .then(results => results.data)
+      .then(items => {
+        console.log('ITEMS---------------', items);
+
+
+
+        const filteredItems = R.filter(R.compose(R.whereEq({name: category}), R.prop('category')))(items);
+        console.log('FILTERED ITEMS', filteredItems);
+        return dispatch(groupedItems(filteredItems));
+      })
+      .catch((err) => console.error(err));
+    };
+};
+
+

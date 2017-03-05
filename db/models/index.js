@@ -23,8 +23,11 @@ Item.belongsTo(User, {as: 'seller'});
 Review.belongsTo(Item);
 Review.belongsTo(User, {as: 'reviewer'});
 
+
 Order.belongsTo(User, {as: 'buyer'});
 Item.belongsToMany(Order, { through: OrderItem});
 Order.belongsToMany(Item, { through: OrderItem});
+
+Item.belongsTo(Category);
 
 module.exports = {User, Item, Order, Category, Review, OAuth, OrderItem};
