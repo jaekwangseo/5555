@@ -4,6 +4,8 @@ import React from 'react';
 import Items from '../components/Items.jsx';
 
 
+
+
 //import {createReview, gettingItemReviews} from '../reducers/admin.jsx';
 
 
@@ -11,8 +13,9 @@ const mapStateToProps = (state, ownProps) => {
   return {
     itemList: state.item.itemList,
     selectedItem: state.item.selectedItem,
-    user: state.auth,
-    reviews: state.reviews
+    auth: state.auth,
+    reviews: state.reviews,
+    user: state.user
   };
 };
 
@@ -57,7 +60,7 @@ class AdminContainer extends React.Component{
   render() {
     return (
     <div>
-      {this.props.user ?
+      {this.props.auth ?
         <div>
         <Items itemList={this.props.itemList} />
         </div>

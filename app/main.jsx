@@ -15,11 +15,15 @@ import ItemContainer from './containers/ItemContainer';
 import LoginComponent from './components/Login.jsx';
 import ReviewsContainer from './containers/ReviewsContainer.jsx';
 import AdminContainer from './containers/AdminContainer.jsx';
+import UsersContainer from './containers/UsersContainer.jsx';
+
 
 import {gettingItemReviews} from './reducers/reviews.jsx';
 
 import { receiveAllUsers, receiveUser, receiveSeller } from './reducers/user.jsx';
 import { receiveAllItems, receiveSellerItems, receiveItemFromServer } from './reducers/item.jsx';
+
+
 
 const onHomeEnter = () => {
   store.dispatch(receiveAllItems());
@@ -39,6 +43,11 @@ const onItemPageEnter = (nextRouterState) => {
   store.dispatch(gettingItemReviews(nextRouterState.params.itemId));
 };
 
+//for Admin only
+const onUsersEnter = () => {
+  store.dispatch(receiveAllUsers());
+};
+
 
 render(
   <Provider store={store}>
@@ -51,9 +60,10 @@ render(
         <Route path="user/:userId/items" component={ItemsContainer} onEnter={onSellerItemsPageEnter} />
         <Route path="createUser" component={CreateUserContainer} />
         <Route path="login" component={LoginComponent} />
-        <Route path="admin" component={AdminContainer} onEnter={onHomeEnter} />
-
       </Route>
+      <Route path="/admin" component={AdminContainer} onEnter={onHomeEnter} />
+      <Route path="/admin/users" component={UsersContainer} onEnter={onUsersEnter} />
+
     </Router>
   </Provider>,
   document.getElementById('main')

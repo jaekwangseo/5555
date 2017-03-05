@@ -39,7 +39,7 @@ export default (state = initialState, action) => {
       break;
 
     case DELETE_USER:
-      //MISSING IMPLEMENTATION
+      newState.users = state.users.filter( user => user.id !== action.userId);
       break;
 
     case UPDATE_USER:
@@ -47,7 +47,7 @@ export default (state = initialState, action) => {
       break;
 
     case GET_USERS:
-      //MISSING IMPLEMENTATION
+      newState.users = action.users;
       break;
 
     case GET_SELLER:
@@ -70,16 +70,16 @@ export const addUser = (user) => ({
 });
 
 
-export const deleteUser = (user) => ({
+export const deleteUser = (userId) => ({
     type: DELETE_USER,
-    user
+    userId
 });
 
-export const deleteUserOnServer = (user) => {
+export const deleteUserOnServer = (userId) => {
   return dispatch => {
-    axios.delete('/api/users', user)
-    .then(res => res.data)
-    .then(() => dispatch(deleteUser(user)));
+    dispatch(deleteUser(userId));
+    axios.delete(`/api/users/${userId}`)
+    .catch(err => console.error('User deletion unsuccessful', err));
   };
 };
 
