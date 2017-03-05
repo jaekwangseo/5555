@@ -1,9 +1,11 @@
 // This is going to contain all of the items that are posted for sale on our homepage (or wherever we wanna see them)
 
 // This is going to contain all of the items that are posted for sale on our homepage (or wherever we wanna see them)
-
+import React from 'react';
 import Items from '../components/Items';
 import { connect } from 'react-redux';
+import {groupingByCategory} from '../reducers/item.jsx';
+
 
 const mapStateToProps = (state) => {
   return {
@@ -11,24 +13,40 @@ const mapStateToProps = (state) => {
   };
 };
 
-//for the person who needs to do mapDispatchToProps, look at the juke-react-redux NewPlaylistContainer.js -Eric
+const mapDispatchToProps = (dispatch) => {
+  return {
+    groupingByCategory: (category) => {
+      dispatch(groupingByCategory(category));
+    }
+  };
+};
 
-const ItemsContainer = connect(mapStateToProps)(Items);
-export default ItemsContainer;
+class ItemsContainer extends React.Component{
+  constructor(props){
+    super(props);
+    this.handleFilterEvent = this.handleFilterEvent.bind(this);
+
+  }
+
+  handleFilterEvent(evt) {
+    evt.preventDefault();
+    const category = evt.target.category[1].value;
+    this.props.groupingByCategory(category);
+  }
+
+  render(){
+    return (
+      <div>
+        <Items itemList={this.props.itemList} handleFilterEvent={this.handleFilterEvent} />
+      </div>
+    );
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemsContainer);
+
 
 //keeping this here just incase my copy pasted code above breaks something
-/*import React from 'react';
-import Items from '../components/Items';
 
-export default class ItemsContainer extends React.Component{
-	constructor(props){
-		super(props);
-	}
-	render(){
-		return (
-			<div>
-        <Items />
-			</div>
-		);
-	}
-}*/
+
+
