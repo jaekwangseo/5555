@@ -39,6 +39,7 @@ export default (state = initialState, action) => {
       break;
 
     case DELETE_ITEM:
+      newState.itemList = state.itemList.filter(item => item.id !== action.id);
       break;
 
     case RECEIVE_ITEMS:
@@ -104,13 +105,16 @@ export const receiveSellerItems = (sellerId) => {
  };
 };
 
-const deleteItem = (payload) => ({
+const deleteItem = (id) => ({
   type: DELETE_ITEM,
-  itemToDelete: payload
+  id
 });
-const deleteServerItem = () => {
+
+export const deleteServerItem = (itemId) => {
   return dispatch => {
-    axios.delete();
+    dispatch(deleteItem(itemId));
+    axios.delete(`/api/items/${itemId}`)
+    .catch( err => console.error(' Remove user unsuccessful', err));
   };
 };
 
@@ -148,5 +152,4 @@ export const groupingByCategory = (category) => {
       .catch((err) => console.error(err));
     };
 };
-
 

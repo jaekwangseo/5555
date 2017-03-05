@@ -5,12 +5,16 @@ import { Link } from 'react-router';
 
 export default function Items(props) {
 
+  console.log(props);
+
   return (
     <div>
+
 
       <ul className="list-group">
         {
           props.itemList && props.itemList.map( (item) => (
+
             <li key={item.id} className="list-group-item col-md-6 col-md-offset-3">
               <Link to={`/item/${item.id}`} >
                 <h3 className="list-group-item-">{item.title}</h3>
@@ -18,6 +22,11 @@ export default function Items(props) {
               <div className="list-group-item-text">
                 {item.description}
               </div>
+              {props.user && props.user.admin ?
+                <span id={item.id}  onClick={() => props.handleDeleteEvent(item.id)}> X </span>
+                : null
+              }
+
             </li>
           ))
         }

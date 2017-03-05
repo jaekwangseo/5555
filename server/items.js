@@ -30,4 +30,16 @@ const router = require('express').Router();// eslint-disable-line new-cap
 
   });
 
+
+  router.delete('/:itemId', (req, res, next) => {
+    console.log('am i being hit');
+    Item.destroy({
+      where: {
+        id: req.params.itemId
+      }
+    })
+    .catch(next);
+
+  });
+
 module.exports = router;
