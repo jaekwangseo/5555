@@ -2,11 +2,8 @@
 */
 
 import React from 'react';
-import { Link } from 'react-router';
-
 
 //Going to have reviews and a review form and this will be rendered on the single item page
-
 
 export default (props) => {
 
@@ -59,5 +56,4 @@ export default (props) => {
 
   );
 };
-
 

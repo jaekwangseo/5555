@@ -43,7 +43,6 @@ export const gettingItemReviews = (itemId) => {
     axios.get(`/api/reviews/${itemId}`)
     .then( res => res.data)
     .then((reviews) => dispatch(gotAllItemReviews(reviews)))
-    .then(() => console.log('I GOT ALL ITEMS'))
     .catch(err => console.error(err));
   };
 };

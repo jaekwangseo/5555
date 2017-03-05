@@ -11,10 +11,9 @@ const router = require('express').Router(); // eslint-disable-line new-cap
 
 router.param('userId', (req, res, next, id) => {
   next();
-  // console.log('in users params');
+
   // User.scope('userLookup').findById(id)
   // .then(user => {
-  //   console.log('got user');
   //   if (!user) {
   //     const err = Error('User not found');
   //     err.status = 404;

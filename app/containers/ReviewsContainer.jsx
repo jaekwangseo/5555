@@ -54,8 +54,6 @@ class ReviewsContainer extends React.Component{
       reviewer_id
     };
 
-    console.log('What are these props?--------', this.props.reviews.itemReviews);
-
     this.props.createReview(reviewObj);
 
   }
@@ -69,7 +67,5 @@ class ReviewsContainer extends React.Component{
   }
 
 }
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReviewsContainer);

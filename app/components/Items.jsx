@@ -5,8 +5,6 @@ import { Link } from 'react-router';
 
 export default function Items(props) {
 
-console.log('ITEMS PROPS-------------', props);
-
   return (
     <div>
 
@@ -35,7 +33,7 @@ console.log('ITEMS PROPS-------------', props);
             <input type="radio" name="category" value="Javascript" />  1
             <select name="category">
               {props.itemList.map(item => (
-                <option key={item.category.id} value={item.category.name}>{item.category.name}</option>
+                <option key={1000 + item.id} value={item.category.name}>{item.category.name}</option>
 
                 ))}
 

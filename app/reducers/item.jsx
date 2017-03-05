@@ -142,12 +142,7 @@ export const groupingByCategory = (category) => {
       axios.get('/api/items')
       .then(results => results.data)
       .then(items => {
-        console.log('ITEMS---------------', items);
-
-
-
         const filteredItems = R.filter(R.compose(R.whereEq({name: category}), R.prop('category')))(items);
-        console.log('FILTERED ITEMS', filteredItems);
         return dispatch(groupedItems(filteredItems));
       })
       .catch((err) => console.error(err));

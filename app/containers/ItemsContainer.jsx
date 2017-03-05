@@ -1,6 +1,5 @@
 // This is going to contain all of the items that are posted for sale on our homepage (or wherever we wanna see them)
 
-// This is going to contain all of the items that are posted for sale on our homepage (or wherever we wanna see them)
 import React from 'react';
 import Items from '../components/Items';
 import { connect } from 'react-redux';
@@ -44,9 +43,4 @@ class ItemsContainer extends React.Component{
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemsContainer);
-
-
-//keeping this here just incase my copy pasted code above breaks something
-
-
 
