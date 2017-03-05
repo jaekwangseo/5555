@@ -61,6 +61,7 @@ const User = db.define('users', {
       });
     }
   },
+
   scopes: {
     sellerLookup: () => {
       return {

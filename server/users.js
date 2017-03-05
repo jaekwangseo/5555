@@ -93,4 +93,19 @@ router.get('/:userId/items', (req, res, next) => {
   .catch(next);
 });
 
+
+
+router.put('/:userId', (req, res, next) => {
+  User.update({
+    admin: true
+  }, {
+    where: {
+      id: req.params.userId
+    }
+  })
+  .then(() => res.end('It worked'))
+  .catch(next);
+
+});
+
 module.exports = router;

@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 import React from 'react';
 //import Admin from '../components/Admin.jsx';
+import { browserHistory } from 'react-router';
 import Users from '../components/Users.jsx';
-import {deleteUserOnServer} from '../reducers/user.jsx';
+import {deleteUserOnServer, setAdminOnUser} from '../reducers/user.jsx';
 
 
 //import {createReview, gettingItemReviews} from '../reducers/admin.jsx';
@@ -22,6 +23,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     deleteUserOnServer(userId) {
       dispatch(deleteUserOnServer(userId));
+    },
+    setAdminOnUser(userId){
+      dispatch(setAdminOnUser(userId));
     }
   };
 };
@@ -31,6 +35,7 @@ class UsersContainer extends React.Component{
   constructor(props){
     super(props);
     this.handleDeleteUser = this.handleDeleteUser.bind(this);
+    this.promoteUserToAdmin = this.promoteUserToAdmin.bind(this);
   }
 
 
@@ -39,13 +44,21 @@ class UsersContainer extends React.Component{
     this.props.deleteUserOnServer(evt);
   }
 
+  promoteUserToAdmin(evt) {
+
+    console.log(evt);
+    this.props.setAdminOnUser(evt);
+
+
+  }
+
 
   render() {
     return (
     <div>
       {this.props.auth ?
         <div>
-        <Users users={this.props.user.users} auth={this.props.auth} handleDeleteUser= {this.handleDeleteUser} />
+        <Users users={this.props.user.users} auth={this.props.auth} handleDeleteUser= {this.handleDeleteUser} promoteUserToAdmin={this.promoteUserToAdmin} />
         </div>
       :
       <div>

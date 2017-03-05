@@ -1,4 +1,5 @@
 import axios from 'axios';
+import R from 'ramda';
 
 
 //ACTION DEFINITIONS
@@ -17,6 +18,8 @@ const GET_CURRENT_USER = 'GET_CURRENT_USER';
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
 
+const SET_ADMIN = 'SET_ADMIN';
+
 //-----------------------------------------------------------------------------
 //INITIAL STATE
 const initialState = {
@@ -25,6 +28,9 @@ const initialState = {
   users: [], //for admin
 };
 
+
+//Filter functions needed to set admin
+const findByUserId = (userId) => R.filter(R.whereEq({id: userId}));
 
 //-----------------------------------------------------------------------------
 // THE REDUCER
@@ -54,6 +60,17 @@ export default (state = initialState, action) => {
       newState.selectedSeller = action.seller;
       break;
 
+    case SET_ADMIN:
+
+      newState.users = state.users.map(user => {
+        if (user.id === action.userId) {
+          user.admin = true;
+          return user;
+        }
+      return user;
+      });
+
+      break;
     default:
       return state;
   }
@@ -63,6 +80,7 @@ export default (state = initialState, action) => {
 
 //-----------------------------------------------------------------------------
 //   ACTION CREATORS AND THUNK MIDDLEWARE
+
 
 export const addUser = (user) => ({
     type: ADD_USER,
@@ -120,5 +138,21 @@ export const receiveSeller = (sellerId) => {
     axios.get(`/api/users/${sellerId}`)
     .then(res => res.data)
     .then(seller => dispatch(getSeller(seller)));
+  };
+};
+
+
+export const setAdmin = (userId) => ({
+    type: SET_ADMIN,
+    userId
+});
+
+export const setAdminOnUser = (userId) => {
+
+  return dispatch => {
+    dispatch(setAdmin(userId));
+    axios.put(`/api/users/${userId}`)
+    .catch(err => console.error('Could not promote to admin', err));
+
   };
 };
