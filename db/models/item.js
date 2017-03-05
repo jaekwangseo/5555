@@ -16,7 +16,8 @@ const Item = db.define('items', {
   title: {
     type: Sequelize.STRING,
     defaultValue: 'Untitled'
-  }
+  },
+
 
 }, {
   scopes: {

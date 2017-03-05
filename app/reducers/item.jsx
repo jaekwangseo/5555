@@ -11,6 +11,9 @@ const DELETE_ITEM = 'DELETE_ITEM';
 const RECEIVE_ITEMS = 'RECEIVE_ITEMS';
 const RECEIVE_ITEM = 'RECEIVE_ITEM';
 
+const SORT_BY_PRICE = "SORT_BY_PRICE";
+const SORT_BY_PRICE = "SORT_BY_PRICE";
+
 //-----------------------------------------------------------------------------
 //INITIAL STATE
 const initialState = {
@@ -112,3 +115,10 @@ export const receiveItemFromServer = (itemId) => {
     .catch((err) => console.error(err));
   };
 };
+
+
+
+//FILTER CAN BE PRICE
+const filterItems = (filter) => {
+
+}
