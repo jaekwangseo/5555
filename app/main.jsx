@@ -17,13 +17,14 @@ import ReviewsContainer from './containers/ReviewsContainer.jsx';
 import AdminContainer from './containers/AdminContainer.jsx';
 import UsersContainer from './containers/UsersContainer.jsx';
 import CreateItemContainer from './containers/CreateItemContainer.jsx';
+import EditItemContainer from './containers/EditItemContainer.jsx';
 
 
 
 import {gettingItemReviews} from './reducers/reviews.jsx';
 
 import { receiveAllUsers, receiveUser, receiveSeller } from './reducers/user.jsx';
-import { receiveAllItems, receiveSellerItems, receiveItemFromServer } from './reducers/item.jsx';
+import { receiveAllItems, receiveSellerItems, receiveItemFromServer, receiveItemToEditFromServer } from './reducers/item.jsx';
 
 
 
@@ -50,6 +51,10 @@ const onUsersEnter = () => {
   store.dispatch(receiveAllUsers());
 };
 
+const onItemEditEnter = (nextRouterState) => {
+  store.dispatch(receiveItemToEditFromServer(nextRouterState.params.itemId));
+};
+
 
 render(
   <Provider store={store}>
@@ -59,6 +64,7 @@ render(
         <Route path="home" component={ItemsContainer} onEnter={onHomeEnter} />
         <Route path="item/:itemId" component={ItemContainer} onEnter={onItemPageEnter} />
         <Route path="user/:userId" component={UserContainer} onEnter={onSellerPageEnter} />
+        <Route path="item/:itemId/edit" component={EditItemContainer} onEnter={onItemEditEnter} />
         <Route path="user/:userId/items" component={ItemsContainer} onEnter={onSellerItemsPageEnter} />
         <Route path="createUser" component={CreateUserContainer} />
         <Route path="login" component={LoginComponent} />

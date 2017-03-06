@@ -3,19 +3,7 @@ import {connect} from 'react-redux';
 import Item from '../components/Item';
 import {gettingItemReviews} from '../reducers/reviews.jsx';
 import ReviewsContainer from './ReviewsContainer.jsx';
-/*class ItemContainer extends React.Component {
 
-  render() {
-
-    return (
-      <div>
-        <Item item={this.props.item} />
-        <Reviews item={this.props.item> //Renders both a review form and all the review sof the item
-
-      </div>
-    );
-  }
-}*/
 
 const mapStateToProps = (state, ownProps) => {
   //const paramId = Number(ownProps.params.id);
@@ -34,7 +22,7 @@ const mapDispatchToProps = (dispatch) => {
 
 };
 
-class ItemsContainer extends React.Component{
+class ItemContainer extends React.Component{
   constructor(props){
     super(props);
 
@@ -61,4 +49,4 @@ class ItemsContainer extends React.Component{
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ItemsContainer);
+)(ItemContainer);

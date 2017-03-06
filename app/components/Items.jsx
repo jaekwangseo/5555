@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { Link } from 'react-router';
+//import EditItem from './EditItem.jsx';
+
 
 export default function Items(props) {
 
@@ -9,8 +11,6 @@ export default function Items(props) {
 
   return (
     <div>
-
-
       <ul className="list-group">
         {
           props.itemList && props.itemList.map( (item) => (
@@ -28,22 +28,22 @@ export default function Items(props) {
                     Delete Item
                   </button>
 
-                  <button onClick={() => console.log('implement edit feature')} >
-                    Add Item
-                  </button>
+                  <Link to={`/item/${item.id}/edit`} >
+                    <button type="submit" className="btn btn-success col-md-2 col-md-offset-5"> Edit Item </button>
+                  </Link>
                 </div>
 
                 : null
               }
 
+
             </li>
           ))
         }
       </ul>
-
-      <button onClick={() => console.log('implement add item')} >
-        Add Item
-      </button>
+      <Link to={'createItem'} >
+        <button> Add Item </button>
+       </Link>
 
 
       <form className="review" onSubmit={props.handleFilterEvent}>

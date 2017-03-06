@@ -3,7 +3,7 @@
 import React from 'react';
 import Items from '../components/Items';
 import { connect } from 'react-redux';
-import {groupingByCategory, deleteServerItem} from '../reducers/item.jsx';
+import {groupingByCategory, deleteServerItem, addItemToServer} from '../reducers/item.jsx';
 import axios from 'axios';
 
 
@@ -21,6 +21,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     deleteServerItem: (id) => {
       dispatch(deleteServerItem(id));
+    },
+    addItemToServer: (item) => {
+      dispatch(addItemToServer(item));
     }
   };
 };
@@ -33,6 +36,7 @@ class ItemsContainer extends React.Component{
     };
     this.handleFilterEvent = this.handleFilterEvent.bind(this);
     this.handleDeleteEvent = this.handleDeleteEvent.bind(this);
+
   }
 
   componentDidMount() {
@@ -53,6 +57,7 @@ class ItemsContainer extends React.Component{
     const category = evt.target.category[1].value;
     this.props.groupingByCategory(category);
   }
+
 
 
   render(){
