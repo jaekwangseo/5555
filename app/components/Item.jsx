@@ -11,8 +11,9 @@ export default (props) => {
       <p>Rating: {props.item.rating}/5</p>
       <p>Description: {props.item.description}</p>
       <Link to={`/user/${props.item.seller_id}`} >By: { props.item.seller && props.item.seller.name } </Link>
-      <button className="add-to-cart" onClick={(event) => {event.preventDefault(); props.addItemToCart(props.item.id);}}>Add to cart</button>
-
+      <div className="container button-wrapper">
+         <button className="btn-lg btn-success col-md-offset-3" style={{float: "right"}}onClick={(event) => {event.preventDefault(); props.addItemToCart(item.id);}}>Add <span className="glyphicon glyphicon-shopping-cart"></span></button>
+      </div>
     </div>
   );
 };
