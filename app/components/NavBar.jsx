@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 
 export default (props) =>
 {
-  console.log(props);
+
 	return (
 	<nav className="navbar navbar-default navbar-fixed-top">
 		<div className="container-fluid">

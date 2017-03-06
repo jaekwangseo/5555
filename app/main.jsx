@@ -29,7 +29,7 @@ import { receiveAllItems, receiveSellerItems, receiveItemFromServer } from './re
 import { receiveCartFromServer } from './reducers/order';
 
 const onAppEnter = () => {
-  console.log('app enter');
+
 };
 
 

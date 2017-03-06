@@ -24,8 +24,8 @@ class ItemsContainer extends React.Component{
     .catch(err => console.error(err));
   }
 
-  handleAddToCart(item) {
-		this.props.addItemToCart(item);
+  handleAddToCart(itemId) {
+		this.props.addItemToCart(itemId);
 	}
 
   handleDeleteEvent(evt) {
