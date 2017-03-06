@@ -5,10 +5,10 @@ import User from '../components/User';
 class UserContainer extends React.Component {
 
   render() {
-
+    console.log('hererererer', this.props);
     return (
       <div>
-        <User user={this.props.user} />
+        <User user={this.props.user} currentUser={this.props.currentUser} />
       </div>
     );
   }
@@ -17,7 +17,8 @@ class UserContainer extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   //const paramId = Number(ownProps.params.id);
   return {
-    user: state.user.selectedSeller
+    user: state.user.selectedSeller,
+    currentUser: state.auth
   };
 };
 

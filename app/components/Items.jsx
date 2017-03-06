@@ -7,14 +7,13 @@ import { Link } from 'react-router';
 
 export default function Items(props) {
 
-  console.log(props);
 
+  console.log('rendering items', props);
   return (
     <div>
       <ul className="list-group">
         {
           props.itemList && props.itemList.map( (item) => (
-
             <li key={item.id} className="list-group-item col-md-6 col-md-offset-3">
               <Link to={`/item/${item.id}`} >
                 <h3 className="list-group-item-">{item.title}</h3>
@@ -22,6 +21,7 @@ export default function Items(props) {
               <div className="list-group-item-text">
                 {item.description}
               </div>
+              <button className="add-to-cart" onClick={(event) => {event.preventDefault(); props.addItemToCart(item.id);}} >Add to cart</button>
               {props.user && props.user.admin ?
                 <div>
                   <button onClick={() => props.handleDeleteUser(item.id)} >
@@ -36,14 +36,19 @@ export default function Items(props) {
                 : null
               }
 
-
             </li>
           ))
         }
       </ul>
+
       <Link to={'createItem'} >
         <button> Add Item </button>
        </Link>
+
+
+      <button onClick={() => console.log('implement add item')} >
+          Add Item
+      </button>
 
 
       <form className="review" onSubmit={props.handleFilterEvent}>
@@ -51,7 +56,6 @@ export default function Items(props) {
 
           <div className="form-group col-md-offset-1 col-md-3">
             <label htmlFor="category">Filter by Category</label> <br />
-            <input type="radio" name="category" value="Javascript" />  1
             <select name="category">
               {props.categories.map(category => (
                 <option key={category.id} value={category.name}>{category.name}</option>

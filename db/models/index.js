@@ -17,20 +17,24 @@ OAuth.belongsTo(User);
 User.hasOne(OAuth);
 
 
-Item.belongsTo(User, {as: 'seller'});
-//User.hasMany(Item, {as: 'seller'});
+Item.belongsTo(User, {as: 'seller', foreignKey: 'seller_id'});
+User.hasMany(Item, { foreignKey: 'seller_id'});
 
 Review.belongsTo(Item);
 Review.belongsTo(User, {as: 'reviewer'});
 
+Order.belongsTo(User, {as: 'buyer', foreignKey: 'buyer_id'});
+User.hasMany(Order, { foreignKey: 'buyer_id'});
 
-Order.belongsTo(User, {as: 'buyer'});
 Item.belongsToMany(Order, { through: OrderItem});
 Order.belongsToMany(Item, { through: OrderItem});
 
+OrderItem.belongsTo(Order);
+Order.hasMany(OrderItem);
+OrderItem.belongsTo(Item);
+Item.hasMany(OrderItem);
+
 Item.belongsToMany(Category, { through: 'item_category' });
 Category.belongsToMany(Item, { through: 'item_category'});
-
-
 
 module.exports = {User, Item, Order, Category, Review, OAuth, OrderItem};

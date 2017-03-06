@@ -134,7 +134,9 @@ export const receiveSeller = (sellerId) => {
   return dispatch => {
     axios.get(`/api/users/${sellerId}`)
     .then(res => res.data)
-    .then(seller => dispatch(getSeller(seller)));
+    .then(seller => {
+      dispatch(getSeller(seller));
+    });
   };
 };
 

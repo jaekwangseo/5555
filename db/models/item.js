@@ -25,7 +25,7 @@ const Item = db.define('items', {
 
 }, {
   scopes: {
-    populated: () => ({ // function form lets us use to-be-defined models
+    populated: () => ({
       include: [
         { model: db.model('users'), as: 'seller' }
       ]

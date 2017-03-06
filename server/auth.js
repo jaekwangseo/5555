@@ -7,6 +7,7 @@ const passport = require('passport');
 
 const User = require('APP/db/models/user');
 const OAuth = require('APP/db/models/oauth');
+const Order = require('APP/db/models/order');
 const auth = require('express').Router(); // eslint-disable-line new-cap
 
 
@@ -69,7 +70,7 @@ OAuth.setupStrategy({
   strategy: require('passport-github2').Strategy,
   config: {
     clientID: env.GITHUB_CLIENT_ID,
-    clientSecrets: env.GITHUB_CLIENT_SECRET,
+    clientSecret: env.GITHUB_CLIENT_SECRET,
     callbackURL: `${app.baseUrl}/api/auth/login/github`,
   },
   passport
@@ -87,7 +88,8 @@ passport.deserializeUser(
     debug('will deserialize user.id=%d', id);
     User.findById(id)
       .then(user => {
-        debug('deserialize did ok user.id=%d', user.id);
+        if (!user) debug('deserialize retrieved null user for id=%d', id);
+        else debug('deserialize did ok user.id=%d', id);
         done(null, user);
       })
       .catch(err => {
@@ -113,7 +115,7 @@ passport.use(new (require('passport-local').Strategy)(
               debug('authenticate user(email: "%s") did fail: bad password');
               return done(null, false, { message: 'Login incorrect' });
             }
-            debug('authenticate user(email: "%s") did ok: user.id=%d', user.id);
+            debug('authenticate user(email: "%s") did ok: user.id=%d', email, user.id);
             done(null, user);
           });
       })
@@ -121,7 +123,26 @@ passport.use(new (require('passport-local').Strategy)(
   }
 ));
 
-auth.get('/whoami', (req, res) => res.send(req.user));
+//On login eager load user data such as cart, orders.
+auth.get('/whoami', (req, res, next) => {
+
+  //get cart
+  if (req.user && !req.user.cart) {
+    return Order.scope('cartItems').findOne({ where: { status: 'processing', buyer_id: req.user.id }})
+    .then(order => {
+      res.status(200).send({user: req.user, cart: order});
+    })
+    .catch(next);
+
+  } else {
+    console.log('cart already there for user');
+    res.send(req.user);
+  }
+
+
+
+});
+
 
 // POST requests for local login:
 auth.post('/login/local', passport.authenticate('local', { successRedirect: '/' }));
