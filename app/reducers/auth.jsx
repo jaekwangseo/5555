@@ -29,7 +29,8 @@ export const whoami = () =>
         dispatch(authenticated(user));
         dispatch(receiveCart(cart));
       })
-      .catch(() => dispatch(authenticated(null)));};
+      .catch(() => dispatch(authenticated(null)));
+    };
 
 export const login = (username, password) =>
   dispatch =>

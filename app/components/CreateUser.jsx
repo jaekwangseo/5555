@@ -1,6 +1,7 @@
 // This is the dummy component for create user page
 
 import React from 'react';
+import { Link } from 'react-router';
 
 export default (props) => {
 
@@ -27,6 +28,9 @@ export default (props) => {
           <textarea name="description" className="form-control" rows="5" cols="80" id="TITLE" placeholder="(e.g. Javascript expert, Back-end Web Development)" />
         </div>
         <button type="submit" className="btn btn-success col-md-2 col-md-offset-5" >Submit</button>
+        <br />
+        <br />
+        <Link to='/login' className="col-md-2 col-md-offset-5" >Already have an account?</Link>
     </form>
   );
 };
