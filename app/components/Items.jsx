@@ -24,7 +24,7 @@ export default function Items(props) {
               <button className="add-to-cart" onClick={(event) => {event.preventDefault(); props.addItemToCart(item.id);}} >Add to cart</button>
               {props.user && props.user.admin ?
                 <div>
-                  <button onClick={() => props.handleDeleteUser(item.id)} >
+                  <button onClick={() => props.handleDeleteEvent(item.id)} >
                     Delete Item
                   </button>
 
@@ -44,11 +44,6 @@ export default function Items(props) {
       <Link to={'createItem'} >
         <button> Add Item </button>
        </Link>
-
-
-      <button onClick={() => console.log('implement add item')} >
-          Add Item
-      </button>
 
 
       <form className="review" onSubmit={props.handleFilterEvent}>
