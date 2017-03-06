@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { receiveCart } from './order';
 
 const AUTHENTICATED = 'AUTHENTICATED';
 
@@ -17,19 +18,28 @@ export const authenticated = user => ({
 
 export const whoami = () =>
   dispatch =>
-    axios.get('/api/auth/whoami')
+{
+  return axios.get('/api/auth/whoami')
       .then(response => {
-        const user = response.data;
+
+        console.log('axios post in whoami, repsonse', response);
+        const user = response.data.user;
+        const cart = response.data.cart;
+
         dispatch(authenticated(user));
+        dispatch(receiveCart(cart));
       })
       .catch(() => dispatch(authenticated(null)));
+    };
 
 export const login = (username, password) =>
   dispatch =>
-      axios.post('/api/auth/login/local',
+    {
+      return axios.post('/api/auth/login/local',
       {username, password})
       .then(() => dispatch(whoami()))
       .catch(() => dispatch(whoami()));
+    };
 
 export const logout = () =>
   dispatch =>

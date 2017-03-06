@@ -1,34 +1,77 @@
-// This is going to contain all of the items that are posted for sale on our homepage (or wherever we wanna see them)
-
-// This is going to contain all of the items that are posted for sale on our homepage (or wherever we wanna see them)
-
 import Items from '../components/Items';
 import { connect } from 'react-redux';
+import React from 'react';
+import {addItemToCart} from '../reducers/order.jsx';
+import {groupingByCategory, deleteServerItem} from '../reducers/item.jsx';
+import axios from 'axios';
+
+class ItemsContainer extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      categories: []
+    };
+    this.handleFilterEvent = this.handleFilterEvent.bind(this);
+    this.handleDeleteEvent = this.handleDeleteEvent.bind(this);
+    this.handleAddToCart = this.handleAddToCart.bind(this);
+  }
+
+  componentDidMount() {
+    //Get categories for filter
+    axios.get('/api/category')
+    .then(res => res.data)
+    .then(categories => this.setState({categories: categories}))
+    .catch(err => console.error(err));
+  }
+
+  handleAddToCart(item) {
+		this.props.addItemToCart(item);
+	}
+
+  handleDeleteEvent(evt) {
+
+    this.props.deleteServerItem(evt);
+  }
+
+  handleFilterEvent(evt) {
+    evt.preventDefault();
+    const category = evt.target.category[1].value;
+    this.props.groupingByCategory(category);
+  }
+
+
+  render(){
+    return (
+      <div>
+        <Items {...this.props} handleFilterEvent={this.handleFilterEvent} handleDeleteEvent={this.handleDeleteEvent} categories={this.state.categories} handleAddToCart={this.handleAddToCart} />
+      </div>
+    );
+  }
+}
+
 
 const mapStateToProps = (state) => {
   return {
-    itemList: state.item.itemList
+    itemList: state.item.itemList,
+    user: state.auth
   };
 };
 
-//for the person who needs to do mapDispatchToProps, look at the juke-react-redux NewPlaylistContainer.js -Eric
+const mapDispatchToProps = (dispatch) => {
+  return {
 
-const ItemsContainer = connect(mapStateToProps)(Items);
-export default ItemsContainer;
+    addItemToCart (itemId) {
+      dispatch(addItemToCart(itemId));
+    },
 
-//keeping this here just incase my copy pasted code above breaks something
-/*import React from 'react';
-import Items from '../components/Items';
+    groupingByCategory: (category) => {
+      dispatch(groupingByCategory(category));
+    },
+    deleteServerItem: (id) => {
+      dispatch(deleteServerItem(id));
 
-export default class ItemsContainer extends React.Component{
-	constructor(props){
-		super(props);
-	}
-	render(){
-		return (
-			<div>
-        <Items />
-			</div>
-		);
-	}
-}*/
+    }
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ItemsContainer);
+

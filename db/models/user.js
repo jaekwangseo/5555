@@ -15,7 +15,8 @@ const User = db.define('users', {
     validate: {
 			isEmail: true,
 			notEmpty: true,
-		}
+		},
+    unique: true,
   },
   rating: {
     type: Sequelize.FLOAT
@@ -61,12 +62,23 @@ const User = db.define('users', {
       });
     }
   },
+
   scopes: {
     sellerLookup: () => {
       return {
         attributes: { exclude: ['admin', 'active', 'password_digest', 'created_at', 'updated_at'] }
       };
     },
+    getItems: () => ({ // function form lets us use to-be-defined models
+      include: [
+        { model: db.model('items'), as: 'items' }
+      ]
+    }),
+    getOrders: () => ({ // function form lets us use to-be-defined models
+      include: [
+        { model: db.model('orders'), as: 'orders'}
+      ]
+    })
   }
 });
 

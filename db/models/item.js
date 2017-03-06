@@ -12,19 +12,22 @@ const Item = db.define('items', {
   description: {
     type: Sequelize.TEXT
   },
-  rating: {
-    type: Sequelize.FLOAT
-  },
+
   title: {
     type: Sequelize.STRING,
     defaultValue: 'Untitled'
+  },
+  url: {
+    type: Sequelize.STRING,
+    allowNull: true
   }
 
 }, {
   scopes: {
-    populated: () => ({ // function form lets us use to-be-defined models
+    populated: () => ({
       include: [
-        { model: db.model('users'), as: 'seller' }
+        { model: db.model('users'), as: 'seller' },
+        { model: db.model('category'), as: 'category' }
       ]
     })
   }
