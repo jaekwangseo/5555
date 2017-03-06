@@ -63,7 +63,7 @@ render(
       <Route path="/" component={MainContainer} onEnter={onAppEnter} >
         <IndexRedirect to="home" />
         <Route path="home" component={ItemsContainer} onEnter={onHomeEnter} />
-        <Route path="cart" component={CartContainer} onEnter={onCartEnter} />
+        <Route path="cart" component={CartContainer} />
         <Route path="item/:itemId" component={ItemContainer} onEnter={onItemPageEnter} />
         <Route path="user/:userId" component={UserContainer} onEnter={onSellerPageEnter} />
         <Route path="user/:userId/items" component={ItemsContainer} onEnter={onSellerItemsPageEnter} />
