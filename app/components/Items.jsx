@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { Link } from 'react-router';
+//import EditItem from './EditItem.jsx';
+
 
 export default function Items(props) {
 
@@ -22,32 +24,33 @@ export default function Items(props) {
               <button className="add-to-cart" onClick={(event) => {event.preventDefault(); props.addItemToCart(item.id);}} >Add to cart</button>
               {props.user && props.user.admin ?
                 <div>
-                  <button onClick={() => props.handleDeleteUser(item.id)} >
+                  <button onClick={() => props.handleDeleteEvent(item.id)} >
                     Delete Item
                   </button>
 
-                  <button onClick={() => console.log('implement edit feature')} >
-                    Add Item
-                  </button>
+                  <Link to={`/item/${item.id}/edit`} >
+                    <button type="submit" className="btn btn-success col-md-2 col-md-offset-5"> Edit Item </button>
+                  </Link>
                 </div>
 
                 : null
               }
+
             </li>
           ))
         }
       </ul>
 
-      <button onClick={() => console.log('implement add item')} >
-          Add Item
-      </button>
+      <Link to={'createItem'} >
+        <button> Add Item </button>
+       </Link>
+
 
       <form className="review" onSubmit={props.handleFilterEvent}>
 
 
           <div className="form-group col-md-offset-1 col-md-3">
             <label htmlFor="category">Filter by Category</label> <br />
-            <input type="radio" name="category" value="Javascript" />  1
             <select name="category">
               {props.categories.map(category => (
                 <option key={category.id} value={category.name}>{category.name}</option>
