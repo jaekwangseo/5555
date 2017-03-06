@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import Payment from '../components/Payment';
 
-import { deleteItemFormCart } from '../reducers/order';
+import { deleteItemFormCart, addItemToCartState } from '../reducers/order';
 
 class CartContainer extends React.Component {
 	constructor(props){
@@ -21,7 +21,7 @@ class CartContainer extends React.Component {
 		return (
 			<div>
         <Cart {...this.props} handleRemove={this.handleRemove} />
-        <Payment getPaymentInfo={props.getPaymentInfo} />
+        <Payment getPaymentInfo={this.props.getPaymentInfo} />
 			</div>
 		);
 	}
@@ -42,14 +42,6 @@ const mapDispatchToProps = (dispatch) => {
     deleteItemFromCart(itemId) {
       dispatch(deleteItemFormCart(itemId));
     }
-    // ,
-    // getPaymentInfo: function(synthE){
-    //   const CCN = synthE.target.CCN;
-    //   const fname = synthE.target.fname;
-    //   const lname = synthE.target.lname;
-    //   dispatch();               //MUST DISPATCH CREDIT CARD INFO TO STORE
-
-    // }
   };
 };
 
