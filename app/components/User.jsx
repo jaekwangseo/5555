@@ -12,6 +12,9 @@ export default (props) => {
       <p>Email: {props.user.email}</p>
       <p>Rating: {props.user.rating}/5</p>
       <Link to={`/user/${props.user.id}/items`} >Items</Link><br/>
+      <a href={props.user.url}>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Linkedin_icon.svg/2000px-Linkedin_icon.svg.png" style={{width: "50px", height: "50px"}}></img>
+      </a>
       { props.currentUser && props.user.id === props.currentUser.id ? <Link to={Orders} >Orders</Link> : null }
     </div>
   );

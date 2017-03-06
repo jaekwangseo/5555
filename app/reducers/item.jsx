@@ -13,9 +13,11 @@ const POST_ITEM = 'POST_ITEM';
 const DELETE_ITEM = 'DELETE_ITEM';
 const RECEIVE_ITEMS = 'RECEIVE_ITEMS';
 const RECEIVE_ITEM = 'RECEIVE_ITEM';
-
+const UPDATE_ITEM = 'UPDATE_ITEM';
 const SORT_BY_PRICE = "SORT_BY_PRICE";
 const GROUP_BY_CATEGORY = "GROUP_BY_CATEGORY";
+const EDIT_ITEM = "EDIT_ITEM";
+const RECEIVE_EDIT_ITEM = "RECEIVE_EDIT_ITEM";
 
 
 //-----------------------------------------------------------------------------
@@ -23,6 +25,7 @@ const GROUP_BY_CATEGORY = "GROUP_BY_CATEGORY";
 const initialState = {
   itemList: [],
   selectedItem: {},
+  currentEditItem: {}
 
 };
 
@@ -42,12 +45,38 @@ export default (state = initialState, action) => {
       newState.itemList = state.itemList.filter(item => item.id !== action.id);
       break;
 
+    case UPDATE_ITEM:
+      newState.itemsList = state.itemsList.map(item => {
+        if (item.id === action.item.id) {
+          item = action.item;
+          return item;
+        }
+      return item;
+      });
+
+      break;
+
     case RECEIVE_ITEMS:
       newState.itemList = action.items;
       break;
 
     case RECEIVE_ITEM:
       newState.selectedItem = action.item;
+      break;
+
+    case RECEIVE_EDIT_ITEM:
+      newState.currentEditItem = action.item;
+      break;
+
+    case EDIT_ITEM:
+      newState.itemsList = state.itemList.map(item => {
+        if (item.id === action.item.id) {
+          item = action.item;
+          return item;
+        }
+        return item;
+      });
+      newState.currentEditItem = action.item;
       break;
 
     case SORT_BY_PRICE:
@@ -81,6 +110,23 @@ export const addItemToServer = (item) => {
     axios.post('/api/items', item)
     .then(res => res.data)
     .then((newItem) => dispatch(postItemAction(newItem)))
+    .catch((err) => console.error(err));
+ };
+};
+
+
+const updateItemAction = (item) => ({
+  type: UPDATE_ITEM,
+  item
+});
+
+//create thunk action create
+export const updateItemToServer = (item) => {
+
+  return dispatch => {
+    axios.put('/api/items', item)
+    .then(res => res.data)
+    .then((newItem) => dispatch(updateItemAction(newItem)))
     .catch((err) => console.error(err));
  };
 };
@@ -155,5 +201,36 @@ export const groupingByCategory = (category) => {
       })
       .catch((err) => console.error(err));
     };
+};
+
+
+export const receiveEditedItem = (item) => ({
+  type: RECEIVE_EDIT_ITEM,
+  item
+});
+
+export const receiveItemToEditFromServer = (itemId) => {
+  return dispatch => {
+    axios.get(`/api/items/${itemId}`)
+    .then(res => res.data)
+    .then(item => dispatch(receiveEditedItem(item)))
+    .catch((err) => console.error(err));
+  };
+};
+
+const updateEditItemAction = (item) => ({
+  type: EDIT_ITEM,
+  item
+});
+
+//create thunk action create
+export const updateEditItemToServer = (item) => {
+
+  return dispatch => {
+    axios.put(`/api/items/${item.id}/edit`, item)
+    .then(res => res.data)
+    .then((newItem) => dispatch(updateEditItemAction(newItem)))
+    .catch((err) => console.error(err));
+ };
 };
 
