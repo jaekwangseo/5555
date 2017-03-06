@@ -27,7 +27,7 @@ const Item = db.define('items', {
     populated: () => ({
       include: [
         { model: db.model('users'), as: 'seller' },
-        { model: db.model('category'), as: 'category' }
+
       ]
     })
   }
