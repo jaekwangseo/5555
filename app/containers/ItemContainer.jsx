@@ -5,7 +5,6 @@ import {addItemToCart} from '../reducers/order.jsx';
 import {gettingItemReviews} from '../reducers/reviews.jsx';
 import ReviewsContainer from './ReviewsContainer.jsx';
 
-
 class ItemContainer extends React.Component{
   constructor(props){
     super(props);
@@ -15,12 +14,13 @@ class ItemContainer extends React.Component{
   render () {
     return (
       <div>
-        <Item item={this.props.item}/>
+        <Item item={this.props.item} />
         <ReviewsContainer />
       </div>
       );
   }
 }
+
 
 const mapStateToProps = (state, ownProps) => {
   //const paramId = Number(ownProps.params.id);

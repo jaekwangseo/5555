@@ -33,6 +33,28 @@ const router = require('express').Router();// eslint-disable-line new-cap
     .catch(next);
     });
 
+  router.put('/', (req, res, next) => {
+     Item.update({
+        price: req.body.price,
+        description: req.body.description,
+        title: req.body.title,
+        seller_id: req.body.seller_id
+      }, {
+        where: {
+          id: req.params.itemId
+        },
+        returning: true
+      })
+    .then((item) => {
+      item[1][0].setCategories([])
+      .catch(next);
+      item[1][0].setCategories(req.body.categoryArr)
+      .catch(err => console.error('Could not set category for item', err));
+      res.json(item[1][0]);
+    })
+    .catch(next);
+    });
+
   router.get('/:id', (req, res, next) => {
 
     Item.scope('populated').findById(req.params.id)
@@ -54,5 +76,31 @@ const router = require('express').Router();// eslint-disable-line new-cap
     .catch(next);
 
   });
+
+
+  router.put('/:itemId/edit', (req, res, next) => {
+
+
+    Item.update({
+      price: req.body.price,
+      description: req.body.description,
+      title: req.body.title,
+      seller_id: req.body.seller_id
+    }, {
+      where: {
+        id: req.params.itemId
+      },
+      returning: true
+    })
+    .then( item => {
+      item[1][0].setCategories([])
+      .catch(next);
+      item[1][0].setCategories(req.body.categoryArr)
+      .catch(err => console.error('Could not set category for item', err));
+      res.json(item[1][0]);
+    })
+    .catch(next);
+    });
+
 
 module.exports = router;
