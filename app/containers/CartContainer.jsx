@@ -21,7 +21,7 @@ class CartContainer extends React.Component {
 		return (
 			<div>
         <Cart {...this.props} handleRemove={this.handleRemove} />
-        <Payment getPaymentInfo={this.props.getPaymentInfo} />
+        <Payment cartId={this.props.cart.id} />
 			</div>
 		);
 	}

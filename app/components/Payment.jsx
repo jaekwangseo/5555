@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from '../axios';
+import {browserHistory} from 'react-router';
 
-const getPaymentInfo = function(synthE){
+const getPaymentInfo = function(synthE, orderId){
 	const paymentObj = {
 		CCN: synthE.target.CCN,
     FirstName: synthE.target.fname,
@@ -15,17 +16,18 @@ const getPaymentInfo = function(synthE){
     Country: synthE.target.country,
     Phone: synthE.target.phone
     };
-  axios.post(`/api/payment/:${props.orderId}`, paymentObj);
- //  .then(() => {
-		
-	// });
+  axios.post(`/api/payment/:${orderId}`, paymentObj)
+  .then((order) => {
+		if (order.id === orderId) {browserHistory.push('/orderSubmitted');}
+		else {browserHistory.push('/orderError');}
+  });
  };
 
-export default function Payment(){
+export default function Payment(props){
 	return (
 		<div id="Payment">
 			<h3>Paymemt: </h3>
-				<form onSubmit={getPaymentInfo}>
+				<form onSubmit={getPaymentInfo(props.cartId)}>
 					First name: <input type="text" name="fname" /><br />
 					Last name: <input type="text" name="lname" /><br />
 					Credit Card Number: <input type="number" name="CCN" width={16} /><br />

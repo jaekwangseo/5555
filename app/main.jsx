@@ -20,6 +20,8 @@ import AdminContainer from './containers/AdminContainer.jsx';
 import UsersContainer from './containers/UsersContainer.jsx';
 import CreateItemContainer from './containers/CreateItemContainer.jsx';
 
+import Submitted from './components/Submitted';
+import orderError from './components/OrderError';
 
 
 import {gettingItemReviews} from './reducers/reviews.jsx';
@@ -73,6 +75,8 @@ render(
       <Route path="/admin" component={AdminContainer} onEnter={onHomeEnter} />
       <Route path="/admin/users" component={UsersContainer} onEnter={onUsersEnter} />
       <Route path="/createItem" component={CreateItemContainer} />
+      <Route path="/orderSubmitted" component={Submitted} />
+      <Route path="/orderError" component={orderError} />
     </Router>
   </Provider>,
   document.getElementById('main')
