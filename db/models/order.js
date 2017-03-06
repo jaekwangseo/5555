@@ -14,9 +14,19 @@ const Order = db.define('orders', {
     defaultValue: 'processing'
   }
 
-
 }, {
 
+  scopes: {
+    cartItems: () => ({
+      // attributes: ['items', 'status'],
+      include: [
+        {
+          model: db.model('order_item').scope('item')
+          // attributes: ['title', 'description', 'order_item'],
+        }
+      ]
+    })
+  }
 });
 
 module.exports = Order;

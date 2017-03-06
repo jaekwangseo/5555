@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { receiveCart } from './order';
 
 const AUTHENTICATED = 'AUTHENTICATED';
 
@@ -20,8 +21,13 @@ export const whoami = () =>
 {
   return axios.get('/api/auth/whoami')
       .then(response => {
-        const user = response.data;
+
+        console.log('axios post in whoami, repsonse', response);
+        const user = response.data.user;
+        const cart = response.data.cart;
+
         dispatch(authenticated(user));
+        dispatch(receiveCart(cart));
       })
       .catch(() => dispatch(authenticated(null)));};
 

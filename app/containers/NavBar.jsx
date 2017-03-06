@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Login from '../components/Login.jsx';
+import { Link } from 'react-router';
 
 //ALL
 export default class NavBar extends React.Component{
@@ -24,12 +25,12 @@ export default class NavBar extends React.Component{
 
 			    <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			      <ul className="nav navbar-nav">
-			        <li><a href="/">Home <span className="sr-only">(current)</span></a></li>
+			        <li><Link to="/">Home <span className="sr-only">(current)</span></Link></li>
 			        <li><a href="#">My Account</a></li>
 			      </ul>
 			      <ul className="nav navbar-nav navbar-right">
 			        <li>
-								<a href="/cart">Shopping Cart</a>
+								<Link to="/cart">Shopping Cart</Link>
 							</li>
 							<li>
 								<a href="/login">Login</a>

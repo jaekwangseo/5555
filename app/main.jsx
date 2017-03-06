@@ -12,6 +12,8 @@ import ItemsContainer from './containers/ItemsContainer';
 import UserContainer from './containers/UserContainer';
 import CreateUserContainer from './containers/CreateUserContainer';
 import ItemContainer from './containers/ItemContainer';
+import CartContainer from './containers/CartContainer';
+
 import LoginComponent from './components/Login.jsx';
 import ReviewsContainer from './containers/ReviewsContainer.jsx';
 import AdminContainer from './containers/AdminContainer.jsx';
@@ -24,6 +26,11 @@ import {gettingItemReviews} from './reducers/reviews.jsx';
 
 import { receiveAllUsers, receiveUser, receiveSeller } from './reducers/user.jsx';
 import { receiveAllItems, receiveSellerItems, receiveItemFromServer } from './reducers/item.jsx';
+import { receiveCartFromServer } from './reducers/order';
+
+const onAppEnter = () => {
+  console.log('app enter');
+};
 
 
 
@@ -50,13 +57,13 @@ const onUsersEnter = () => {
   store.dispatch(receiveAllUsers());
 };
 
-
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={MainContainer} >
+      <Route path="/" component={MainContainer} onEnter={onAppEnter} >
         <IndexRedirect to="home" />
         <Route path="home" component={ItemsContainer} onEnter={onHomeEnter} />
+        <Route path="cart" component={CartContainer} onEnter={onCartEnter} />
         <Route path="item/:itemId" component={ItemContainer} onEnter={onItemPageEnter} />
         <Route path="user/:userId" component={UserContainer} onEnter={onSellerPageEnter} />
         <Route path="user/:userId/items" component={ItemsContainer} onEnter={onSellerItemsPageEnter} />

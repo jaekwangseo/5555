@@ -5,16 +5,13 @@ import { Link } from 'react-router';
 
 export default function Items(props) {
 
-  console.log(props);
 
+  console.log('rendering items', props);
   return (
     <div>
-
-
       <ul className="list-group">
         {
           props.itemList && props.itemList.map( (item) => (
-
             <li key={item.id} className="list-group-item col-md-6 col-md-offset-3">
               <Link to={`/item/${item.id}`} >
                 <h3 className="list-group-item-">{item.title}</h3>
@@ -22,6 +19,7 @@ export default function Items(props) {
               <div className="list-group-item-text">
                 {item.description}
               </div>
+              <button className="add-to-cart" onClick={(event) => {event.preventDefault(); props.addItemToCart(item.id);}} >Add to cart</button>
               {props.user && props.user.admin ?
                 <div>
                   <button onClick={() => props.handleDeleteUser(item.id)} >
@@ -35,16 +33,14 @@ export default function Items(props) {
 
                 : null
               }
-
             </li>
           ))
         }
       </ul>
 
       <button onClick={() => console.log('implement add item')} >
-        Add Item
+          Add Item
       </button>
-
 
       <form className="review" onSubmit={props.handleFilterEvent}>
 
