@@ -7,6 +7,7 @@ import {browserHistory} from 'react-router';
 //A SUCCESS OR ERROR PAGE
 //THE API ADDS TO THE PAYMENT DB, THEN UPDATES THE ORDER STATUS TO COMPLETE AND THE PAYMENT ID
 const getPaymentInfo = function(synthE, orderId){	//Does the synthE go first here? or the passed in arg?
+	synthE.preventDefault();
 	const paymentObj = {
 		CCN: synthE.target.CCN,
     FirstName: synthE.target.fname,
