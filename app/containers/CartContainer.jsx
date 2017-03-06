@@ -12,12 +12,10 @@ class CartContainer extends React.Component {
 	}
 
   handleRemove(itemId) {
-    console.log('handleRemove called', itemId);
     this.props.deleteItemFromCart(itemId);
   }
 
 	render(){
-    console.log('cart container render');
 		return (
 			<div>
         <Cart {...this.props} handleRemove={this.handleRemove} />
