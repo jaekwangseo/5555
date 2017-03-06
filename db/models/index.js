@@ -28,6 +28,9 @@ Order.belongsTo(User, {as: 'buyer'});
 Item.belongsToMany(Order, { through: OrderItem});
 Order.belongsToMany(Item, { through: OrderItem});
 
-Item.belongsTo(Category);
+Item.belongsToMany(Category, { through: 'item_category' });
+Category.belongsToMany(Item, { through: 'item_category'});
+
+
 
 module.exports = {User, Item, Order, Category, Review, OAuth, OrderItem};

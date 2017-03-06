@@ -16,6 +16,8 @@ import LoginComponent from './components/Login.jsx';
 import ReviewsContainer from './containers/ReviewsContainer.jsx';
 import AdminContainer from './containers/AdminContainer.jsx';
 import UsersContainer from './containers/UsersContainer.jsx';
+import CreateItemContainer from './containers/CreateItemContainer.jsx';
+
 
 
 import {gettingItemReviews} from './reducers/reviews.jsx';
@@ -63,7 +65,7 @@ render(
       </Route>
       <Route path="/admin" component={AdminContainer} onEnter={onHomeEnter} />
       <Route path="/admin/users" component={UsersContainer} onEnter={onUsersEnter} />
-
+      <Route path="/createItem" component={CreateItemContainer} />
     </Router>
   </Provider>,
   document.getElementById('main')

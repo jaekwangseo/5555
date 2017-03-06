@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import {groupingByCategory, deleteServerItem} from '../reducers/item.jsx';
 import axios from 'axios';
 
+
 const mapStateToProps = (state) => {
   return {
     itemList: state.item.itemList,
@@ -32,10 +33,10 @@ class ItemsContainer extends React.Component{
     };
     this.handleFilterEvent = this.handleFilterEvent.bind(this);
     this.handleDeleteEvent = this.handleDeleteEvent.bind(this);
-
   }
 
   componentDidMount() {
+    //Get categories for filter
     axios.get('/api/category')
     .then(res => res.data)
     .then(categories => this.setState({categories: categories}))
@@ -52,6 +53,7 @@ class ItemsContainer extends React.Component{
     const category = evt.target.category[1].value;
     this.props.groupingByCategory(category);
   }
+
 
   render(){
     return (

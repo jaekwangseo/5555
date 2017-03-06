@@ -23,9 +23,16 @@ export default function Items(props) {
                 {item.description}
               </div>
               {props.user && props.user.admin ?
-                <button onClick={() => props.handleDeleteUser(item.id)} >
-                  Delete Item
-                </button>
+                <div>
+                  <button onClick={() => props.handleDeleteUser(item.id)} >
+                    Delete Item
+                  </button>
+
+                  <button onClick={() => console.log('implement edit feature')} >
+                    Add Item
+                  </button>
+                </div>
+
                 : null
               }
 
@@ -34,12 +41,15 @@ export default function Items(props) {
         }
       </ul>
 
-      {//Hardcoded implemntation of categorys will change if we have time
-      }
+      <button onClick={() => console.log('implement add item')} >
+        Add Item
+      </button>
+
+
       <form className="review" onSubmit={props.handleFilterEvent}>
 
 
-          <div className="form-group col-md-offset-3 col-md-6">
+          <div className="form-group col-md-offset-1 col-md-3">
             <label htmlFor="category">Filter by Category</label> <br />
             <input type="radio" name="category" value="Javascript" />  1
             <select name="category">
