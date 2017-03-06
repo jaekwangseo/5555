@@ -6,7 +6,6 @@ import { Link } from 'react-router';
 export default (props) => {
 
   // Expect props to have user,
-  console.log('hereeeee', props);
   return (
     <div className="list-group-item col-md-6 col-md-offset-3">
       <h1>Name: {props.user.name}</h1>
