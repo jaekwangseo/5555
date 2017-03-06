@@ -7,6 +7,7 @@ const passport = require('passport');
 
 const User = require('APP/db/models/user');
 const OAuth = require('APP/db/models/oauth');
+const Order = require('APP/db/models/order');
 const auth = require('express').Router(); // eslint-disable-line new-cap
 
 
@@ -121,7 +122,26 @@ passport.use(new (require('passport-local').Strategy)(
   }
 ));
 
-auth.get('/whoami', (req, res) => res.send(req.user));
+//On login eager load user data such as cart, orders.
+auth.get('/whoami', (req, res, next) => {
+
+  //get cart
+  if (req.user && !req.user.cart) {
+    return Order.scope('cartItems').findOne({ where: { status: 'processing', buyer_id: req.user.id }})
+    .then(order => {
+      res.status(200).send({user: req.user, cart: order});
+    })
+    .catch(next);
+
+  } else {
+    console.log('cart already there for user');
+    res.send(req.user);
+  }
+
+
+
+});
+
 
 // POST requests for local login:
 auth.post('/login/local', passport.authenticate('local', { successRedirect: '/' }));

@@ -108,7 +108,10 @@ export const receiveItemFromServer = (itemId) => {
   return dispatch => {
     axios.get(`/api/items/${itemId}`)
     .then(res => res.data)
-    .then(item => dispatch(receiveItem(item)))
+    .then(item => {
+      dispatch(receiveItem(item));
+
+    })
     .catch((err) => console.error(err));
   };
 };

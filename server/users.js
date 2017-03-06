@@ -35,16 +35,27 @@ router.get('/', forbidden('only admins can list users'), (req, res, next) =>
 
 router.post('/', (req, res, next) => {
   User.create(req.body)
-  .then(user => res.status(201).json(user))
+  .then(user => {
+    Order.create({ status: 'processing' }) // cart(order)
+    .then(order => {
+      user.addOrder(order);
+      res.status(201).json(user);
+    });
+  })
   .catch(next);
 });
 
 router.get('/:userId', /*mustBeLoggedIn,*/ (req, res, next) => {
 
+  console.log('get user info', req.user && req.user.id, req.params.userId);
+  let promise;
+  if (req.user && req.user.id === Number(req.params.userId)) {
+    promise = User.scope('getItems', 'getOrders').findById(req.params.userId);
+  } else {
+    promise = User.scope('sellerLookup', 'getItems').findById(req.params.userId);
+  }
 
-
-  User.scope('sellerLookup').findById(req.params.userId)
-  .then(user => {
+  promise.then(user => {
     if (!user) {
       const err = Error('User not found');
       err.status = 404;

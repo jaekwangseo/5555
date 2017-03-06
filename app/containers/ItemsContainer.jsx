@@ -1,9 +1,26 @@
-// This is going to contain all of the items that are posted for sale on our homepage (or wherever we wanna see them)
-
-// This is going to contain all of the items that are posted for sale on our homepage (or wherever we wanna see them)
-
 import Items from '../components/Items';
 import { connect } from 'react-redux';
+import React from 'react';
+import {addItemToCart} from '../reducers/order.jsx';
+
+class ItemsContainer extends React.Component {
+	constructor(props){
+		super(props);
+		this.handleAddToCart = this.handleAddToCart.bind(this);
+	}
+
+	handleAddToCart(item) {
+		this.props.addItemToCart(item);
+	}
+
+	render() {
+		return (
+			<div>
+        <Items {...this.props} handleAddToCart={this.handleAddToCart} />
+			</div>
+		);
+	}
+}
 
 const mapStateToProps = (state) => {
   return {
@@ -11,24 +28,14 @@ const mapStateToProps = (state) => {
   };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addItemToCart (itemId) {
+      dispatch(addItemToCart(itemId));
+    }
+  };
+};
+
 //for the person who needs to do mapDispatchToProps, look at the juke-react-redux NewPlaylistContainer.js -Eric
 
-const ItemsContainer = connect(mapStateToProps)(Items);
-export default ItemsContainer;
-
-//keeping this here just incase my copy pasted code above breaks something
-/*import React from 'react';
-import Items from '../components/Items';
-
-export default class ItemsContainer extends React.Component{
-	constructor(props){
-		super(props);
-	}
-	render(){
-		return (
-			<div>
-        <Items />
-			</div>
-		);
-	}
-}*/
+export default connect(mapStateToProps, mapDispatchToProps)(ItemsContainer);

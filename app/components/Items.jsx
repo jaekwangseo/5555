@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 export default function Items(props) {
 
 
-
+  console.log('rendering items', props);
   return (
     <ul className="list-group">
       {
@@ -18,6 +18,7 @@ export default function Items(props) {
             <div className="list-group-item-text">
               {item.description}
             </div>
+            <button className="add-to-cart" onClick={(event) => {event.preventDefault(); props.addItemToCart(item.id);}} >Add to cart</button>
           </li>
         ))
       }

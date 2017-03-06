@@ -1,6 +1,7 @@
 // import React from 'react';
 import {connect} from 'react-redux';
 import Item from '../components/Item';
+import {addItemToCart} from '../reducers/order.jsx';
 
 /*class ItemContainer extends React.Component {
 
@@ -23,10 +24,13 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = {
-
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addItemToCart (itemId) {
+      dispatch(addItemToCart(itemId));
+    }
+  };
 };
-
 
 export default connect(
   mapStateToProps,

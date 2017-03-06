@@ -15,11 +15,20 @@ const OrderItem = db.define('order_item', {
   },
   quantity: {
     type: Sequelize.INTEGER,
-    defaultValue: 0
+    defaultValue: 1
   }
 
 }, {
-
+  scopes: {
+    item: () => ({
+      include: [
+        {
+          model: db.model('items')
+          // attributes: ['title', 'description', 'order_item'],
+        }
+      ]
+    })
+  }
 });
 
 // Item.belongsToMany(Order, { through: OrderItem });
