@@ -4,8 +4,6 @@ import React from 'react';
 import { Link } from 'react-router';
 //import EditItem from './EditItem.jsx';
 
-
-
 export default function Items(props) {
 
   const catOptionNames = [
@@ -72,20 +70,17 @@ export default function Items(props) {
       <Link to={'createItem'} >
         <button> Add Item </button>
        </Link>
-
-
-
     </div>
 
   );
 }
 
 
-          <div className="form-group col-md-offset-1 col-md-3">
-            <label htmlFor="category">Filter by Category</label> <br />
-            <select name="category">
-              {props.categories.map(category => (
-                <option key={category.id} value={category.name}>{category.name}</option>
+          // <div className="form-group col-md-offset-1 col-md-3">
+          //   <label htmlFor="category">Filter by Category</label> <br />
+          //   <select name="category">
+          //     {props.categories.map(category => (
+          //       <option key={category.id} value={category.name}>{category.name}</option>
 
 
 /*
