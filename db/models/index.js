@@ -34,4 +34,7 @@ Order.hasMany(OrderItem);
 OrderItem.belongsTo(Item);
 Item.hasMany(OrderItem);
 
+Item.belongsToMany(Category, { through: 'item_category' });
+Category.belongsToMany(Item, { through: 'item_category'});
+
 module.exports = {User, Item, Order, Category, Review, OAuth, OrderItem};

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import R from 'ramda';
 
 
 //ACTION DEFINITIONS
@@ -16,6 +17,8 @@ const GET_CURRENT_USER = 'GET_CURRENT_USER';
 //the action types below might be a part of auth.jsx
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
+
+const SET_ADMIN = 'SET_ADMIN';
 
 //-----------------------------------------------------------------------------
 //INITIAL STATE
@@ -39,7 +42,7 @@ export default (state = initialState, action) => {
       break;
 
     case DELETE_USER:
-      //MISSING IMPLEMENTATION
+      newState.users = state.users.filter( user => user.id !== action.userId);
       break;
 
     case UPDATE_USER:
@@ -47,13 +50,24 @@ export default (state = initialState, action) => {
       break;
 
     case GET_USERS:
-      //MISSING IMPLEMENTATION
+      newState.users = action.users;
       break;
 
     case GET_SELLER:
       newState.selectedSeller = action.seller;
       break;
 
+    case SET_ADMIN:
+
+      newState.users = state.users.map(user => {
+        if (user.id === action.userId) {
+          user.admin = true;
+          return user;
+        }
+      return user;
+      });
+
+      break;
     default:
       return state;
   }
@@ -64,22 +78,23 @@ export default (state = initialState, action) => {
 //-----------------------------------------------------------------------------
 //   ACTION CREATORS AND THUNK MIDDLEWARE
 
+
 export const addUser = (user) => ({
     type: ADD_USER,
     user
 });
 
 
-export const deleteUser = (user) => ({
+export const deleteUser = (userId) => ({
     type: DELETE_USER,
-    user
+    userId
 });
 
-export const deleteUserOnServer = (user) => {
+export const deleteUserOnServer = (userId) => {
   return dispatch => {
-    axios.delete('/api/users', user)
-    .then(res => res.data)
-    .then(() => dispatch(deleteUser(user)));
+    dispatch(deleteUser(userId));
+    axios.delete(`/api/users/${userId}`)
+    .catch(err => console.error('User deletion unsuccessful', err));
   };
 };
 
@@ -122,5 +137,21 @@ export const receiveSeller = (sellerId) => {
     .then(seller => {
       dispatch(getSeller(seller));
     });
+  };
+};
+
+
+export const setAdmin = (userId) => ({
+    type: SET_ADMIN,
+    userId
+});
+
+export const setAdminOnUser = (userId) => {
+
+  return dispatch => {
+    dispatch(setAdmin(userId));
+    axios.put(`/api/users/${userId}`)
+    .catch(err => console.error('Could not promote to admin', err));
+
   };
 };

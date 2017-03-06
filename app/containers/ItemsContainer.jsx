@@ -2,40 +2,76 @@ import Items from '../components/Items';
 import { connect } from 'react-redux';
 import React from 'react';
 import {addItemToCart} from '../reducers/order.jsx';
+import {groupingByCategory, deleteServerItem} from '../reducers/item.jsx';
+import axios from 'axios';
 
-class ItemsContainer extends React.Component {
-	constructor(props){
-		super(props);
-		this.handleAddToCart = this.handleAddToCart.bind(this);
-	}
+class ItemsContainer extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      categories: []
+    };
+    this.handleFilterEvent = this.handleFilterEvent.bind(this);
+    this.handleDeleteEvent = this.handleDeleteEvent.bind(this);
+    this.handleAddToCart = this.handleAddToCart.bind(this);
+  }
 
-	handleAddToCart(item) {
+  componentDidMount() {
+    //Get categories for filter
+    axios.get('/api/category')
+    .then(res => res.data)
+    .then(categories => this.setState({categories: categories}))
+    .catch(err => console.error(err));
+  }
+
+  handleAddToCart(item) {
 		this.props.addItemToCart(item);
 	}
 
-	render() {
-		return (
-			<div>
-        <Items {...this.props} handleAddToCart={this.handleAddToCart} />
-			</div>
-		);
-	}
+  handleDeleteEvent(evt) {
+
+    this.props.deleteServerItem(evt);
+  }
+
+  handleFilterEvent(evt) {
+    evt.preventDefault();
+    const category = evt.target.category[1].value;
+    this.props.groupingByCategory(category);
+  }
+
+
+  render(){
+    return (
+      <div>
+        <Items {...this.props} handleFilterEvent={this.handleFilterEvent} handleDeleteEvent={this.handleDeleteEvent} categories={this.state.categories} handleAddToCart={this.handleAddToCart} />
+      </div>
+    );
+  }
 }
+
 
 const mapStateToProps = (state) => {
   return {
-    itemList: state.item.itemList
+    itemList: state.item.itemList,
+    user: state.auth
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
+
     addItemToCart (itemId) {
       dispatch(addItemToCart(itemId));
+    },
+
+    groupingByCategory: (category) => {
+      dispatch(groupingByCategory(category));
+    },
+    deleteServerItem: (id) => {
+      dispatch(deleteServerItem(id));
+
     }
   };
 };
-
-//for the person who needs to do mapDispatchToProps, look at the juke-react-redux NewPlaylistContainer.js -Eric
-
 export default connect(mapStateToProps, mapDispatchToProps)(ItemsContainer);
+

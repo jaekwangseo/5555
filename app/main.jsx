@@ -15,6 +15,14 @@ import ItemContainer from './containers/ItemContainer';
 import CartContainer from './containers/CartContainer';
 
 import LoginComponent from './components/Login.jsx';
+import ReviewsContainer from './containers/ReviewsContainer.jsx';
+import AdminContainer from './containers/AdminContainer.jsx';
+import UsersContainer from './containers/UsersContainer.jsx';
+import CreateItemContainer from './containers/CreateItemContainer.jsx';
+
+
+
+import {gettingItemReviews} from './reducers/reviews.jsx';
 
 import { receiveAllUsers, receiveUser, receiveSeller } from './reducers/user.jsx';
 import { receiveAllItems, receiveSellerItems, receiveItemFromServer } from './reducers/item.jsx';
@@ -23,6 +31,8 @@ import { receiveCartFromServer } from './reducers/order';
 const onAppEnter = () => {
   console.log('app enter');
 };
+
+
 
 const onHomeEnter = () => {
   store.dispatch(receiveAllItems());
@@ -39,13 +49,12 @@ const onSellerItemsPageEnter = (nextRouterState) => {
 
 const onItemPageEnter = (nextRouterState) => {
   store.dispatch(receiveItemFromServer(nextRouterState.params.itemId));
+  store.dispatch(gettingItemReviews(nextRouterState.params.itemId));
 };
 
-const onCartEnter = () => {
-  // if (store.getState().auth && !store.getState().order.cart) { //if logged in
-  //   console.log('get cart on OnCartEnter');
-  //   store.dispatch(receiveCartFromServer());
-  // }
+//for Admin only
+const onUsersEnter = () => {
+  store.dispatch(receiveAllUsers());
 };
 
 render(
@@ -61,6 +70,9 @@ render(
         <Route path="createUser" component={CreateUserContainer} />
         <Route path="login" component={LoginComponent} />
       </Route>
+      <Route path="/admin" component={AdminContainer} onEnter={onHomeEnter} />
+      <Route path="/admin/users" component={UsersContainer} onEnter={onUsersEnter} />
+      <Route path="/createItem" component={CreateItemContainer} />
     </Router>
   </Provider>,
   document.getElementById('main')

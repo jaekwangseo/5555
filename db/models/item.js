@@ -16,13 +16,18 @@ const Item = db.define('items', {
   title: {
     type: Sequelize.STRING,
     defaultValue: 'Untitled'
+  },
+  url: {
+    type: Sequelize.STRING,
+    allowNull: true
   }
 
 }, {
   scopes: {
     populated: () => ({
       include: [
-        { model: db.model('users'), as: 'seller' }
+        { model: db.model('users'), as: 'seller' },
+        { model: db.model('category'), as: 'category' }
       ]
     })
   }
