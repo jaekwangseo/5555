@@ -1,5 +1,7 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
+import {login} from 'APP/app/reducers/auth';
+import {connect} from 'react-redux';
 
 const Login = ({ login }) => (
   <div className="container">
@@ -21,8 +23,7 @@ const Login = ({ login }) => (
   </div>
 );
 
-import {login} from 'APP/app/reducers/auth';
-import {connect} from 'react-redux';
+
 
 export default connect(
   null,

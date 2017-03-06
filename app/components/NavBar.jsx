@@ -3,17 +3,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { logout } from '../reducers/auth.jsx';
 
-const mapStateToProps = (state) => {
 
-  return {
-    auth: state.auth,
-		currentUser: state.auth
-  };
-};
-
-const NavBar = (props) =>
+// class NavBarContainer extends React.Component {
+//
+//   constructor(props){
+//     super(props);
+//   }
+//
+//   onLogoutClick (event) {
+//     this.props.authNull({
+//
+//     })
+//   }
+//
+// }
+export default (props) =>
 {
+  console.log(props);
 	return (
 	<nav className="navbar navbar-default navbar-fixed-top">
 		<div className="container-fluid">
@@ -33,7 +41,7 @@ const NavBar = (props) =>
 						<Link to='/' >Home </Link>
 					</li>
 					<li>
-						<Link to={ props.auth && `/user/${props.auth.id}`}>My Account</Link>
+            <Link to={ props.auth && `/user/${props.auth.id}`}>My Account</Link>
 					</li>
 				</ul>
 				<ul className="nav navbar-nav navbar-right">
@@ -41,7 +49,7 @@ const NavBar = (props) =>
 						<Link to='/cart' >Shopping Cart </Link>
 					</li>
 					<li>
-						{props.currentUser ? <Link to='/home' >Logout</Link> : <Link to='/login' >Login</Link>}
+						{props.auth ? <Link to='/home' onClick={ () => props.handleLogoutClick() }>Logout</Link> : <Link to='/login' >Login</Link>}
 					</li>
 				</ul>
 			</div>
@@ -49,5 +57,3 @@ const NavBar = (props) =>
 	</nav>
 );
 };
-
-export default connect(mapStateToProps)(NavBar);
