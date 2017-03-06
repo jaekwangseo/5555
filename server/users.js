@@ -26,7 +26,7 @@ router.param('userId', (req, res, next, id) => {
   // .catch(next);
 });
 
-router.get('/', forbidden('only admins can list users'), (req, res, next) =>
+router.get('/', /*forbidden('only admins can list users')*/ (req, res, next) =>
   User.findAll()
   .then(users => res.json(users))
   .catch(next));
@@ -38,9 +38,19 @@ router.post('/', (req, res, next) => {
   .catch(next);
 });
 
+
+router.delete('/:userId', (req, res, next) => {
+
+  User.destroy({
+    where: {
+      id: req.params.userId
+    }
+  })
+  .catch(next);
+
+});
+
 router.get('/:userId', /*mustBeLoggedIn,*/ (req, res, next) => {
-
-
 
   User.scope('sellerLookup').findById(req.params.userId)
   .then(user => {
@@ -81,6 +91,21 @@ router.get('/:userId/items', (req, res, next) => {
     res.json(items);
   })
   .catch(next);
+});
+
+
+
+router.put('/:userId', (req, res, next) => {
+  User.update({
+    admin: true
+  }, {
+    where: {
+      id: req.params.userId
+    }
+  })
+  .then(() => res.end('It worked'))
+  .catch(next);
+
 });
 
 module.exports = router;

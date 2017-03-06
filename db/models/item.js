@@ -17,7 +17,10 @@ const Item = db.define('items', {
     type: Sequelize.STRING,
     defaultValue: 'Untitled'
   },
-
+  url: {
+    type: Sequelize.STRING,
+    allowNull: true
+  }
 
 }, {
   scopes: {

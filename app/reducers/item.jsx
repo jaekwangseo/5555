@@ -35,10 +35,11 @@ export default (state = initialState, action) => {
   switch (action.type) {
 
     case POST_ITEM:
-      newState.itemList = [...state.cart, action.itemToPost];
+      newState.itemList = [...state.itemList, action.itemToPost];
       break;
 
     case DELETE_ITEM:
+      newState.itemList = state.itemList.filter(item => item.id !== action.id);
       break;
 
     case RECEIVE_ITEMS:
@@ -74,11 +75,12 @@ const postItemAction = (payload) => ({
 });
 
 //create thunk action create
-const addItemToServer = (item) => {
+export const addItemToServer = (item) => {
+
   return dispatch => {
     axios.post('/api/items', item)
     .then(res => res.data)
-    .then(() => dispatch(postItemAction(item)))
+    .then((newItem) => dispatch(postItemAction(newItem)))
     .catch((err) => console.error(err));
  };
 };
@@ -104,13 +106,16 @@ export const receiveSellerItems = (sellerId) => {
  };
 };
 
-const deleteItem = (payload) => ({
+const deleteItem = (id) => ({
   type: DELETE_ITEM,
-  itemToDelete: payload
+  id
 });
-const deleteServerItem = () => {
+
+export const deleteServerItem = (itemId) => {
   return dispatch => {
-    axios.delete();
+    dispatch(deleteItem(itemId));
+    axios.delete(`/api/items/${itemId}`)
+    .catch( err => console.error(' Remove user unsuccessful', err));
   };
 };
 
@@ -148,5 +153,4 @@ export const groupingByCategory = (category) => {
       .catch((err) => console.error(err));
     };
 };
-
 

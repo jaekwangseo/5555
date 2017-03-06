@@ -3,12 +3,14 @@
 import React from 'react';
 import Items from '../components/Items';
 import { connect } from 'react-redux';
-import {groupingByCategory} from '../reducers/item.jsx';
+import {groupingByCategory, deleteServerItem} from '../reducers/item.jsx';
+import axios from 'axios';
 
 
 const mapStateToProps = (state) => {
   return {
-    itemList: state.item.itemList
+    itemList: state.item.itemList,
+    user: state.auth
   };
 };
 
@@ -16,6 +18,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     groupingByCategory: (category) => {
       dispatch(groupingByCategory(category));
+    },
+    deleteServerItem: (id) => {
+      dispatch(deleteServerItem(id));
     }
   };
 };
@@ -23,8 +28,24 @@ const mapDispatchToProps = (dispatch) => {
 class ItemsContainer extends React.Component{
   constructor(props){
     super(props);
+    this.state = {
+      categories: []
+    };
     this.handleFilterEvent = this.handleFilterEvent.bind(this);
+    this.handleDeleteEvent = this.handleDeleteEvent.bind(this);
+  }
 
+  componentDidMount() {
+    //Get categories for filter
+    axios.get('/api/category')
+    .then(res => res.data)
+    .then(categories => this.setState({categories: categories}))
+    .catch(err => console.error(err));
+  }
+
+  handleDeleteEvent(evt) {
+
+    this.props.deleteServerItem(evt);
   }
 
   handleFilterEvent(evt) {
@@ -33,10 +54,11 @@ class ItemsContainer extends React.Component{
     this.props.groupingByCategory(category);
   }
 
+
   render(){
     return (
       <div>
-        <Items itemList={this.props.itemList} handleFilterEvent={this.handleFilterEvent} />
+        <Items itemList={this.props.itemList} handleFilterEvent={this.handleFilterEvent} handleDeleteEvent={this.handleDeleteEvent} user= {this.props.user} categories={this.state.categories} />
       </div>
     );
   }
