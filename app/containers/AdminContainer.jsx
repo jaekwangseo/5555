@@ -5,7 +5,6 @@ import Items from '../components/Items.jsx';
 
 
 
-
 //import {createReview, gettingItemReviews} from '../reducers/admin.jsx';
 
 
@@ -58,9 +57,10 @@ class AdminContainer extends React.Component{
   }
 
   render() {
+    console.log(this.props);
     return (
     <div>
-      {this.props.auth ?
+      {this.props.auth.admin ?
         <div>
         <Items itemList={this.props.itemList} />
         </div>

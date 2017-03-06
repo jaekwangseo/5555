@@ -19,15 +19,15 @@ const Item = db.define('items', {
   },
   url: {
     type: Sequelize.STRING,
-    allowNull: true
+    allowNull: true,
+    defaultValue: 'www.sopantech.com/assets/img/webdevelopmentbanner.png'
   }
 
 }, {
   scopes: {
     populated: () => ({
       include: [
-        { model: db.model('users'), as: 'seller' },
-
+        { model: db.model('users'), as: 'seller' }
       ]
     })
   }

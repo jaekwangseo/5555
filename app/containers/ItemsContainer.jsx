@@ -1,9 +1,10 @@
 import Items from '../components/Items';
 import { connect } from 'react-redux';
+import {groupingByCategory, deleteServerItem, addItemToServer} from '../reducers/item.jsx';
+import axios from 'axios';
 import React from 'react';
 import {addItemToCart} from '../reducers/order.jsx';
-import {groupingByCategory, deleteServerItem} from '../reducers/item.jsx';
-import axios from 'axios';
+
 
 class ItemsContainer extends React.Component{
   constructor(props){
@@ -14,6 +15,7 @@ class ItemsContainer extends React.Component{
     this.handleFilterEvent = this.handleFilterEvent.bind(this);
     this.handleDeleteEvent = this.handleDeleteEvent.bind(this);
     this.handleAddToCart = this.handleAddToCart.bind(this);
+
   }
 
   componentDidMount() {
@@ -38,7 +40,6 @@ class ItemsContainer extends React.Component{
     const category = evt.target.category[1].value;
     this.props.groupingByCategory(category);
   }
-
 
   render(){
     return (
@@ -69,7 +70,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     deleteServerItem: (id) => {
       dispatch(deleteServerItem(id));
-
+    },
+    addItemToServer: (item) => {
+      dispatch(addItemToServer(item));
     }
   };
 };
