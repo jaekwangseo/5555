@@ -1,5 +1,5 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import {login} from 'APP/app/reducers/auth';
 import {connect} from 'react-redux';
 
@@ -17,6 +17,8 @@ const Login = ({ login }) => (
                 <input name="user" type="text" placeholder="username" />
                 <input name="password" type="password" placeholder="password" />
                 <button className="btn btn-info btn-block login" type="submit">Login</button>
+                <br />
+                <Link to='/createUser'>Register Now!</Link>
             </form>
         </div>
     </div>
