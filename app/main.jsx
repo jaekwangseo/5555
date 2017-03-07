@@ -13,7 +13,6 @@ import UserContainer from './containers/UserContainer';
 import CreateUserContainer from './containers/CreateUserContainer';
 import ItemContainer from './containers/ItemContainer';
 import CartContainer from './containers/CartContainer';
-
 import LoginComponent from './components/Login.jsx';
 import ReviewsContainer from './containers/ReviewsContainer.jsx';
 import AdminContainer from './containers/AdminContainer.jsx';
@@ -23,6 +22,7 @@ import AdminOrderContainer from './containers/AdminOrderContainer.jsx';
 import UsersContainer from './containers/UsersContainer.jsx';
 import CreateItemContainer from './containers/CreateItemContainer.jsx';
 import EditItemContainer from './containers/EditItemContainer.jsx';
+import Orders from './components/Orders.jsx';
 
 
 
@@ -72,6 +72,11 @@ const onItemEditEnter = (nextRouterState) => {
   store.dispatch(receiveItemToEditFromServer(nextRouterState.params.itemId));
 };
 
+// //TODO: this is incomplete
+// const onOrderPageEnter = (nextRouterState) => {
+//   store.dispatch()
+// }
+
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
@@ -85,12 +90,11 @@ render(
         <Route path="user/:userId/items" component={ItemsContainer} onEnter={onSellerItemsPageEnter} />
         <Route path="createUser" component={CreateUserContainer} />
         <Route path="login" component={LoginComponent} />
+        <Route path="orders/:userId" component={Orders} />
         <Route path="admin" component={AdminContainer} onEnter={onHomeEnter} />
         <Route path="admin/users" component={UsersContainer} onEnter={onUsersEnter} />
         <Route path="admin/orders" component={AdminOrderContainer} onEnter={onOrdersEnter} />
-
         <Route path="createItem" component={CreateItemContainer} />
-
       </Route>
 
     </Router>
