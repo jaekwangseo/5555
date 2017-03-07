@@ -5,7 +5,6 @@ import { Link } from 'react-router';
 
 export default (props) =>
 {
-  console.log(props);
 	return (
 	<nav className="navbar navbar-default navbar-fixed-top">
 		<div className="container-fluid">
@@ -24,12 +23,9 @@ export default (props) =>
 					<li>
 						<Link to='/' >Home </Link>
 					</li>
-          <li>
-            {props.auth && props.auth.admin ? <Link to='/admin'>Admin-Items</Link> : null}
-          </li>
-          <li>
-            {props.auth && props.auth.admin ? <Link to='/admin/users'>Admin-Users</Link> : null}
-          </li>
+					<li>
+						{props.auth && props.auth.admin ? <Link to='/admin'>Admin</Link> : null}
+					</li>
 				</ul>
 				<ul className="nav navbar-nav navbar-right">
 					<li>

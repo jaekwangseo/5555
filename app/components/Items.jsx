@@ -4,27 +4,45 @@ import React from 'react';
 import { Link } from 'react-router';
 //import EditItem from './EditItem.jsx';
 
-
 export default function Items(props) {
 
-  console.log('rendering items', props);
+
   return (
     <div>
+      <form className="review col-md-offset-5" onSubmit={props.handleFilterEvent}>
+          <div className="form-group col-md-3">
+            <label htmlFor="category">Filter by Category</label> <br />
+            <input type="radio" name="category" value="Javascript" />  1
+            <select name="category">
+              {props.categories.map(category => (
+                <option key={category.id} value={category.name}>{category.name}</option>
+                ))}
+            </select>
+          </div>
+          <br />
+          <button type="submit" className="btn btn-info" >Submit</button>
+      </form>
+        <ul className="list-group">
 
-      <ul className="list-group">
         {
-          props.itemList && props.itemList.map( (item) => (
+          props.itemList && props.itemList.map( (item) => {
+          return (
             <li key={item.id} className="list-group-item col-md-6 col-md-offset-3">
+              <img src={`http://${item.url}`}></img>
               <Link to={`/item/${item.id}`} >
                 <h3 className="list-group-item-">{item.title}</h3>
               </Link>
               <div className="list-group-item-text">
                 {item.description}
               </div>
-              <button className="add-to-cart" onClick={(event) => {event.preventDefault(); props.addItemToCart(item.id);}} >Add to cart</button>
+
+              <div className="container button-wrapper">
+	               <button className="btn-lg btn-success col-md-offset-3" onClick={(event) => {event.preventDefault(); props.addItemToCart(item.id);}}>Add <span className="glyphicon glyphicon-shopping-cart"></span></button>
+              </div>
+
               {props.user && props.user.admin ?
                 <div>
-                  <button onClick={() => props.handleDeleteEvent(item.id)} >
+                  <button className='btn btn-danger' onClick={() => props.handleDeleteEvent(item.id)} >
                     Delete Item
                   </button>
 
@@ -37,7 +55,9 @@ export default function Items(props) {
               }
 
             </li>
-          ))
+          );
+        }
+        )
         }
       </ul>
 
@@ -65,3 +85,5 @@ export default function Items(props) {
 
   );
 }
+
+

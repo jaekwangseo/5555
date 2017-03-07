@@ -1,8 +1,9 @@
 import Cart from '../components/Cart';
 import { connect } from 'react-redux';
 import React from 'react';
+import Payment from '../components/Payment';
 
-import { deleteItemFormCart } from '../reducers/order';
+import { deleteItemFormCart, addItemToCartState } from '../reducers/order';
 
 class CartContainer extends React.Component {
 	constructor(props){
@@ -11,15 +12,14 @@ class CartContainer extends React.Component {
 	}
 
   handleRemove(itemId) {
-    console.log('handleRemove called', itemId);
     this.props.deleteItemFromCart(itemId);
   }
 
 	render(){
-    console.log('cart container render');
 		return (
 			<div>
         <Cart {...this.props} handleRemove={this.handleRemove} />
+        <Payment cartId={this.props.cart.id} />
 			</div>
 		);
 	}

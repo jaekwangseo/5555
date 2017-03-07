@@ -50,6 +50,9 @@ export default (state = initialState, action) => {
       //   console.log('itemtoupdate', itemToUpdate);
       //   itemToUpdate.quantity = itemToUpdate.quantity + 1;
       // } else {
+        if ( !state.cart.order_items ) {
+          newState.cart.order_items = [];
+        }
         newState.cart.order_items = [...state.cart.order_items, action.item];
       // }
       break;
@@ -128,8 +131,10 @@ export const addItemToCart = (itemId) => {
     .then(res => {
       console.log('addItemToCart', res);
       if ( res.data.quantity === 1) {
+        console.log('dispatch add cart item action');
         dispatch(addCartItemAction(res.data));
       } else {
+        console.log('dispatch increment');
         dispatch(incrementQuantity(itemId));
       }
     })
