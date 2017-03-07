@@ -23,6 +23,12 @@ export default (props) =>
 					<li>
 						<Link to='/' >Home </Link>
 					</li>
+					<li>
+						{props.auth && props.auth.admin ? <Link to='/admin'>Admin-Items</Link> : null}
+					</li>
+					<li>
+						{props.auth && props.auth.admin ? <Link to='/admin/users'>Admin-Users</Link> : null}
+					</li>
 				</ul>
 				<ul className="nav navbar-nav navbar-right">
 					<li>
