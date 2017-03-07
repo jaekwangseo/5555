@@ -6,12 +6,15 @@ const db = require('APP/db');
 const Payment = db.define('payment', {
 
   CCN: {
-    type: Sequelize.INTEGER
+    type: Sequelize.STRING
   },
   FirstName: {
     type: Sequelize.TEXT
   },
   LastName: {
+    type: Sequelize.TEXT
+  },
+  Email: {
     type: Sequelize.TEXT
   },
   SecurityCode: {
@@ -36,7 +39,7 @@ const Payment = db.define('payment', {
     type: Sequelize.TEXT
   },
   Phone: {
-    type: Sequelize.INTEGER
+    type: Sequelize.TEXT
   }
 
 }, {
