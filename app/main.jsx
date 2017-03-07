@@ -36,7 +36,7 @@ import { receiveAllItems, receiveSellerItems, receiveItemFromServer, receiveItem
 import { receiveCartFromServer, getAllOrders } from './reducers/order';
 
 const onAppEnter = () => {
-  console.log('app enter');
+
 };
 
 

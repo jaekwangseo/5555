@@ -18,9 +18,8 @@ export default (props) => {
 
   return (
   <div>
-    <form className="review" onSubmit={props.handleReview}>
+    <form className="review" onSubmit={props.handleReview} >
         <div className="form-group col-md-offset-3 col-md-6">
-          <label htmlFor="usr">Description:</label>
           <input name="description" type="text" className="form-control" placeholder="Leave a review" />
         </div>
 
@@ -56,4 +55,3 @@ export default (props) => {
 
   );
 };
-

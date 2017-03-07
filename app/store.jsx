@@ -19,5 +19,4 @@ const store = createStore(
 export default store;
 
 // Set the auth info at start
-console.log('dispatch whoami at start');
 store.dispatch(whoami());
