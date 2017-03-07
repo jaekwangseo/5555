@@ -24,6 +24,8 @@ import CreateItemContainer from './containers/CreateItemContainer.jsx';
 import EditItemContainer from './containers/EditItemContainer.jsx';
 import Orders from './components/Orders.jsx';
 
+import Submitted from './components/Submitted';
+import orderError from './components/OrderError';
 
 
 import {gettingItemReviews} from './reducers/reviews.jsx';
@@ -95,8 +97,9 @@ render(
         <Route path="admin/users" component={UsersContainer} onEnter={onUsersEnter} />
         <Route path="admin/orders" component={AdminOrderContainer} onEnter={onOrdersEnter} />
         <Route path="createItem" component={CreateItemContainer} />
+        <Route path="orderSubmitted" component={Submitted} />
+        <Route path="orderError" component={orderError} />
       </Route>
-
     </Router>
   </Provider>,
   document.getElementById('main')
