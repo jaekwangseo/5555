@@ -10,8 +10,11 @@ const router = require('express').Router();// eslint-disable-line new-cap
 
 router.get('/', (req, res, next) => { //admin only
 
-  Order.findAll()
-  .then(orders => res.json(orders))
+  Order.scope('cartItems').findAll()
+  .then(orders => {
+    console.log('orders');
+    res.json(orders);
+  })
   .catch(next);
 });
 
@@ -95,6 +98,21 @@ router.delete('/cart/:itemId', mustBeLoggedIn, (req, res, next) => {
   })
   .catch(next);
 
+
+});
+
+
+//Update to change status of order
+router.put('/:orderId', (req, res, next) => {
+  Order.update({
+    status: req.body.status
+      }, {
+    where: {
+      id: req.params.orderId
+    }
+  })
+  .then(() => res.end('It worked'))
+  .catch(next);
 
 });
 

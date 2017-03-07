@@ -13,10 +13,17 @@ const INCREMENT_QUANTITY = 'INCREMENT_QUANTITY';
 const RECEIVE_CART = 'RECEIVE_CART';
 
 
+//ADMIN ONLY
+const CHANGE_STATUS = 'CHANGE_STATUS';
+const RECEIVE_ALL_ORDERS = 'RECEIVE_ALL_ORDERS';
+
+
 //-----------------------------------------------------------------------------
 //INITIAL STATE
 const initialState = {
   cart: {},
+  orderList: []
+
 };
 
 
@@ -56,6 +63,21 @@ export default (state = initialState, action) => {
       newState.cart.order_items = [...state.cart.order_items];
       const itemToUpdate = _.find(newState.cart.order_items, item => item.item_id === action.itemId);
       itemToUpdate.quantity = itemToUpdate.quantity + 1;
+      break;
+
+    case CHANGE_STATUS:
+
+      newState.orderList = state.orderList.map(order => {
+        if (order.id === action.orderId) {
+          order.status = action.status;
+          return order;
+        }
+      return order;
+      });
+      break;
+
+    case RECEIVE_ALL_ORDERS:
+      newState.orderList = action.orders;
       break;
 
     default:
@@ -124,3 +146,35 @@ export const receiveCartFromServer = () => {
     });
   };
 };
+
+
+const receiveAllOrders = (orders) => ({
+  type: RECEIVE_ALL_ORDERS,
+  orders
+});
+
+export const getAllOrders = () => {
+  return (dispatch) => {
+    axios.get('/api/orders')
+    .then(res => res.data)
+    .then(orders => {
+      dispatch(receiveAllOrders(orders));
+    });
+  };
+};
+
+export const changeStatusOfOrder = (orderId, status) => ({
+  type: CHANGE_STATUS,
+  orderId,
+  status
+});
+
+export const updateStatusOfOrder = (orderId, status) => {
+  return (dispatch) => {
+    dispatch(changeStatusOfOrder(orderId, status));
+    axios.put(`/api/orders/${orderId}`, status)
+    .catch(err => console.error('Could not change status of current order', err));
+
+  };
+};
+

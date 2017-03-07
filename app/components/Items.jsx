@@ -7,10 +7,10 @@ import { Link } from 'react-router';
 
 export default function Items(props) {
 
-
   console.log('rendering items', props);
   return (
     <div>
+
       <ul className="list-group">
         {
           props.itemList && props.itemList.map( (item) => (
@@ -45,24 +45,22 @@ export default function Items(props) {
         <button> Add Item </button>
        </Link>
 
+      {props.categories ?
+        <form className="review" onSubmit={props.handleFilterEvent}>
+            <div className="form-group col-md-offset-1 col-md-3">
+              <label htmlFor="category">Filter by Category</label> <br />
+              <select name="category">
+                {props.categories.map(category => (
+                  <option key={category.id} value={category.name}>{category.name}</option>
+                  ))}
 
-      <form className="review" onSubmit={props.handleFilterEvent}>
+              </select>
 
+            </div>
 
-          <div className="form-group col-md-offset-1 col-md-3">
-            <label htmlFor="category">Filter by Category</label> <br />
-            <select name="category">
-              {props.categories.map(category => (
-                <option key={category.id} value={category.name}>{category.name}</option>
-
-                ))}
-
-            </select>
-
-          </div>
-
-          <button type="submit" className="btn btn-success col-md-2 col-md-offset-5" >Submit</button>
-      </form>
+            <button type="submit" className="btn btn-success col-md-2 col-md-offset-5" >Submit</button>
+        </form> : null
+      }
     </div>
 
   );
