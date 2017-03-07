@@ -60,7 +60,7 @@ class AdminContainer extends React.Component{
     console.log(this.props);
     return (
     <div>
-      {this.props.auth.admin ?
+      {this.props.auth && this.props.auth.admin ?
         <div>
         <Items itemList={this.props.itemList} />
         </div>
