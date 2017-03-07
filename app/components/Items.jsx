@@ -6,10 +6,6 @@ import { Link } from 'react-router';
 
 export default function Items(props) {
 
-  const catOptionNames = [
-    { value: 'one', label: 'javascript' },
-    { value: 'two', label: 'joey', clearableValue: false }
-];
 
   return (
     <div>
@@ -27,6 +23,7 @@ export default function Items(props) {
           <button type="submit" className="btn btn-info" >Submit</button>
       </form>
         <ul className="list-group">
+
         {
           props.itemList && props.itemList.map( (item) => {
           return (
@@ -38,9 +35,11 @@ export default function Items(props) {
               <div className="list-group-item-text">
                 {item.description}
               </div>
+
               <div className="container button-wrapper">
 	               <button className="btn-lg btn-success col-md-offset-3" onClick={(event) => {event.preventDefault(); props.addItemToCart(item.id);}}>Add <span className="glyphicon glyphicon-shopping-cart"></span></button>
               </div>
+
               {props.user && props.user.admin ?
                 <div>
                   <button className='btn btn-danger' onClick={() => props.handleDeleteEvent(item.id)} >
@@ -65,32 +64,26 @@ export default function Items(props) {
       <Link to={'createItem'} >
         <button> Add Item </button>
        </Link>
+
+      {props.categories ?
+        <form className="review" onSubmit={props.handleFilterEvent}>
+            <div className="form-group col-md-offset-1 col-md-3">
+              <label htmlFor="category">Filter by Category</label> <br />
+              <select name="category">
+                {props.categories.map(category => (
+                  <option key={category.id} value={category.name}>{category.name}</option>
+                  ))}
+
+              </select>
+
+            </div>
+
+            <button type="submit" className="btn btn-success col-md-2 col-md-offset-5" >Submit</button>
+        </form> : null
+      }
     </div>
 
   );
 }
 
 
-
-
-
-/*
-<form className="review" onSubmit={props.handleFilterEvent}>
-
-
-    <div className="form-group col-md-offset-1 col-md-3">
-      <label htmlFor="category">Filter by Category</label> <br />
-      <input type="radio" name="category" value="Javascript" />  1
-      <select name="category">
-        {props.categories.map(category => (
-          <option key={category.id} value={category.name}>{category.name}</option>
-
-          ))}
-
-      </select>
-
-    </div>
-
-    <button type="submit" className="btn btn-success col-md-2 col-md-offset-5" >Submit</button>
-</form>
-*/

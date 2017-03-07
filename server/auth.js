@@ -127,19 +127,22 @@ passport.use(new (require('passport-local').Strategy)(
 auth.get('/whoami', (req, res, next) => {
 
   //get cart
-  if (req.user && !req.user.cart) {
-    return Order.scope('cartItems').findOne({ where: { status: 'processing', buyer_id: req.user.id }})
-    .then(order => {
-      res.status(200).send({user: req.user, cart: order});
-    })
-    .catch(next);
+  if (req.user) { // for logged in user
+    if (!req.user.cart) {
+      return Order.scope('cartItems').findOne({ where: { status: 'processing', buyer_id: req.user.id }})
+      .then(order => {
+        res.status(200).send({user: req.user, cart: order});
+      })
+      .catch(next);
 
-  } else {
-    console.log('cart already there for user');
-    res.send(req.user);
+    } else {
+      console.log('cart already there for user');
+      res.send(req.user);
+    }
+  } else { // for guest
+    console.log('guest cart', req.session.cart);
+    res.send({cart: { order_items: req.session.cart }});
   }
-
-
 
 });
 
