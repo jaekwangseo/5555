@@ -142,6 +142,7 @@ router.delete('/cart/:itemId', (req, res, next) => {
 
 //Update to change status of order
 router.put('/:orderId', (req, res, next) => {
+  console.log(req.body);
   Order.update({
     status: req.body.status
       }, {

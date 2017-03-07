@@ -31,9 +31,8 @@ export const whoami = () =>
         }
         dispatch(receiveCart(cart));
       })
-      .catch((err) => {
-        console.error('ERROR', err);
-        //dispatch(authenticated(null));
+      .catch( () => {
+        dispatch(authenticated(null));
       });
     };
 

@@ -3,7 +3,7 @@ import React from 'react';
 import AdminOrders from '../components/AdminOrders.jsx';
 import { browserHistory } from 'react-router';
 
-import {updateStatusOfOrder} from '../reducers/order.jsx';
+import {updateStatusOfOrder, filteringByStatus} from '../reducers/order.jsx';
 
 
 //import {createReview, gettingItemReviews} from '../reducers/admin.jsx';
@@ -21,6 +21,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateStatusOfOrder(orderId, status) {
       dispatch(updateStatusOfOrder(orderId, status));
+    },
+    filteringByStatus(status) {
+      dispatch(filteringByStatus(status));
     }
   };
 };
@@ -35,9 +38,11 @@ class AdminOrderContainer extends React.Component{
 
 
   handleStatusChange(evt) {
-    console.log('evt', evt);
+    //console.log('evt', evt.target.status.value);
 
-    this.props.updateStatusOfOrder(evt);
+    evt.preventDefault();
+
+    this.props.updateStatusOfOrder(evt.target);
   }
 
 
@@ -46,7 +51,7 @@ class AdminOrderContainer extends React.Component{
     <div>
       {this.props.auth ?
         <div>
-        <AdminOrders orderList={this.props.orderList} auth={this.props.auth} handleStatusChange= {this.handleStatusChange} />
+        <AdminOrders orderList={this.props.orderList} auth={this.props.auth} updateStatusOfOrder= {this.props.updateStatusOfOrder} filteringByStatus={this.props.filteringByStatus} />
         </div>
       :
       <div>
