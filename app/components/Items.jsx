@@ -8,7 +8,7 @@ export default function Items(props) {
 
 
   return (
-    <div>
+    <div style={{background: 'white'}}>
       <form className="review col-md-offset-5" onSubmit={props.handleFilterEvent}>
           <div className="form-group col-md-3">
             <label htmlFor="category">Filter by Category</label> <br />
@@ -22,15 +22,18 @@ export default function Items(props) {
           <br />
           <button type="submit" className="btn btn-info" >Submit</button>
       </form>
+      <Link to={'createItem'} >
+        <button className='btn btn-default'> Add Item </button>
+       </Link>
         <ul className="list-group">
 
         {
           props.itemList && props.itemList.map( (item) => {
           return (
-            <li key={item.id} className="list-group-item col-md-6 col-md-offset-3">
-              <img src={`http://${item.url}`}></img>
+            <li key={item.id} className="list-group-item col-md-offset-3 col-md-6 col-sm-6 col-sm-offset-3 col-xs-12">
+              <img className="img-responsive img-rounded" src={`http://${item.url}`}></img>
               <Link to={`/item/${item.id}`} >
-                <h3 className="list-group-item-">{item.title}</h3>
+                <h3 className="list-group-item-text">{item.title}</h3>
               </Link>
               <div className="list-group-item-text">
                 {item.description}
@@ -61,9 +64,7 @@ export default function Items(props) {
         }
       </ul>
 
-      <Link to={'createItem'} >
-        <button> Add Item </button>
-       </Link>
+
 
       {props.categories ?
         <form className="review" onSubmit={props.handleFilterEvent}>
@@ -85,5 +86,3 @@ export default function Items(props) {
 
   );
 }
-
-
