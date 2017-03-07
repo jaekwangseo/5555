@@ -17,6 +17,9 @@ import CartContainer from './containers/CartContainer';
 import LoginComponent from './components/Login.jsx';
 import ReviewsContainer from './containers/ReviewsContainer.jsx';
 import AdminContainer from './containers/AdminContainer.jsx';
+import AdminItemContainer from './containers/AdminItemContainer.jsx';
+
+import AdminOrderContainer from './containers/AdminOrderContainer.jsx';
 import UsersContainer from './containers/UsersContainer.jsx';
 import CreateItemContainer from './containers/CreateItemContainer.jsx';
 import EditItemContainer from './containers/EditItemContainer.jsx';
@@ -30,7 +33,7 @@ import { receiveAllUsers, receiveUser, receiveSeller } from './reducers/user.jsx
 import { receiveAllItems, receiveSellerItems, receiveItemFromServer, receiveItemToEditFromServer } from './reducers/item.jsx';
 
 
-import { receiveCartFromServer } from './reducers/order';
+import { receiveCartFromServer, getAllOrders } from './reducers/order';
 
 const onAppEnter = () => {
 
@@ -60,6 +63,11 @@ const onUsersEnter = () => {
   store.dispatch(receiveAllUsers());
 };
 
+
+const onOrdersEnter = () => {
+  store.dispatch(getAllOrders());
+};
+
 const onItemEditEnter = (nextRouterState) => {
   store.dispatch(receiveItemToEditFromServer(nextRouterState.params.itemId));
 };
@@ -77,11 +85,18 @@ render(
         <Route path="user/:userId/items" component={ItemsContainer} onEnter={onSellerItemsPageEnter} />
         <Route path="createUser" component={CreateUserContainer} />
         <Route path="login" component={LoginComponent} />
+        <Route path="admin" component={AdminContainer} onEnter={onHomeEnter} />
+        <Route path="admin/users" component={UsersContainer} onEnter={onUsersEnter} />
+        <Route path="admin/orders" component={AdminOrderContainer} onEnter={onOrdersEnter} />
+
+        <Route path="createItem" component={CreateItemContainer} />
+
       </Route>
-      <Route path="/admin" component={AdminContainer} onEnter={onHomeEnter} />
-      <Route path="/admin/users" component={UsersContainer} onEnter={onUsersEnter} />
-      <Route path="/createItem" component={CreateItemContainer} />
+
     </Router>
   </Provider>,
   document.getElementById('main')
 );
+
+
+// <Route path="admin/items" component={AdminItemContainer} onEnter={onHomeEnter} />

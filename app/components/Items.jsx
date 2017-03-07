@@ -8,7 +8,6 @@ import { Link } from 'react-router';
 
 export default function Items(props) {
 
-  console.log('rendering items', props.categories);
 
   return (
     <div>
@@ -34,6 +33,7 @@ export default function Items(props) {
           </span></label></div></div>
 
         <ul className="list-group">
+
         {
           props.itemList && props.itemList.map( (item) => (
             <li key={item.id} className="list-group-item col-md-6 col-md-offset-3">
@@ -71,30 +71,25 @@ export default function Items(props) {
         <button> Add Item </button>
        </Link>
 
+      {props.categories ?
+        <form className="review" onSubmit={props.handleFilterEvent}>
+            <div className="form-group col-md-offset-1 col-md-3">
+              <label htmlFor="category">Filter by Category</label> <br />
+              <select name="category">
+                {props.categories.map(category => (
+                  <option key={category.id} value={category.name}>{category.name}</option>
+                  ))}
 
+              </select>
 
+            </div>
+
+            <button type="submit" className="btn btn-success col-md-2 col-md-offset-5" >Submit</button>
+        </form> : null
+      }
     </div>
 
   );
 }
 
-/*
-<form className="review" onSubmit={props.handleFilterEvent}>
 
-
-    <div className="form-group col-md-offset-1 col-md-3">
-      <label htmlFor="category">Filter by Category</label> <br />
-      <input type="radio" name="category" value="Javascript" />  1
-      <select name="category">
-        {props.categories.map(category => (
-          <option key={category.id} value={category.name}>{category.name}</option>
-
-          ))}
-
-      </select>
-
-    </div>
-
-    <button type="submit" className="btn btn-success col-md-2 col-md-offset-5" >Submit</button>
-</form>
-*/
