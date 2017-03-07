@@ -6,6 +6,7 @@ class UserContainer extends React.Component {
 
   render() {
     console.log('this.props for usercontainer', this.props);
+
     return (
       <div>
         <User user={this.props.user} currentUser={this.props.currentUser} />

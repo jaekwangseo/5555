@@ -46,7 +46,7 @@ class UsersContainer extends React.Component{
 
   promoteUserToAdmin(evt) {
 
-    console.log(evt);
+    console.log('promoteUserToAdmin', evt);
     this.props.setAdminOnUser(evt);
 
 

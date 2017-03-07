@@ -33,7 +33,7 @@ import { receiveAllItems, receiveSellerItems, receiveItemFromServer, receiveItem
 import { receiveCartFromServer } from './reducers/order';
 
 const onAppEnter = () => {
-  console.log('app enter');
+
 };
 
 
