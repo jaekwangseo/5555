@@ -37,11 +37,16 @@ export default function Items(props) {
 
         <ul className="list-group">
         {
-          props.itemList && props.itemList.map( (item) => (
+          props.itemList && props.itemList.map( (item) => {
+            console.log('here is the items', item.url);
+
+
+          return (
             <li key={item.id} className="list-group-item col-md-6 col-md-offset-3">
               <Link to={`/item/${item.id}`} >
                 <h3 className="list-group-item-">{item.title}</h3>
               </Link>
+              <img src={`http://${item.url}`}></img>
               <div className="list-group-item-text">
                 {item.description}
               </div>
@@ -63,7 +68,9 @@ export default function Items(props) {
               }
 
             </li>
-          ))
+          );
+        }
+        )
         }
       </ul>
 

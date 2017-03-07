@@ -16,7 +16,7 @@ export default (props) => {
       <a href={props.user.url}>
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Linkedin_icon.svg/2000px-Linkedin_icon.svg.png" style={{width: "50px", height: "50px"}}></img>
       </a>
-      { props.currentUser && props.user.id === props.currentUser.id || props.currentUser.admin === true ? <Link to={Orders} >Orders</Link> : null }
+      { props.currentUser && props.user.id === props.currentUser.id || props.currentUser.admin ? <Link to={`/orders/${props.user.id}`} >Orders</Link> : null }
     </div>
   );
 };
