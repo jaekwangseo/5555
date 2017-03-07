@@ -80,14 +80,6 @@ export default function Items(props) {
   );
 }
 
-
-          <div className="form-group col-md-offset-1 col-md-3">
-            <label htmlFor="category">Filter by Category</label> <br />
-            <select name="category">
-              {props.categories.map(category => (
-                <option key={category.id} value={category.name}>{category.name}</option>
-
-
 /*
 <form className="review" onSubmit={props.handleFilterEvent}>
 
