@@ -16,6 +16,8 @@ const Category = () => db.Promise.map(data.category, category => db.model('categ
 
 const Reviews = () => db.Promise.map(data.reviews, review => db.model('reviews').create(review));
 
+const itemCategory = () => db.Promise.map(data.itemCategory, data => db.model('item_category').create(data));
+
 db.didSync
   .then(() => db.sync({force: true}))
   .then(Users)
@@ -24,6 +26,7 @@ db.didSync
   .then(Orders)
   .then(orderItem)
   .then(Reviews)
+  .then(itemCategory)
   .then(users => console.log(`ed ${users.length} users OK`))
   .catch(error => console.error(error))
   .finally(() => db.close());

@@ -29,4 +29,21 @@ const router = require('express').Router();// eslint-disable-line new-cap
 
   });
 
+  router.get('/user/:userId', (req, res, next) => {
+
+    Review.count( { where: ['subject_id = ?', req.params.userId] })
+    .then(count => {
+      return Review.sum('rating', {
+        where: {
+        subject_id: req.params.userId
+        }
+      })
+      .then(ratings => {
+      console.log('RATINGS AND COUNT', ratings, count);
+      res.json(ratings / count);
+      });
+    })
+    .catch(next);
+  });
+
 module.exports = router;

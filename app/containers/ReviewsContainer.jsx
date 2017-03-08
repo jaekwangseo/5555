@@ -38,7 +38,7 @@ class ReviewsContainer extends React.Component{
 
 
   handleReview(evt) {
-    evt.preventDefault();
+    //evt.preventDefault();
 
     const description = evt.target.description.value;
     const rating = evt.target.rating.value;

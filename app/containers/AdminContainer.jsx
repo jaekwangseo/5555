@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 //import Admin from '../components/Admin.jsx';
-import Items from '../components/Items.jsx';
+import Admin from '../components/Admin.jsx';
 
 
 
@@ -60,9 +60,9 @@ class AdminContainer extends React.Component{
     console.log(this.props);
     return (
     <div>
-      {this.props.auth.admin ?
+      {this.props.auth && this.props.auth.admin ?
         <div>
-        <Items itemList={this.props.itemList} />
+        <Admin />
         </div>
       :
       <div>

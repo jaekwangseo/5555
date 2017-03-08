@@ -128,19 +128,14 @@ auth.get('/whoami', (req, res, next) => {
 
   //get cart
   if (req.user) { // for logged in user
-    if (!req.user.cart) {
-      return Order.scope('cartItems').findOne({ where: { status: 'processing', buyer_id: req.user.id }})
-      .then(order => {
-        res.status(200).send({user: req.user, cart: order});
-      })
-      .catch(next);
-
-    } else {
-      console.log('cart already there for user');
-      res.send(req.user);
-    }
+    console.log('get cart for user');
+    return Order.scope('cartItems').findOne({ where: { status: 'processing', buyer_id: req.user.id }})
+    .then(order => {
+      res.status(200).send({user: req.user, cart: order});
+    })
+    .catch(next);
   } else { // for guest
-    console.log('guest cart', req.session.cart);
+    console.log('get guest cart', req.session.cart);
     res.send({cart: { order_items: req.session.cart }});
   }
 
@@ -148,7 +143,9 @@ auth.get('/whoami', (req, res, next) => {
 
 
 // POST requests for local login:
-auth.post('/login/local', passport.authenticate('local', { successRedirect: '/' }));
+auth.post('/login/local', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login'}), (req, res, next) => {
+  console.log('login');
+});
 
 // GET requests for OAuth login:
 // Register this route as a callback URL with OAuth provider

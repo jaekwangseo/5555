@@ -5,6 +5,8 @@ import React from 'react';
 export default (props) => {
 
   return (
+    <div>
+    { props.auth ?
 
       <form className="form-group" onSubmit={props.handleCreatePost}>
           <div className="form-group col-md-offset-3 col-md-6">
@@ -39,6 +41,8 @@ export default (props) => {
 
           <button type="submit" className="btn btn-success col-md-2 col-md-offset-5" >Submit</button>
       </form>
-
+      : <h1> YOU MUST BE LOGGED IN TO CREATE AN ITEM! </h1>
+    }
+  </div>
   );
 };
