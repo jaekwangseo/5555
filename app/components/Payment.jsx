@@ -10,7 +10,7 @@ const getPaymentInfo = function(synthE, orderId){
 	synthE.preventDefault();
 	console.log(orderId);
 	const paymentObj = {	//All of the && so that there is no error if a synthE or target is null/undef
-		CCN: synthE && synthE.target && synthE.target.CCN && synthE.target.CCN.value,
+	CCN: synthE && synthE.target && synthE.target.CCN && synthE.target.CCN.value,
     FirstName: synthE && synthE.target && synthE.target.fname && synthE.target.fname.value,
     LastName: synthE && synthE.target && synthE.target.lname && synthE.target.lname.value,
     Email: synthE && synthE.target && synthE.target.email && synthE.target.email.value,
@@ -24,11 +24,10 @@ const getPaymentInfo = function(synthE, orderId){
     Phone: synthE && synthE.target && synthE.target.phone && synthE.target.phone.value
     };
   axios.post(`api/payment/${orderId}`, paymentObj)
-  .then((order) => {
-		console.log(order);
-		// if (order.id === orderId) {browserHistory.push('/orderSubmitted');}
-		// else {browserHistory.push('/orderError');}
-  });//Add new order upon submitting route
+  .then((message) => {
+		 if (message.data === 'Order Complete') {browserHistory.push('/orderSubmitted');}
+		 else {browserHistory.push('/orderError');}
+  });
  };
 
 export default function Payment(props){
