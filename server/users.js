@@ -4,6 +4,8 @@ const db = require('APP/db');
 const User = db.model('users');
 const Order = db.model('orders');
 const Item = db.model('items');
+const OrderItem = db.model('order_item');
+const Promise = require('bluebird');
 
 const {mustBeLoggedIn, forbidden} = require('./auth.filters');
 
@@ -33,11 +35,21 @@ router.get('/', /*forbidden('only admins can list users')*/ (req, res, next) =>
 
 
 router.post('/', (req, res, next) => {
+
   User.create(req.body)
   .then(user => {
     Order.create({ status: 'processing' }) // cart(order)
     .then(order => {
       user.addOrder(order);
+      //Add items in the guest cart to user's cart on sign up.
+      if (req.session && req.session.cart) {
+        req.session.cart.forEach( cartItem => {
+          return OrderItem.create({ order_id: order.id, item_id: cartItem.item_id, quantity: cartItem.quantity})
+          .catch(err => console.error(err));
+        });
+      }
+
+      req.session.cart = undefined;
       res.status(201).json(user);
     });
   })

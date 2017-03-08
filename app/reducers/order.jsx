@@ -1,5 +1,6 @@
 import axios from 'axios';
 import _ from 'lodash';
+import R from 'ramda';
 
 
 //ACTION DEFINITIONS
@@ -16,7 +17,7 @@ const RECEIVE_CART = 'RECEIVE_CART';
 //ADMIN ONLY
 const CHANGE_STATUS = 'CHANGE_STATUS';
 const RECEIVE_ALL_ORDERS = 'RECEIVE_ALL_ORDERS';
-
+const FILTER_BY_STATUS = 'FILTER_BY_STATUS';
 
 //-----------------------------------------------------------------------------
 //INITIAL STATE
@@ -82,6 +83,12 @@ export default (state = initialState, action) => {
     case RECEIVE_ALL_ORDERS:
       newState.orderList = action.orders;
       break;
+
+
+     case FILTER_BY_STATUS:
+      newState.orderList = action.orders;
+      break;
+
 
     default:
       return state;
@@ -177,9 +184,30 @@ export const changeStatusOfOrder = (orderId, status) => ({
 export const updateStatusOfOrder = (orderId, status) => {
   return (dispatch) => {
     dispatch(changeStatusOfOrder(orderId, status));
-    axios.put(`/api/orders/${orderId}`, status)
+    const updatedStatus = {status};
+    axios.put(`/api/orders/${orderId}`, updatedStatus)
     .catch(err => console.error('Could not change status of current order', err));
 
   };
 };
+
+
+const filterByStatus = (orders) => ({
+  type: FILTER_BY_STATUS,
+  orders
+});
+
+export const filteringByStatus = (status) => {
+  return dispatch => {
+        axios.get('/api/orders')
+        .then(results => results.data)
+        .then(orders => {
+        const filteredOrders = R.filter(R.whereEq({status: status}))(orders);
+          return dispatch(filterByStatus(filteredOrders));
+        })
+        .catch((err) => console.error(err));
+      };
+};
+
+
 

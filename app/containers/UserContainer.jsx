@@ -1,10 +1,18 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import User from '../components/User';
+import {gettingRating} from '../reducers/user.jsx';
 
 class UserContainer extends React.Component {
 
+  // for getting acutal user ratings not dummy data.
+  // componentShouldUpdate() {
+  //   console.log('props', this.props);
+  //   this.props.gettingRating(this.props.user.id);
+  // }
+
   render() {
+
     console.log('this.props for usercontainer', this.props);
 
     return (
@@ -23,8 +31,12 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = {
-
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // gettingRating: userId => {
+    //   dispatch(gettingRating(userId));
+    // }
+  };
 };
 
 

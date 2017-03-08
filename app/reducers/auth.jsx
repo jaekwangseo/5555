@@ -21,6 +21,7 @@ export const whoami = () =>
 {
   return axios.get('/api/auth/whoami')
       .then(response => {
+        console.log('whoami', response);
 
         const user = response.data.user;
         const cart = response.data.cart;
@@ -31,9 +32,8 @@ export const whoami = () =>
         }
         dispatch(receiveCart(cart));
       })
-      .catch((err) => {
-        console.error('ERROR', err);
-        //dispatch(authenticated(null));
+      .catch( () => {
+        dispatch(authenticated(null));
       });
     };
 
@@ -42,7 +42,10 @@ export const login = (username, password) =>
     {
       return axios.post('/api/auth/login/local',
       {username, password})
-      .then(() => dispatch(whoami()))
+      .then(() => {
+        console.log('in login', username, password);
+        dispatch(whoami());
+      })
       .catch(() => dispatch(whoami()));
     };
 

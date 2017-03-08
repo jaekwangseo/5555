@@ -1,6 +1,6 @@
 import Items from '../components/Items';
 import { connect } from 'react-redux';
-import {groupingByCategory, deleteServerItem, addItemToServer} from '../reducers/item.jsx';
+import {groupingByCategory, deleteServerItem, addItemToServer, setStatusToInactive} from '../reducers/item.jsx';
 import axios from 'axios';
 import React from 'react';
 import {addItemToCart} from '../reducers/order.jsx';
@@ -41,10 +41,17 @@ class ItemsContainer extends React.Component{
     this.props.groupingByCategory(category);
   }
 
+
   render(){
     return (
       <div>
-        <Items {...this.props} handleFilterEvent={this.handleFilterEvent} handleDeleteEvent={this.handleDeleteEvent} categories={this.state.categories} handleAddToCart={this.handleAddToCart} />
+      {this.props.user && this.props.user.admin ?
+
+        <Items {...this.props} handleFilterEvent={this.handleFilterEvent} categories={this.state.categories} handleAddToCart={this.handleAddToCart} />
+        :
+        <Items {...this.props} handleFilterEvent={this.handleFilterEvent} handleDeleteEvent={this.handleDeleteEvent} categories={this.state.categories} handleAddToCart={this.handleAddToCart} setStatusToInactive={this.props.setStatusToInactive} />
+      }
+
       </div>
     );
   }
@@ -74,6 +81,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     addItemToServer: (item) => {
       dispatch(addItemToServer(item));
+    },
+    setStatusToInactive: (itemId) => {
+      dispatch(setStatusToInactive(itemId));
     }
   };
 };
