@@ -9,21 +9,21 @@ export default function Items(props) {
 
   return (
     <div style={{background: 'white'}}>
-      <form className="review col-md-offset-5" onSubmit={props.handleFilterEvent}>
+      <form className="form-inline col-md-offset-3 col-md-6 col-sm-6 col-sm-offset-3 col-xs-12" onSubmit={props.handleFilterEvent}>
           <div className="form-group col-md-3">
-            <label htmlFor="category">Filter by Category</label> <br />
-            <input type="radio" name="category" value="Javascript" />  1
+            <label htmlFor="category">Filter by Category</label>
+            <input type="radio" name="category" value="Javascript" />
             <select name="category">
               {props.categories.map(category => (
                 <option key={category.id} value={category.name}>{category.name}</option>
                 ))}
             </select>
           </div>
-          <br />
           <button type="submit" className="btn btn-info" >Submit</button>
       </form>
+      <br />
       <Link to={'createItem'} >
-        <button className='btn btn-default'> Add Item </button>
+        <button className='btn btn-default col-md-offset-3 col-md-6 col-sm-6 col-sm-offset-3 col-xs-12'> Add Item </button>
        </Link>
         <ul className="list-group">
 
@@ -63,25 +63,6 @@ export default function Items(props) {
         )
         }
       </ul>
-
-
-
-      {props.categories ?
-        <form className="review" onSubmit={props.handleFilterEvent}>
-            <div className="form-group col-md-offset-1 col-md-3">
-              <label htmlFor="category">Filter by Category</label> <br />
-              <select name="category">
-                {props.categories.map(category => (
-                  <option key={category.id} value={category.name}>{category.name}</option>
-                  ))}
-
-              </select>
-
-            </div>
-
-            <button type="submit" className="btn btn-success col-md-2 col-md-offset-5" >Submit</button>
-        </form> : null
-      }
     </div>
 
   );
