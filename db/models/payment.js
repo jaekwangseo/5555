@@ -42,16 +42,6 @@ const Payment = db.define('payment', {
     type: Sequelize.TEXT
   }
 
-}, {
-  // scopes: {
-  //   populated: () => ({
-  //     include: [
-  //       { model: db.model('users'), as: 'seller' },
-
-  //     ]
-  //   })
-  //}
-
 });
 
 module.exports = Payment;

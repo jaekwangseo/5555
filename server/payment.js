@@ -21,7 +21,7 @@ const router = require('express').Router();// eslint-disable-line new-cap
     })
     .then(order => {
 			order = order.dataValues;		//Queries the OrderItem db for all order Items associated wiht the order
-			const userId = order.buyer_id;
+			const userId = (order.buyer_id ? order.buyer_id : -1) ;
 			return Promise.all([userId, OrderItem.scope('item').findAll({where: {order_id: order.id} //Passes down both an array of
 																									})]);	//orderItems and the buyerId
     })
