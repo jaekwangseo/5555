@@ -20,7 +20,7 @@ export default (props) => {
   <div>
     <form className="review" onSubmit={props.handleReview} >
         <div className="form-group col-md-offset-3 col-md-6">
-          <input name="description" type="text" className="form-control" placeholder="Leave a review" />
+          <input name="description" type="text"  pattern=".{10,}" required title="10 characters minimum" className="form-control" placeholder="Leave a review" />
         </div>
 
         <div className="form-group col-md-offset-3 col-md-6">

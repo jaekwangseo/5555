@@ -47,6 +47,7 @@ console.log('admin props', props.orderList);
     {
       props.auth && props.auth.admin && props.orderList && props.orderList.map( (order) => (
 
+
         <li key={order.id} className="list-group-user col-md-6 col-md-offset-3">
             <h3 className="list-group-order-"> {convertDate(order.date)} </h3>
             <h6 className="list-group-order-"> {order.status} </h6>
@@ -65,11 +66,12 @@ console.log('admin props', props.orderList);
                 <h3 className="list-group-order-"> {order_item.item.title} </h3>
                 <h3 className="list-group-order-"> {order_item.item.description} </h3>
                 <h3 className="list-group-order-"> {order_item.item.price} </h3>
+                <hr> </hr>
               </div>
             ))
             }
-
         </li>
+
       ))
   }
   </ul>

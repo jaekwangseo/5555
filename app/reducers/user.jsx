@@ -19,6 +19,7 @@ const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
 
 const SET_ADMIN = 'SET_ADMIN';
+const GET_USER_RATING = 'GET_USER_RATING';
 
 //-----------------------------------------------------------------------------
 //INITIAL STATE
@@ -68,6 +69,10 @@ export default (state = initialState, action) => {
       });
 
       break;
+    case GET_USER_RATING:
+      newState.selectedSeller.userRating = action.rating;
+      break;
+
     default:
       return state;
   }
@@ -153,5 +158,19 @@ export const setAdminOnUser = (userId) => {
     axios.put(`/api/users/${userId}`)
     .catch(err => console.error('Could not promote to admin', err));
 
+  };
+};
+
+const getRating = (rating) => ({
+  type: GET_USER_RATING,
+  rating
+});
+
+export const gettingRating = (userId) => {
+  return dispatch => {
+    axios.get(`/api/reviews/user/${userId}`)
+    .then(res => res.data)
+    .then(rating => dispatch(getRating(rating)))
+    .catch(err => console.error(err));
   };
 };

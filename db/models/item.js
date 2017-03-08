@@ -13,13 +13,17 @@ const Item = db.define('items', {
     type: Sequelize.TEXT
   },
 
+  active: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: true
+  },
+
   title: {
     type: Sequelize.STRING,
     defaultValue: 'Untitled'
   },
   url: {
     type: Sequelize.STRING,
-    allowNull: true,
     defaultValue: 'www.sopantech.com/assets/img/webdevelopmentbanner.png'
   }
 
