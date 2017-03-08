@@ -96,9 +96,7 @@ export default function Items(props) {
 
                     </div>
 
-                  <div className="ratings">
-                                        <p className="pull-left">User Rating: {item.seller.rating}</p>
-                                      </div>
+
                                       <p>
                                         <span className="glyphicon"></span>
                                       </p>
