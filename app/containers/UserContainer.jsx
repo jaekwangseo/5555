@@ -6,10 +6,12 @@ import {gettingRating} from '../reducers/user.jsx';
 class UserContainer extends React.Component {
 
   componentDidMount() {
-    this.props.gettingRating(this.props.selectedSeller);
+    console.log('props', this.props);
+    this.props.gettingRating(this.props.user.id);
   }
 
   render() {
+
     console.log('this.props for usercontainer', this.props);
 
     return (
@@ -24,8 +26,7 @@ const mapStateToProps = (state, ownProps) => {
   //const paramId = Number(ownProps.params.id);
   return {
     user: state.user.selectedSeller,
-    currentUser: state.auth,
-    selectedSeller: state.user.selectedSeller
+    currentUser: state.auth
   };
 };
 

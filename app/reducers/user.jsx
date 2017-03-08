@@ -70,7 +70,9 @@ export default (state = initialState, action) => {
 
       break;
     case GET_USER_RATING:
-      newState.selectedSeller.userRating = action.rating;
+      console.log('ACTION CREATOR RATING',action.rating);
+      newState.selectedSeller = Object.assign({}, ...state.currentSeller, {userRating: action.rating});
+
       break;
 
     default:
@@ -168,9 +170,12 @@ const getRating = (rating) => ({
 
 export const gettingRating = (userId) => {
   return dispatch => {
-    axios.get(`/api/reviews/user/${userId}`)
+    axios.get(`/api/reviews/user/1`)
     .then(res => res.data)
-    .then(rating => dispatch(getRating(rating)))
+    .then(ratings => {
+      dispatch(getRating(ratings));
+    })
+
     .catch(err => console.error(err));
   };
 };
