@@ -15,11 +15,19 @@ export default (props) => {
       <h1>Name: {props.user.name}</h1>
       <p>Email: {props.user.email}</p>
       <p>Rating: {props.user.rating}/5</p>
+
+      <Link to={`/user/${props.user.id}/items`} >Items</Link><br/>
+      { props.currentUser && props.user.id === props.currentUser.id || props.currentUser && props.currentUser.admin ? <Link to={`/orders/${props.user.id}`} >Orders</Link> : null }
+
       <Link to={`/user/${props.user.id}/items`} >Items</Link><br />
+
       <a href={props.user.url}>
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Linkedin_icon.svg/2000px-Linkedin_icon.svg.png" style={{width: '50px', height: '50px'}}></img>
       </a>
+
+
       { props.currentUser && props.user.id === props.currentUser.id && props.currentUser.admin ? <Link to={`/orders/${props.user.id}`} >Orders</Link> : null }
+
     </div>
   );
 };

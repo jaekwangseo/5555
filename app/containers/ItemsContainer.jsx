@@ -61,7 +61,8 @@ class ItemsContainer extends React.Component{
 const mapStateToProps = (state) => {
   return {
     itemList: state.item.itemList,
-    user: state.auth
+    user: state.auth,
+    users: state.user.users
   };
 };
 
@@ -87,4 +88,3 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ItemsContainer);
-

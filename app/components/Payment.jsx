@@ -33,23 +33,23 @@ const getPaymentInfo = function(synthE, orderId){
 
 export default function Payment(props){
 	return (
-		<div id="Payment">
-			<h3>Paymemt: </h3>
-				<form onSubmit={(event) => getPaymentInfo(event, props.cartId)}> {/*Can args be passed into OnClick Funcs like this?*/}
-					First name: <input type="text" name="fname" /><br />
-					Last name: <input type="text" name="lname" /><br />
-					Email: <input type="text" name="email" /><br />
-					Credit Card Number: <input type="number" name="CCN" width={16} /><br />
-					Expiration Month: <input type="text" name="expMonth" /><br />
-					Expiration Year: <input type="text" name="expYear" /><br />
-					Security Code: <input type="text" name="securityCode" /><br />
-					Address: <input type="text" name="address" /><br />
-					City: <input type="text" name="city" /><br />
-					State: <input type="text" name="state" /><br />
-					Country: <input type="text" name="country" /><br />
-					Phone Number: <input type="text" name="phone" /><br />
+		<div id="Payment" className="form-group col-md-offset-3 col-md-6 col-sm-6 col-sm-offset-3 parent-box2 col-xs-12">
+			<h3 className="first-form-input form-group col-md-offset-3 col-md-6 col-sm-6 col-sm-offset-3 col-xs-12">Payment: </h3>
+				<form className="form-group col-md-offset-3 col-md-6 col-sm-6 col-sm-offset-3 col-xs-12" onSubmit={(event) => getPaymentInfo(event, props.cartId)}> {/*Can args be passed into OnClick Funcs like this?*/}
+					First name: <input className="form-control" type="text" name="fname"></input>
+					Last name: <input className="form-control" type="text" name="lname" />
+					Email: <input className="form-control" type="text" name="email" />
+					Credit Card Number: <input className="form-control" type="number" name="CCN" width={16} />
+					Expiration Month: <input className="form-control" type="text" name="expMonth" />
+					Expiration Year: <input className="form-control" type="text" name="expYear" />
+					Security Code: <input className="form-control" type="text" name="securityCode" />
+					Address: <input className="form-control" type="text" name="address" />
+					City: <input className="form-control" type="text" name="city" />
+					State: <input className="form-control" type="text" name="state" />
+					Country: <input className="form-control" type="text" name="country" />
+					Phone Number: <input className="form-control" type="text" name="phone" />
 
-					<input type="submit" value="Submit" />
+				<input className='btn btn-success' type="submit" value="Submit" />
 				</form>
 		</div>
 		);
