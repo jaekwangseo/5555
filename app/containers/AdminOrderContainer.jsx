@@ -49,7 +49,7 @@ class AdminOrderContainer extends React.Component{
   render() {
     return (
     <div>
-      {this.props.auth ?
+      {this.props.auth && this.props.auth.admin ?
         <div>
         <AdminOrders orderList={this.props.orderList} auth={this.props.auth} updateStatusOfOrder= {this.props.updateStatusOfOrder} filteringByStatus={this.props.filteringByStatus} />
         </div>

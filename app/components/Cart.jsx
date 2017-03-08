@@ -23,6 +23,13 @@ export default function Cart(props) {
           </li>
         ))
       }
+      {
+        <div>
+          <p>Subtotal: ${ props.cart && props.cart.order_items && props.cart.order_items.reduce((agg, orderItem) => {
+              return agg + orderItem.item.price * orderItem.quantity;
+          }, 0)}</p>
+        </div>
+      }
     </ul>
   );
 }

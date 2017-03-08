@@ -62,7 +62,7 @@ console.log('admin props', props.orderList);
 
             {order && order.order_items.map(order_item => (
               <div>
-                <h3 className="list-group-order-"> {order_item.item.title} </h3>
+                <Link><h3 className="list-group-order-"> {order_item.item.title} </h3></Link>
                 <h3 className="list-group-order-"> {order_item.item.description} </h3>
                 <h3 className="list-group-order-"> {order_item.item.price} </h3>
               </div>

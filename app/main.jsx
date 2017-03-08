@@ -22,7 +22,7 @@ import AdminOrderContainer from './containers/AdminOrderContainer.jsx';
 import UsersContainer from './containers/UsersContainer.jsx';
 import CreateItemContainer from './containers/CreateItemContainer.jsx';
 import EditItemContainer from './containers/EditItemContainer.jsx';
-import Orders from './components/Orders.jsx';
+import OrdersContainer from './containers/OrdersContainer.jsx';
 
 import Submitted from './components/Submitted';
 import orderError from './components/OrderError';
@@ -92,7 +92,7 @@ render(
         <Route path="user/:userId/items" component={ItemsContainer} onEnter={onSellerItemsPageEnter} />
         <Route path="createUser" component={CreateUserContainer} />
         <Route path="login" component={LoginComponent} />
-        <Route path="orders/:userId" component={Orders} />
+        <Route path="orders/:userId" component={OrdersContainer} />
         <Route path="admin" component={AdminContainer} onEnter={onHomeEnter} />
         <Route path="admin/users" component={UsersContainer} onEnter={onUsersEnter} />
         <Route path="admin/orders" component={AdminOrderContainer} onEnter={onOrdersEnter} />

@@ -129,11 +129,20 @@ auth.get('/whoami', (req, res, next) => {
   //get cart
   if (req.user) { // for logged in user
     console.log('get cart for user');
-    return Order.scope('cartItems').findOne({ where: { status: 'processing', buyer_id: req.user.id }})
-    .then(order => {
-      res.status(200).send({user: req.user, cart: order});
+    const cartP = Order.scope('cartItems').findOne({ where: { status: 'processing', buyer_id: req.user.id }});
+    const ordersP = Order.scope('cartItems').findAll({
+      where: {
+        status: { $ne: 'processing' },
+        buyer_id: req.user.id
+      }
+    });
+    Promise.all([cartP, ordersP])
+    .then(([cart, orders]) => {
+      console.log('car and orders', cart, orders);
+      res.status(200).send({user: req.user, cart, orders});
     })
     .catch(next);
+
   } else { // for guest
     console.log('get guest cart', req.session.cart);
     res.send({cart: { order_items: req.session.cart }});

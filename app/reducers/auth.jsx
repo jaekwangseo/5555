@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { receiveCart } from './order';
+import { receiveCart, receiveUserOrders} from './order';
+
 
 const AUTHENTICATED = 'AUTHENTICATED';
 
@@ -25,8 +26,10 @@ export const whoami = () =>
 
         const user = response.data.user;
         const cart = response.data.cart;
+        const orders = response.data.orders;
         if (user) { //if logged in
           dispatch(authenticated(user));
+          dispatch(receiveUserOrders(orders));
         } else {
           dispatch(authenticated(null));
         }

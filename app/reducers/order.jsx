@@ -12,6 +12,7 @@ const UPDATE_QUANTITY = 'UPDATE_QUANTITY';
 const INCREMENT_QUANTITY = 'INCREMENT_QUANTITY';
 
 const RECEIVE_CART = 'RECEIVE_CART';
+const RECIVE_USER_ORDERS = 'RECEIVE_USER_ORDERS';
 
 
 //ADMIN ONLY
@@ -23,7 +24,8 @@ const FILTER_BY_STATUS = 'FILTER_BY_STATUS';
 //INITIAL STATE
 const initialState = {
   cart: {},
-  orderList: []
+  orderList: [],
+  userOrders: []
 
 };
 
@@ -84,8 +86,10 @@ export default (state = initialState, action) => {
       newState.orderList = action.orders;
       break;
 
+    case RECIVE_USER_ORDERS:
+      newState.userOrders = action.userOrders;
 
-     case FILTER_BY_STATUS:
+    case FILTER_BY_STATUS:
       newState.orderList = action.orders;
       break;
 
@@ -174,6 +178,13 @@ export const getAllOrders = () => {
     });
   };
 };
+
+export const receiveUserOrders = (userOrders) => ({
+ type: RECIVE_USER_ORDERS,
+ userOrders
+});
+
+
 
 export const changeStatusOfOrder = (orderId, status) => ({
   type: CHANGE_STATUS,
