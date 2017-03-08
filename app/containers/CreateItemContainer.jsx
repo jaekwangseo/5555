@@ -42,8 +42,6 @@ class CreateItemContainer extends React.Component{
   handleCreatePost(evt) {
     evt.preventDefault();
 
-
-
     const categoryArr = [...evt.target.category.options].filter(category => category.selected).map(category => category.value);
 
     const price = evt.target.price.value;
@@ -64,7 +62,7 @@ class CreateItemContainer extends React.Component{
   render(){
     return (
       <div>
-        <CreateItem handleCreatePost={this.handleCreatePost}  categories={this.state.categories} />
+        <CreateItem handleCreatePost={this.handleCreatePost}  categories={this.state.categories} auth = {this.props.auth} />
       </div>
     );
   }

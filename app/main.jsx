@@ -96,6 +96,7 @@ render(
         <Route path="admin" component={AdminContainer} onEnter={onHomeEnter} />
         <Route path="admin/users" component={UsersContainer} onEnter={onUsersEnter} />
         <Route path="admin/orders" component={AdminOrderContainer} onEnter={onOrdersEnter} />
+        <Route path="admin/items" component={ItemsContainer} onEnter={onHomeEnter} />
         <Route path="createItem" component={CreateItemContainer} />
         <Route path="orderSubmitted" component={Submitted} />
         <Route path="orderError" component={orderError} />
@@ -106,4 +107,4 @@ render(
 );
 
 
-// <Route path="admin/items" component={AdminItemContainer} onEnter={onHomeEnter} />
+

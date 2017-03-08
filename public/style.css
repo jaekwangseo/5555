@@ -1,4 +1,4 @@
-body{background: #eee url(https://static1.squarespace.com/static/546406e3e4b024e8934b93cb/t/54a7897de4b04f1bf4c998ed/1420265854111/background.png?format=1500w);}
+
 html,body{
     position: relative;
     height: 100%;
@@ -137,4 +137,29 @@ html,body{
 
 .top-buffer {
   margin-top:20px;
+}
+
+.parent-box {
+  width: 500px ;
+  height: 600px;
+  background-color: white;
+  border-radius: 25px;
+}
+
+.parent-box2 {
+  width: 500px ;
+  height: 850px;
+  background-color: white;
+  border-radius: 25px;
+}
+
+.first-form-input {
+  padding-top: 50px
+}
+
+.order-error-box {
+  width: 300px ;
+  height: 300px;
+  background-color: white;
+  border-radius: 25px;
 }

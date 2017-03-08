@@ -47,10 +47,13 @@ console.log('admin props', props.orderList);
     {
       props.auth && props.auth.admin && props.orderList && props.orderList.map( (order) => (
 
+
         <li key={order.id} className="list-group-user col-md-6 col-md-offset-3">
-            <h3 className="list-group-order-"> {convertDate(order.date)} </h3>
-            <h6 className="list-group-order-"> {order.status} </h6>
-            <h3 className="list-group-order-"> {order.order_items.quantity} </h3>
+
+            <label htmlFor="order-date">Filter by Status</label> <br />
+            <h3 className="list-group-order-"> Date: {convertDate(order.date)} </h3>
+            <h6 className="list-group-order-"> Status: {order.status} </h6>
+            <h6 className="list-group-order-"> Quantity: {order.order_items.quantity} </h6>
             <form className="status" onSubmit={ (event) => {event.preventDefault(); props.updateStatusOfOrder(order.id, event.target.status.value);}}>
             <select name="status">
               <option value="cancelled">Cancelled</option>
@@ -61,15 +64,17 @@ console.log('admin props', props.orderList);
             </form>
 
             {order && order.order_items.map(order_item => (
+
               <div>
-                <Link><h3 className="list-group-order-"> {order_item.item.title} </h3></Link>
-                <h3 className="list-group-order-"> {order_item.item.description} </h3>
-                <h3 className="list-group-order-"> {order_item.item.price} </h3>
+                <Link to="/item/{order_item.item.id}"><h4 className="list-group-order-"> Title: {order_item.item.title} </h4></Link>
+                <h4 className="list-group-order-"> Description: {order_item.item.description} </h4>
+                <h6 className="list-group-order-"> Price: {order_item.item.price} </h6>
               </div>
+
             ))
             }
-
         </li>
+
       ))
   }
   </ul>
