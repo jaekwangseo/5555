@@ -13,5 +13,19 @@ const router = require('express').Router();// eslint-disable-line new-cap
     .catch(next);
   });
 
+
+  router.get('/:category', (req, res, next) => {
+    Category.findOne({
+      where: {
+        name: req.params.category
+      }
+    })
+    .then(category => {
+      return category.getItems();
+    })
+    .then(items => res.json(items))
+    .catch(next);
+  });
+
   module.exports = router;
 

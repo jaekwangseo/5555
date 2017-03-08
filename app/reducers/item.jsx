@@ -14,12 +14,10 @@ const DELETE_ITEM = 'DELETE_ITEM';
 const RECEIVE_ITEMS = 'RECEIVE_ITEMS';
 const RECEIVE_ITEM = 'RECEIVE_ITEM';
 const UPDATE_ITEM = 'UPDATE_ITEM';
-const SORT_BY_PRICE = "SORT_BY_PRICE";
-const GROUP_BY_CATEGORY = "GROUP_BY_CATEGORY";
-const EDIT_ITEM = "EDIT_ITEM";
-const RECEIVE_EDIT_ITEM = "RECEIVE_EDIT_ITEM";
-
-
+const SORT_BY_PRICE = 'SORT_BY_PRICE';
+const EDIT_ITEM = 'EDIT_ITEM';
+const RECEIVE_EDIT_ITEM = 'RECEIVE_EDIT_ITEM';
+const INACTIVE_STATUS = 'INACTIVE_STATUS';
 //-----------------------------------------------------------------------------
 //INITIAL STATE
 const initialState = {
@@ -83,9 +81,20 @@ export default (state = initialState, action) => {
       newState.itemList = action.items;
       break;
 
-    case GROUP_BY_CATEGORY:
-      newState.itemList = action.items;
+    case INACTIVE_STATUS:
+      newState.itemList = state.itemList.filter(item  => {
+        return item.id !== action.itemId;
+      });
+      newState.users = state.users.map(user => {
+        if (user.id === action.userId) {
+          user.admin = true;
+          return user;
+        }
+      return user;
+      });
+
       break;
+
 
     default:
       return state;
@@ -185,19 +194,12 @@ export const receiveItemFromServer = (itemId) => {
 //Pass in item array
 export const sortByPrice =  R.sortBy(R.prop('price'));
 
-
-export const groupedItems = (items) => ({
-  type: GROUP_BY_CATEGORY,
-  items
-});
-
 export const groupingByCategory = (category) => {
   return dispatch => {
-      axios.get('/api/items')
+      axios.get(`/api/category/${category}`)
       .then(results => results.data)
       .then(items => {
-        const filteredItems = R.filter(R.compose(R.whereEq({name: category}), R.prop('category')))(items);
-        return dispatch(groupedItems(filteredItems));
+        return dispatch(getItems(items));
       })
       .catch((err) => console.error(err));
     };
@@ -232,5 +234,19 @@ export const updateEditItemToServer = (item) => {
     .then((newItem) => dispatch(updateEditItemAction(newItem)))
     .catch((err) => console.error(err));
  };
+};
+
+
+const setInactive = (itemId) => ({
+  type: INACTIVE_STATUS,
+  itemId
+});
+
+export const setStatusToInactive = (itemId) => {
+  return dispatch => {
+  axios.put(`api/items/${itemId}/inactive`)
+  .then( () => dispatch(setInactive(itemId)))
+  .catch(err => console.error(err));
+  };
 };
 

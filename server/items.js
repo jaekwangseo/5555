@@ -12,7 +12,11 @@ const router = require('express').Router();// eslint-disable-line new-cap
   router.get('/', (req, res, next) => {
 
     console.log('Session', req.session);
-    Item.scope('populated').findAll()
+    Item.scope('populated').findAll({
+      where: {
+        active: true
+      }
+    })
     .then(items => res.json(items))
     .catch(next);
   });

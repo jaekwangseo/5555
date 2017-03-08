@@ -49,6 +49,11 @@ export default function Items(props) {
                   <Link to={`/item/${item.id}/edit`} >
                     <button type="submit" className="btn btn-success col-md-2 col-md-offset-5"> Edit Item </button>
                   </Link>
+
+                  <button className='btn btn-warning' onClick={() => props.setStatusToInactive(item.id)} >
+                    Set Inactive
+                  </button>
+
                 </div>
 
                 : null
@@ -65,22 +70,6 @@ export default function Items(props) {
         <button> Add Item </button>
        </Link>
 
-      {props.categories ?
-        <form className="review" onSubmit={props.handleFilterEvent}>
-            <div className="form-group col-md-offset-1 col-md-3">
-              <label htmlFor="category">Filter by Category</label> <br />
-              <select name="category">
-                {props.categories.map(category => (
-                  <option key={category.id} value={category.name}>{category.name}</option>
-                  ))}
-
-              </select>
-
-            </div>
-
-            <button type="submit" className="btn btn-success col-md-2 col-md-offset-5" >Submit</button>
-        </form> : null
-      }
     </div>
 
   );
