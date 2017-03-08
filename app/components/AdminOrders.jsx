@@ -50,7 +50,6 @@ console.log('admin props', props.orderList);
 
         <li key={order.id} className="list-group-user col-md-6 col-md-offset-3">
 
-            <label htmlFor="order-date">Filter by Status</label> <br />
             <h3 className="list-group-order-"> Date: {convertDate(order.date)} </h3>
             <h6 className="list-group-order-"> Status: {order.status} </h6>
             <h6 className="list-group-order-"> Quantity: {order.order_items.quantity} </h6>
