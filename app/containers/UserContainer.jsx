@@ -5,10 +5,11 @@ import {gettingRating} from '../reducers/user.jsx';
 
 class UserContainer extends React.Component {
 
-  componentDidMount() {
-    console.log('props', this.props);
-    this.props.gettingRating(this.props.user.id);
-  }
+  // for getting acutal user ratings not dummy data.
+  // componentShouldUpdate() {
+  //   console.log('props', this.props);
+  //   this.props.gettingRating(this.props.user.id);
+  // }
 
   render() {
 
@@ -32,9 +33,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    gettingRating: userId => {
-      dispatch(gettingRating(userId));
-    }
+    // gettingRating: userId => {
+    //   dispatch(gettingRating(userId));
+    // }
   };
 };
 

@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 
 export default (props) => {
 
-  console.log('rating', props.user.rating);
+  console.log('rating', props.user.userRating);
 
   // Expect props to have user,
   return (

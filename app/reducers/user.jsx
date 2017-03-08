@@ -69,11 +69,11 @@ export default (state = initialState, action) => {
       });
 
       break;
-    case GET_USER_RATING:
-      console.log('ACTION CREATOR RATING',action.rating);
-      newState.selectedSeller = Object.assign({}, ...state.currentSeller, {userRating: action.rating});
+    // case GET_USER_RATING:
+    //   console.log('ACTION CREATOR RATING',action.rating);
+    //   newState.selectedSeller = Object.assign({}, ...state.currentSeller, {userRating: action.rating});
 
-      break;
+    //   break;
 
     default:
       return state;
@@ -163,19 +163,21 @@ export const setAdminOnUser = (userId) => {
   };
 };
 
-const getRating = (rating) => ({
-  type: GET_USER_RATING,
-  rating
-});
+//Trying to get actual user ratings not dummy data
 
-export const gettingRating = (userId) => {
-  return dispatch => {
-    axios.get(`/api/reviews/user/1`)
-    .then(res => res.data)
-    .then(ratings => {
-      dispatch(getRating(ratings));
-    })
+// const getRating = (rating) => ({
+//   type: GET_USER_RATING,
+//   rating
+// });
 
-    .catch(err => console.error(err));
-  };
-};
+// export const gettingRating = (userId) => {
+//   return dispatch => {
+//     axios.get(`/api/reviews/user/1`)
+//     .then(res => res.data)
+//     .then(ratings => {
+//       dispatch(getRating(ratings));
+//     })
+
+//     .catch(err => console.error(err));
+//   };
+// };
