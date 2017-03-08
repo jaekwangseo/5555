@@ -1,7 +1,7 @@
 module.exports = {
 
 
-  user: [{name: 'Joey Zheng', email: 'jxzheng16@gmail.com', rating: 3, admin: true, active: false, url: 'http://friendfeed.com/aenean/auctor/gravida/sem/praesent.aspx', description: 'nec nisi volutpat eleifend donec', password: 'password'},
+  user: [{name: 'Joey Zheng', email: 'jxzheng16@gmail.com', rating: 3, admin: true, active: true, url: 'https://www.linkedin.com/in/joey-zheng16/', description: 'Aspiring Software Engineer. Will help you with anything web related.', password: 'password'},
 {name: 'Eric Yang', email: 'bambam@bambam.com', rating: 3, admin: true, active: true, url: 'https://cdc.gov/sapien/cursus/vestibulum/proin/eu/mi/nulla.png', description: 'velit eu est', password: 'bambam'},
 {name: 'Jae Seo', email: 'jae@jae.com', rating: 4, admin: true, active: false, url: 'https://csmonitor.com/nunc/purus/phasellus.aspx', description: 'eleifend quam a odio', password: '1234'},
 {name: 'Jacquin Mininger', email: 'jacquinminiger@gmail.com', rating: 3.5, admin: true, active: true, url: 'https://narod.ru/duis/bibendum/felis/sed/interdum/venenatis/turpis.aspx', description: 'montes nascetur', password: 'password'},
