@@ -130,12 +130,14 @@ auth.get('/whoami', (req, res, next) => {
   if (req.user) { // for logged in user
     console.log('get cart for user');
     const cartP = Order.scope('cartItems').findOne({ where: { status: 'processing', buyer_id: req.user.id }});
+    console.log('got cart promise');
     const ordersP = Order.scope('cartItems').findAll({
       where: {
         status: { $ne: 'processing' },
         buyer_id: req.user.id
       }
     });
+    console.log('got orders promise');
     Promise.all([cartP, ordersP])
     .then(([cart, orders]) => {
       console.log('car and orders', cart, orders);
