@@ -9,7 +9,8 @@ export default function Items(props) {
     <div className="container">
       <div className="row">
         <div className="col-md-3">
-          <form className="review" onSubmit={props.handleFilterEvent}>
+
+         <form className="review" onSubmit={props.handleFilterEvent}>
               <div className="form-group">
                 <label htmlFor="category">Filter by Category</label> <br />
                 <input type="radio" name="category" value="Javascript" />
@@ -31,6 +32,39 @@ export default function Items(props) {
           <div className="row">
 
             <div className="col-sm-9 col-lg-9 col-md-9">
+
+                <div className="row carousel-holder">
+
+                    <div className="col-md-12">
+                        <div id="carousel-example-generic" className="carousel slide" data-ride="carousel">
+                            <ol className="carousel-indicators">
+                                <li data-target="#carousel-example-generic" data-slide-to="0" className="active"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                            </ol>
+                            <div className="carousel-inner">
+                                <div className="item active">
+                                    <img className="slide-image" src="http://www.hradigital.com/images/skills/js.jpg" alt="" />
+                                </div>
+                                <div className="item">
+                                    <img className="slide-image" src="http://www.genesiswebstudio.com/wp-content/uploads/2014/09/technologies.png" alt="" />
+                                </div>
+                                <div className="item">
+                                    <img className="slide-image" src="http://www.edugeek.net/attachments/forums/general-chat/14982d1345731949-microsoft-has-new-logo-mylogo.png" alt="" />
+                                </div>
+                            </div>
+                            <a className="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                <span className="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a className="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                <span className="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <hr />
               {
                 props.itemList && props.itemList.map( (item) => {
                 return (
@@ -61,19 +95,13 @@ export default function Items(props) {
 
 
                     </div>
-                    <div className="actions">
 
-                    </div>
-                    <div className="ratings">
-                        <p className="pull-right">15 reviews</p>
-                        <p>
-                            <span className="glyphicon glyphicon-star"></span>
-                            <span className="glyphicon glyphicon-star"></span>
-                            <span className="glyphicon glyphicon-star"></span>
-                            <span className="glyphicon glyphicon-star"></span>
-                            <span className="glyphicon glyphicon-star"></span>
-                        </p>
-                    </div>
+                  <div className="ratings">
+                                        <p className="pull-left">User Rating: {item.seller.rating}</p>
+                                      </div>
+                                      <p>
+                                        <span className="glyphicon"></span>
+                                      </p>
                   </div>
                 );
                 })}
